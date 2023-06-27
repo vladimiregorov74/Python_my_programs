@@ -1,0 +1,1124 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Работа с файлами в Python</title>
+</head>
+<body>
+<span style="font-size:26px;"><span style="font-family:arial,helvetica,sans-serif;">
+        <a href="/media/vladimir/Games+/Python_books/HTML/help/0_Помощь_Python.html">Помощь_Python.html</a></span></span>
+  <hr>
+ <span style="font-size:26px;"><span style="font-family:arial,helvetica,sans-serif;">
+
+     <hr id="a">
+  &nbsp;&nbsp;&nbsp;&nbsp;<a href="#a1"> getcwd(),os.listdir(), os.walk(), os.path, path.isabs(), path.isdir(), path.isfile(), path.normcase()</a>,&nbsp;&nbsp;&nbsp;&nbsp;<a href="#a2">os.mkdir(), os.chdir(), os.chdir()</a>,
+    ,&nbsp;&nbsp;&nbsp;&nbsp;<a href="#a3">os.mkdir(), os.makedirs()</a>,&nbsp;&nbsp;&nbsp;&nbsp;<a href="#a4">shutil.copy2() , shutil.copy(), shutil.copytree()</a>,&nbsp;&nbsp;&nbsp;&nbsp;<a href="#a5">shutil.move(), shutil.copytree()</a>,
+    &nbsp;&nbsp;&nbsp;&nbsp;<a href="#a6">shutil.rmtree(), os.rmdir(), os.remove()</a>,&nbsp;&nbsp;&nbsp;&nbsp;<a href="#a7">open(), close(), with</a>,&nbsp;&nbsp;&nbsp;&nbsp;<a href="#a10">read(), readline(), readlines(), write(), print()</a>,&nbsp;&nbsp;&nbsp;&nbsp;<a href="#a11"></a>,
+    &nbsp;&nbsp;&nbsp;&nbsp;<a href="#a12"></a>,
+
+    <br>
+    <br>
+  <li><a href="#a0">Путь к файлам в Python</a></li>
+  <li><a href="#a1">Получение информации о файлах и директориях</a></li>
+  <li><a href="#a2">Операции с каталогами и файлами в Python</a></li>
+  <li><a href="#a3">Создание директорий в Python</a></li>
+  <li><a href="#a4">Копирование файлов и директорий в Python</a></li>
+  <li><a href="#a5">Перемещение файлов и директорий</a></li>
+  <li><a href="#a6">Удаление файлов и директорий</a></li>
+  <li><a href="#a7">Работа с файлами в Python</a></li>
+  <li><a href="#a8">Режимы доступа и записи</a></li>
+  <li><a href="#a9">Типы файлов</a></li>
+  <li><a href="#a10">Методы работы с файлами</a></li>
+  <li><a href="#a11">Примеры</a></li>
+  <li><a href="#a12"></a></li>
+  <li><a href="#a13"></a></li>
+     <br>
+     <br>
+     <h2 id="a0">Путь к файлам в Python&nbsp;&nbsp;&nbsp;&nbsp;<a href="#a">Up</a></h2>
+     <p>Для работы с файловой системой в Python используют модули
+<b>os</b>, <b><span>os</span>.<span>path</span></b> и <span><b>shututil</b></span>, <span> </span>а для операций с файлами –<span> </span>встроенные функции <b><span>open</span>()</b>, <b><span>close</span>(),</b> <b><span>read</span>()</b>, <b><span>readline</span>()</b>, <b><span>write</span>()</b> и т. д. Прежде, чем мы перейдем
+к примерам использования конкретных методов, отметим один важный момент – корректный формат пути к файлам и каталогам. </p>
+<p>Дело в том, что <span>Python</span><span> </span>считает некорректным стандартный
+для <span>Windows</span><span> </span>формат: если указать путь к файлу в привычном виде <code class="inline-code">'<span>C</span>:\<span>Users</span>\<span>User</span>\<span>Python</span>\<span>letters</span>.<span>py</span>'</code>, интерпретатор вернет ошибку. Лучше
+всего указывать путь с помощью <span>r</span>-строк
+или с экранированием слэшей:</p>
+     <p>Иногда также путь указывают с обратными слэшами:</p>
+     <figure class="code-block">
+
+        <pre>        <code><span style="color: #0000ff;">r'C:\Users\User\Python\letters.py'</span>
+<span style="color: #0000ff;">        'C:\\Users\\User\\Python\\letters.py'</span>
+</code>
+    </pre>
+<p>Иногда также путь указывают с обратными слэшами:</p>
+  </figure>
+     <figure class="code-block">
+
+        <pre>        <code><<span style="color: #0000ff;">'C:/Users/User/Python/letters.py'</span></code>
+    </pre>
+
+  </figure>
+<h2 id="a1">Получение информации о файлах и директориях&nbsp;&nbsp;&nbsp;&nbsp;<a href="#a">Up</a></h2>
+     <p>Метод <span> </span><b>getcwd()</b> возвращает путь к текущей рабочей директории в виде строки:</p>
+
+
+<pre><span style="color: #0000ff;">
+    import os
+    os.getcwd()
+</span>
+    выведет:
+<span style="color: #0000ff;">
+    'C:\\Users\\User\\Python'</span>
+</pre>
+
+<p>С помощью метода <b>os.listdir() </b>можно получить список всех поддиректорий и файлов текущего рабочего каталога, при этом содержимое вложенных папок не отображается:</p>
+
+<pre><span style="color: #0000ff;">
+    os.listdir()
+</span>
+    выведет:
+<span style="color: #0000ff;">
+['Data', 'lambda_functions.py', 'letters.py', 'os_methods.py', 'passw_generator.py', 'points.py', 'population.py']
+</span>
+
+    Метод <b>os.walk()</b> возвращает генератор, в котором содержится вся информация о рабочем каталоге, включая
+содержимое всех поддиректорий:
+
+<span style="color: #0000ff;">
+    import os
+    my_cwd = os.getcwd()
+    result = os.walk(my_cwd)
+    for i, j, k in result:
+        for file in k:
+            print(file)
+</span>
+    выведет:
+<span style="color: #0000ff;">
+    lambda_functions.py
+    letters.py
+    os_methods.py
+    passw_generator.py
+    points.py
+    population.py
+    books_to_process.txt
+    challenge_data.txt
+    ledger.txt
+
+</span>
+Много полезных методов содержится в модуле <b>os.path</b>. Так можно извлечь имя файла из полного пути:
+
+<span style="color: #0000ff;">
+    os.path.basename(r'C:\Users\User\Python\letters.py')
+</span>
+    выведет:
+<span style="color: #0000ff;">
+    'letters.py'
+</span>
+
+А так можно получить путь к директории / файлу, в который не включается собственно поддиректория или имя файла:
+
+<span style="color: #0000ff;">
+    os.path.dirname(r'C:\Users\User\Python\Data')
+
+    'C:\\Users\\User\\Python'
+</span>
+
+Метод <b>path.isabs()</b> покажет, является ли путь абсолютным или относительным:
+
+<span style="color: #0000ff;">
+    os.path.isabs(r'C:\Users\User\Python\Data')
+</span>
+    дает:
+<span style="color: #0000ff;">
+        True
+
+    os.path.isabs(r'.\Python\Data')
+
+    False
+
+</span>
+
+Метод <b>path.isdir()</b> возвращает <b>True</b>, если переданная в метод директория существует, и <b>False</b> – в противном случае:
+
+<span style="color: #0000ff;">
+    os.path.isdir(r'C:\Users\User\Python\Data\Samples')
+
+    False
+
+</span>
+Для установления факта существования файла служит <b>path.isfile()</b>:
+
+<span style="color: #0000ff;">
+    os.path.isfile(r'C:\Users\User\Python\matrix_challenge.py')
+
+    False
+
+</span>
+Для преобразования пути в нижний регистр и нормализации слэшей используют <b>path.normcase()</b>:
+
+<span style="color: #0000ff;">
+    os.path.normcase('C:/Users/User/Python')
+
+    'c:\\users\\user\\python'
+</span>
+
+    Хотя путь к файлу (директории) представляет собой строку, создавать полный путь с помощью конкатенации считается
+моветоном – нужно использовать метод os.path.join():
+
+<span style="color: #0000ff;">
+    # Неправильно:
+    my_cwd = os.getcwd()
+    file_name = 'my_solution.py'
+    path = my_cwd + '\\' + file_name
+
+    # Правильно:
+    path = os.path.join(my_cwd, file_name)
+
+</span>
+    Результат:
+<span style="color: #0000ff;">
+
+    C:\Users\User\Python\my_solution.py
+</span>
+</pre>
+<h2 id="a2">Операции с каталогами и файлами в Python&nbsp;&nbsp;&nbsp;&nbsp;<a href="#a">Up</a></h2>
+<pre>
+    Для создания новых директорий служит <b>os.mkdir()</b>; в метод нужно передать полный путь, включающий название
+нового каталога:
+<span style="color: #0000ff;">
+
+    import os
+    my_cwd = os.getcwd()
+    new_dir = 'Solutions'
+    path = os.path.join(my_cwd, new_dir)
+    os.mkdir(path)
+    print(os.listdir())
+
+</span>
+    Результат:
+<span style="color: #0000ff;">
+
+    ['Data', 'lambda_functions.py', 'letters.py', 'os_methods.py', 'passw_generator.py', 'points.py', 'population.py',
+    'Solutions']
+</span>
+
+    Изменить рабочую директорию можно с помощью метода <b>os.chdir()</b>, это аналог <b>CLI</b> команды <b>cd</b>:
+
+<span style="color: #0000ff;">
+    import os
+    os.getcwd()
+</span>
+    даст:
+<span style="color: #0000ff;">
+    'C:\\Users\\User\\Python'
+
+    os.chdir(r'C:\Users\User\Python\Data')
+    os.getcwd()
+</span>
+    получим:
+    <span style="color: #0000ff;">
+    'C:\\Users\\User\\Python\\Data'
+    </span>
+
+    Использование <b>os.chdir()</b> может привести к ошибке, если путь к переданной в метод директории указан неправильно
+или не существует. Поэтому этот метод стоит использовать только с обработкой ошибок:
+<span style="color: #0000ff;">
+
+    import sys, os
+
+    my_cwd = os.getcwd()
+    new_cwd = r'C:\Users\User\Python\MyData'
+
+    try:
+        os.chdir(new_cwd)
+        print(f'Изменяем рабочую директорию на {os.getcwd()}')
+    except:
+        print(f'Произошла ошибка {sys.exc_info()}')
+    finally:
+        print('Восстанавливаем рабочую директорию на прежнюю')
+        os.chdir(my_cwd)
+        print(f'Текущая рабочая директория - {os.getcwd()}')
+
+</span>
+    Вывод:
+<span style="color: #0000ff;">
+
+    Произошла ошибка (-class 'FileNotFoundError'>, FileNotFoundError(2, 'Не удается найти указанный файл'),
+    -traceback object at 0x024E9828-)
+    Восстанавливаем рабочую директорию на прежнюю
+    Текущая рабочая директория - C:\Users\User\Python
+    </span>
+    </pre>
+
+     <h2 id="a3">Создание директорий в Python&nbsp;&nbsp;&nbsp;&nbsp;<a href="#a">Up</a></h2>
+
+     <pre>Для создания новых каталогов используют два метода:
+
+    <b>os.mkdir()</b> – аналог CLI команды mkdir; создает новую папку по указанному пути, при условии, что все указанные
+промежуточные (вложенные) директории уже существуют.
+    <b>os.makedirs()</b> – аналог <b>CLI</b> команды <b>mkdir -p dir1\dir2</b>; помимо создания целевой папки, создает все промежуточные
+директории, если они не существуют.
+Пример использования <b>os.mkdir()</b>:
+
+<span style="color: #0000ff;">
+    import os
+    new_dir = 'NewProjects'
+    parent_dir = r 'C:\Users\User\Python'
+    path = os.path.join(parent_dir, new_dir)
+    os.mkdir(path)
+    print(f'Директория {new_dir} создана: {os.listdir()}')
+</span>
+
+    Результат:
+
+<span style="color: #0000ff;">
+    Директория NewProjects создана: ['Data', 'lambda_functions.py', 'letters.py', 'NewProjects', 'os_methods.py',
+'Other', 'passw_generator.py', 'points.py', 'population.py', 'Solutions']
+</span>
+
+    Пример использования makedirs():
+
+<span style="color: #0000ff;"><span style="color: #0000ff;">
+    import os
+    new_dir = 'Django'
+    parent_dir = r'C:\Users\User\Python\Other\Projects\Modules'
+    path = os.path.join(parent_dir, new_dir)
+    os.makedirs(path)
+    print(f'Директория {new_dir} создана по адресу {os.path.dirname(path)}')
+
+</span>
+    Результат:
+
+<span style="color: #0000ff;">
+    Директория Django создана по адресу C:\Users\User\Python\Other\Projects\Modules
+</span>
+     </pre>
+
+<h2 id="a4">Копирование файлов и директорий в Python&nbsp;&nbsp;&nbsp;&nbsp;<a href="#a">Up</a></h2>
+     <pre>Для копирования файлов используют метод <b>shutil.copy2()</b>, который принимает два аргумента – источник файла и
+директорию, в которую нужно скопировать файл:
+
+<span style="color: #0000ff;">
+    import os
+    import shutil
+    dest_path = r'C:\Users\User\Python\Data'
+    source_path = r'C:\Users\User\lambda_exp.txt'
+    print(f'Файлы в директории {os.path.basename(dest_path)} до копирования файла \
+    {os.path.basename(source_path)}: {os.listdir(dest_path)}\n')
+    copy_file = shutil.copy2(source_path, dest_path)
+    print(f'Файлы в директории {os.path.basename(dest_path)} после копирования файла \
+    {os.path.basename(source_path)}: {os.listdir(dest_path)}')
+
+</span>
+    Вывод:
+
+<span style="color: #0000ff;">
+    Файлы в директории Data до копирования файла lambda_exp.txt: ['books_to_process.txt', 'challenge_data.txt',
+         'ledger.txt']
+    Файлы в директории Data после копирования файла lambda_exp.txt: ['books_to_process.txt', 'challenge_data.txt',
+         'lambda_exp.txt', 'ledger.txt']
+</span>
+
+    Помимо метода <b>shutil.copy2()</b>, для копирования файлов можно пользоваться методом <b>shutil.copy()</b>. Разница
+между этими двумя методами в том, что в отличие от <b>shutil.copy2()</b>, метод <b>shutil.copy()</b> копирует только содержимое файла,
+но не метаданные:
+
+<span style="color: #0000ff;">
+    import os
+    import shutil
+    dest_path = r'C:\Users\User\Python\Data'
+    source_path = r'C:\Users\User\logfile.txt'
+    print(f'Файлы в директории {os.path.basename(dest_path)} до копирования файла \
+    {os.path.basename(source_path)}: {os.listdir(dest_path)}\n')
+    print(f'Метаданные: {os.stat(source_path)}\n')
+    copy_file = shutil.copy(source_path, dest_path)
+    print(f'Файлы в директории {os.path.basename(dest_path)} после копирования файла \
+    {os.path.basename(source_path)}: {os.listdir(dest_path)}\n')
+    print(f'Метаданные: {os.stat(dest_path)}\n')
+
+</span>
+    Вывод:
+
+<span style="color: #0000ff;">
+    Файлы в директории Data до копирования файла logfile.txt: ['books_to_process.txt', 'challenge_data.txt',
+         'lambda_exp.txt']
+    Метаданные: os.stat_result(st_mode=33206, st_ino=18014398509552989, st_dev=4236505663, st_nlink=1, st_uid=0,
+         st_gid=0, st_size=455, st_atime=1629682315, st_mtime=1629681887, st_ctime=1629682315)
+    Файлы в директории Data после копирования файла logfile.txt: ['books_to_process.txt', 'challenge_data.txt',
+         'lambda_exp.txt', 'logfile.txt']
+    Метаданные: os.stat_result(st_mode=16895, st_ino=11821949021901021, st_dev=4236505663, st_nlink=1, st_uid=0,
+         st_gid=0, st_size=0, st_atime=1675257729, st_mtime=1675257729, st_ctime=1675084801)
+</span>
+
+    Все содержимое каталога сразу можно скопировать с помощью <b>shutil.copytree()</b>:
+
+<span style="color: #0000ff;">
+    import os
+    import shutil
+    dest_path = r'C:\Users\User\Python\Other\Files'
+    source_path = r'C:\Users\User\Python\Other\Scripts'
+    print(f'Содержимое директории {os.path.basename(dest_path)} до копирования каталога \
+    {os.path.basename(source_path)}: {os.listdir(dest_path)}\n')
+    copy_dir = shutil.copytree(source_path, dest_path, dirs_exist_ok=True)
+    print(f'Содержимое директории {os.path.basename(dest_path)} после копирования \
+    {os.path.basename(source_path)}: {os.listdir(dest_path)}\n')
+
+</span>
+    Вывод:
+
+<span style="color: #0000ff;">
+    Содержимое директории Files до копирования каталога Scripts: []
+    Содержимое директории Files после копирования Scripts: ['progression.py', 'sitemap_generator.py']
+</span>
+     </pre>
+     <h2 id="a5">Перемещение файлов и директорий&nbsp;&nbsp;&nbsp;&nbsp;<a href="#a">Up</a></h2>
+     <pre>Для перемещения файлов используют метод <b>shutil.move()</b>:
+
+<span style="color: #0000ff;">
+    import os
+    import shutil
+    dest_path = r'C:\Users\User\Python\Other\Scripts'
+    source_path = r'C:\Users\User\Desktop\sitemap_generator.py'
+    print(f'Содержимое директории {os.path.basename(dest_path)} до копирования каталога \
+    {os.path.basename(source_path)}: {os.listdir(dest_path)}\n')
+    copy_dir = shutil.move(source_path, dest_path)
+    print(f'Содержимое директории {os.path.basename(dest_path)} после копирования \
+    {os.path.basename(source_path)}: {os.listdir(dest_path)}\n')
+</span>
+
+    Вывод:
+
+<span style="color: #0000ff;">
+    Содержимое директории Scripts до копирования каталога sitemap_generator.py: ['progression.py', 'wiki_scraping.py']
+    Содержимое директории Scripts после копирования sitemap_generator.py: ['progression.py', 'sitemap_generator.py',
+         'wiki_scraping.py']
+</span>
+
+    Для перемещения содержимого всей директории в качестве функции указывают <b>shutil.copytree()</b>:
+
+<span style="color: #0000ff;">
+    copy_dir = shutil.move(source_path, dest_path, copy_function = shutil.copytree)
+</span>
+</pre>
+<h2 id="a6">Удаление файлов и директорий&nbsp;&nbsp;&nbsp;&nbsp;<a href="#a">Up</a></h2>
+    <pre>Для удаления директории вместе со всеми файлами используют <b>shutil.rmtree()</b>:
+
+<span style="color: #0000ff;">
+    import os
+    import shutil
+    dir_path = r'C:\Users\User\Python\Other'
+    remove_dir = 'Files'
+    path = os.path.join(dir_path, remove_dir)
+    print(f'Содержимое директории {os.path.basename(dir_path)} до удаления каталога \
+    {remove_dir}: {os.listdir(dir_path)}\n')
+    shutil.rmtree(path)
+    print(f'Содержимое директории {os.path.basename(dir_path)} после удаления \
+    {remove_dir}: {os.listdir(dir_path)}\n')
+</span>
+
+    Вывод:
+
+<span style="color: #0000ff;">
+    Содержимое директории Other до удаления каталога Files: ['Files', 'Projects']
+    Содержимое директории Other после удаления Files: ['Projects']
+</span>
+
+    Другой метод для удаления пустых директорий – <b>os.rmdir()</b>:
+<span style="color: #0000ff;">
+
+    import os
+    import shutil
+    dir_path = r'C:\Users\User\Python\Other'
+    remove_dir = 'Scripts'
+    path = os.path.join(dir_path, remove_dir)
+    print(f'Содержимое директории {os.path.basename(dir_path)} до удаления каталога \
+    {remove_dir}: {os.listdir(dir_path)}\n')
+    os.rmdir(path)
+    print(f'Содержимое директории {os.path.basename(dir_path)} после удаления \
+    {remove_dir}: {os.listdir(dir_path)}\n')
+
+</span>
+    Вывод:
+
+<span style="color: #0000ff;">
+    Содержимое директории Other до удаления каталога Scripts: ['Projects', 'Scripts']
+    Содержимое директории Other после удаления Scripts: ['Projects']
+</span>
+
+    Очевидный минус метода <b>os.rmdir()</b> в том, что он работает только на пустых директориях – если поместить в
+каталог Scripts хотя бы один файл, удалить его с <b>os.rmdir()</b> уже не получится:
+<span style="color: #0000ff;">
+
+    Traceback (most recent call last):
+      File "C:\Users\User\Python\os_methods.py", line 8, in
+        os.rmdir(path)
+    OSError: [WinError 145] Папка не пуста: 'C:\\Users\\User\\Python\\Other\\Scripts'
+</span>
+
+    Для удаления файлов используют метод <b>os.remove()</b>:
+
+<span style="color: #0000ff;">
+    import os
+    import shutil
+    dir_path = r'C:\Users\User\Python\Other\Scripts'
+    remove_file = 'tetris_game.py'
+    path = os.path.join(dir_path, remove_file)
+    print(f'Содержимое директории {os.path.basename(dir_path)} до удаления файла \
+    {remove_file}: {os.listdir(dir_path)}\n')
+    os.remove(path)
+    print(f'Содержимое директории {os.path.basename(dir_path)} после удаления \
+    {remove_file}: {os.listdir(dir_path)}\n')
+</span>
+
+    Вывод:
+
+<span style="color: #0000ff;">
+    Содержимое директории Scripts до удаления файла tetris_game.py: ['tetris_game.py']
+    Содержимое директории Scripts после удаления tetris_game.py: []
+</span>
+
+
+</pre>
+<h2 id="a7">    Работа с файлами в Python&nbsp;&nbsp;&nbsp;&nbsp;<a href="#a">Up</a></h2>
+<pre>   Открыть файл для проведения каких-либо манипуляций можно двумя способами:
+
+    С помощью функции <b>open()</b> – в этом случае после завершения работы нужно будет закрыть файл с помощью <b>close()</b>:
+<span style="color: #0000ff;">
+    f = open('task.txt', 'a', encoding='utf-8')
+    f.write('\n2) Написать модуль авторизации')
+    f.close()
+
+</span>
+С использованием менеджера контекста <b>with</b>, который автоматически и самостоятельно закроет файл, когда надобность
+в нем отпадет:
+<span style="color: #0000ff;">
+    with open('task.txt', 'a', encoding='utf-8') as f:
+        f.write('\n2) Написать модуль авторизации')
+</span>
+</pre>
+        <h2 id="a9">Типы файлов&nbsp;&nbsp;&nbsp;&nbsp;<a href="#a">Up</a></h2>
+<pre>   В Python все файлы делятся на:
+
+    <b>Текстовые 't'
+    Бинарные (двоичные) 'b'</b>
+
+    Если никакой определенный тип файла не указан, по умолчанию Python считает, что пользователь работает с текстовыми
+файлами. Поэтому для работы с изображениями, мультимедийными файлами и <b>pdf</b>, например, следует указывать, что тип
+файла относится к <b>'b'</b>.
+
+
+
+</pre>
+<h2 id="a8">Режимы доступа и записи&nbsp;&nbsp;&nbsp;&nbsp;<a href="#a">Up</a></h2>
+<pre>
+    <b>'r'</b>	Открывает файл для чтения. Возвращает ошибку, если указанный файл не существует.
+    <b>'w'</b>	Открывает файл для записи, причем перезаписывает содержимое, если оно есть. Создает файл, если он
+    не существует.
+    <b>'a'</b>	Открывает файл для записи и добавляет новую информацию, не перезаписывая существующую. Создает файл,
+    если он не существует.
+    <b>'w+'</b>	Открывает файл для чтения и записи, перезаписывает содержимое.
+    <b>'r+'</b>	Открывает файл для чтения и дополнения, не перезаписывает содержимое.
+    <b>'x'</b>	Создает новый пустой файл. Возвращает ошибку, если файл с таким именем уже существует.
+
+<b>Примечание</b>: для операций с двоичными файлами к указанным параметрам нужно добавлять b, то есть вместо 'r' должно
+    быть 'rb', а вместо 'w+' – 'wb+'.
+
+
+
+</pre>
+        <h2 id="a10">Методы работы с файлами&nbsp;&nbsp;&nbsp;&nbsp;<a href="#a">Up</a></h2>
+
+<pre>   Для чтения данных используют <b>read()</b>. Метод <b>read()</b> по умолчанию возвращает все содержимое файла:
+
+<span style="color: #0000ff;">
+    with open('books.txt', 'r', encoding='utf-8') as f:
+        info = f.read()
+    print(info)
+</span>
+
+    Вывод:
+
+<span style="color: #0000ff;">
+    1. "Террор", Дэн Симмонс
+    2. "Она же Грейс", Маргарет Этвуд
+    3. "Облачный атлас", Дэвид Митчелл
+    4. "Искупление", Иэн Макьюэн
+    5. "Госпожа Бовари", Гюстав Флобер
+
+</span>
+    Если необходимо обратиться к нескольким файлам c названиями 'input.txt' и 'output.txt', то можно использовать
+следующий код:
+    <span style="color: #0000ff;">
+        with open('input.txt', 'r') as input_file, open('output.txt', 'w') as output_file:
+    # обработка файлов
+    </span>
+    При необходимости объем выводимой информации можно ограничить определенным количеством символов:
+<span style="color: #0000ff;">
+
+    with open('movies.txt', 'r', encoding='utf-8') as f:
+        info = f.read(15)
+    print(info)
+</span>
+
+    Вывод:
+
+<span style="color: #0000ff;">
+    1. "Из машины"
+
+</span>
+    Метод <b>readline()</b> позволяет считывать информацию из текстовых файлов построчно:
+
+<span style="color: #0000ff;">
+    with open('books.txt', 'r', encoding='utf-8') as f:
+        info = f.readline()
+    print(info)
+
+</span>
+    Вывод:
+
+<span style="color: #0000ff;">
+    1. "Террор", Дэн Симмонс
+
+</span>
+    Для получения всех строк файла используют метод <b>readlines()</b>, который возвращает содержимое в виде списка –
+вместе со всеми спецсимволами:
+
+<span style="color: #0000ff;">
+    with open('books.txt', 'r', encoding='utf-8') as f:
+        info = f.readlines()
+    print(info)
+</span>
+
+    Вывод:
+<span style="color: #0000ff;">
+
+    ['1. "Террор", Дэн Симмонс\n', '2. "Она же Грейс", Маргарет Этвуд\n', '3. "Облачный атлас", Дэвид Митчелл\n',
+    '4. "Искупление", Иэн Макьюэн\n', '5. "Госпожа Бовари", Гюстав Флобер']
+</span>
+
+    Чтобы избавиться от лишних пробелов, символа новой строки (и любых других спецсимволов), используют методы <b>rstrip()</b>,
+    <b>lstrip()</b> или <b>strip()</b>:
+<span style="color: #0000ff;">
+
+    with open('books.txt', 'r', encoding='utf-8-sig') as f:
+        info = [line.strip() for line in f.readlines()]
+    print(info)
+
+</span>
+    Вывод:
+<span style="color: #0000ff;">
+
+    ['1. "Террор", Дэн Симмонс', '2. "Она же Грейс", Маргарет Этвуд', '3. "Облачный атлас", Дэвид Митчелл',
+    '4. "Искупление", Иэн Макьюэн', '5. "Госпожа Бовари", Гюстав Флобер']
+
+</span>
+    Для записи информации в файл используют метод <b>write()</b>:
+
+<span style="color: #0000ff;">
+    with open('books.txt', 'a', encoding='utf-8') as f:
+        f.write('\n6. "Война и мир", Лев Толстой\n')
+
+</span>
+    Или <b>writelines()</b>:
+
+<span style="color: #0000ff;">
+    with open('books.txt', 'a', encoding='utf-8') as f:
+        f.writelines(['7. "Преступление и наказание", Федор Достоевский\n',
+                     '8. "Мизери", Стивен Кинг\n',
+                      '9. "Джейн Эйр", Шарлотта Бронте\n'])
+
+</span>
+    <b>Примечание</b>: файловые методы write() и writelines() не добавляют переход на новую строку, поэтому для перехода
+    на новую строку в файле необходимо явно добавить символ '\n'.
+
+    Для записи данных в файл можно также использовать встроенную функцию <b>print()</b>. Для этого нужно передать ей еще один
+именованный аргумент <b>file</b>, указывающий на открытый файл. При этом функция <b>print()</b> автоматически добавляет переход на
+новую строку.
+
+Приведенный ниже код:
+<span style="color: #0000ff;">
+    with open('philosophers.txt', 'w', encoding='utf-8') as output:
+        print('Джoн Локк', file=output)
+        print('Дэвид Хьюм', file=output)
+        print('Эдмyнд Берк', file=output)
+</span>
+создает файл philosophers.txt с содержимым:
+<span style="color: #0000ff;">
+    Джoн Локк
+    Дэвид Хьюм
+    Эдмyнд Берк
+</span>
+Мы можем использовать всю мощность встроенной функции print() для форматирования выводимого текста.
+
+Приведенный ниже код:
+<span style="color: #0000ff;">
+    with open('philosophers.txt', 'w', encoding='utf-8') as output:
+        print('Джoн Локк', 'Дэвид Хьюм', 'Эдмyнд Берк', sep='***', file=output)
+</span>
+создает файл philosophers.txt с содержимым:
+<span style="color: #0000ff;">
+    Джoн Локк***Дэвид Хьюм***Эдмyнд Берк
+</span>
+
+    Чтобы узнать текущую позицию курсора в файле, используют метод <b>tell()</b>:
+
+<span style="color: #0000ff;">
+    with open('books.txt', 'r', encoding='utf-8-sig') as f:
+        f.readline()
+        f.read(5)
+        print(f.tell())
+</span>
+
+    Вывод:
+
+<span style="color: #0000ff;">
+    51
+
+</span>
+    Для считывания данных из определенной позиции используют <b>seek()</b>:
+
+<span style="color: #0000ff;">
+    with open('movies.txt', 'r', encoding='utf-8') as f:
+        f.seek(53)
+        print(f.read())
+
+</span>
+    Вывод:
+
+<span style="color: #0000ff;">
+    3. "Дракула Брэма Стокера"
+
+
+
+
+</span>
+</pre>
+<h2 id="a11">Примеры&nbsp;&nbsp;&nbsp;&nbsp;<a href="#a">Up</a></h2>
+        <pre>
+    Задание 1
+    Имеется файл books.txt, содержащий следующую информацию:
+
+
+    1. "Террор", Дэн Симмонс
+    2. "Она же Грейс", Маргарет Этвуд
+    3. "Облачный атлас", Дэвид Митчелл
+    4. "Искупление", Иэн Макьюэн
+    5. "Госпожа Бовари", Гюстав Флобер
+    6. "Война и мир", Лев Толстой
+    7. "Преступление и наказание", Федор Достоевский
+    8. "Мизери", Стивен Кинг
+    9. "Джейн Эйр", Шарлотта Бронте
+
+
+    Напишите программу, которая выводит первые 3 строки файла.
+
+    Решение:
+
+<span style="color: #0000ff;">
+    with open('books.txt', 'r', encoding='utf-8') as file:
+        for i in range(3):
+            line = file.readline().strip()
+            print(line)
+</span>
+
+    Задание 2
+    Напишите программу, которая получает от пользователя имя файла и возвращает следующие данные о его содержимом:
+
+    количество строк;
+    количество слов;
+    число символов без пробелов и точек.
+    Пример ввода:
+
+
+    series.txt
+
+
+    Содержимое файла:
+
+
+    1. Последнее королевство 2015
+    2. Рим 2005
+    3. Версаль 2015
+    4. Тюдоры 2007
+    5. Террор 2018
+    6. Человек в высоком замке 2015
+    7. Белая королева 2013
+    8. Братья по оружию 2001
+    9. Медичи 2016
+    10. Спартак 2010
+
+
+    Вывод:
+
+
+    Количество строк в файле series.txt: 10
+    Количество слов: 17
+    Число символов: 153
+
+
+    Решение:
+
+<span style="color: #0000ff;">
+    filename = input()
+    lines, words, symbols = 0, 0, 0
+    with open(filename, 'r', encoding='utf-8') as file:
+        for i in file:
+            lines += 1
+            words += len([w for w in i.split() if w.isalpha()])
+            symbols += len([s for s in i if s.isalnum()])
+    print(f'Количество строк в файле {filename}: {lines}\n'
+          f'Количество слов: {words}\n'
+          f'Число символов: {symbols}\n'
+         )
+
+</span>
+    Задание 3
+    Напишите программу, которая находит самое длинное слово в списке книг из первого задания.
+
+    Ожидаемый результат:
+
+
+    Преступление
+
+
+    Решение:
+
+<span style="color: #0000ff;">
+    with open('books.txt', 'r', encoding='utf-8') as file:
+        words = file.read().replace('"', '').split()
+        result = [w for w in words if len(w) == len(max(words, key=len))]
+
+    print(*result)
+
+</span>
+    Задание 4
+    Имеется файл fruit.txt со следующим содержимым:
+
+
+    Апельсин маракуйя папайя айва Яблоко
+    апельсин яблоко ананас банан персик Слива
+    Банан груша слива виноград авокадо Цитрон
+    Слива Груша яблоко мандарин цитрон
+    лимон Лайм апельсин ананас персик айва
+    Хурма киви хурма манго авокадо лайм
+    Нектарин Инжир гранат Папайя Гранат
+
+
+    Напишите программу, которая подсчитывает, сколько раз название каждого фрукта встречается в тексте.
+
+    Вывод:
+
+
+    Названия этих фруктов встречаются в тексте:
+    "апельсин" - 3 раз(а)
+    "маракуйя" - 1 раз(а)
+    "папайя" - 2 раз(а)
+    "айва" - 2 раз(а)
+    "яблоко" - 3 раз(а)
+    "ананас" - 2 раз(а)
+    "банан" - 2 раз(а)
+    "персик" - 2 раз(а)
+    "слива" - 3 раз(а)
+    "груша" - 2 раз(а)
+    "виноград" - 1 раз(а)
+    "авокадо" - 2 раз(а)
+    "цитрон" - 2 раз(а)
+    "мандарин" - 1 раз(а)
+    "лимон" - 1 раз(а)
+    "лайм" - 2 раз(а)
+    "хурма" - 2 раз(а)
+    "киви" - 1 раз(а)
+    "манго" - 1 раз(а)
+    "нектарин" - 1 раз(а)
+    "инжир" - 1 раз(а)
+    "гранат" - 2 раз(а)
+
+
+    Решение:
+
+<span style="color: #0000ff;">
+    with open('fruit.txt', 'r', encoding='utf-8') as file:
+        result = {}
+        for line in file:
+            words = line.strip().lower().split()
+            for w in words:
+                result[w] = result.get(w, 0) + 1
+    print(f'Названия этих фруктов встречаются в тексте:')
+    for k, v in result.items():
+        print(f'"{k}" - {v} раз(а)'
+
+</span>
+    Задание 5
+    Имеются два файла, first.txt и second.txt. В первом файле перечислены имена, во втором – должности:
+
+    Содержимое файла first.txt
+
+
+    Сергей Ковалев
+    Ирина Егорова
+    Никита Степанов
+    Марина Арефьева
+    Кирилл Евстегнеев
+    Елена Моисеева
+
+
+    Файл second.txt
+
+
+    мидл разработчик
+    девопс
+    тимлид
+    сеньор разработчик
+    продакт-менеджер
+    дизайнер
+
+
+    Напишите программу, которая открывает оба файла и выводит сведения о сотрудниках в следующем формате:
+
+
+    Сотрудник Сергей Ковалев, должность - мидл разработчик
+    Сотрудник Ирина Егорова, должность - девопс
+    Сотрудник Никита Степанов, должность - тимлид
+    Сотрудник Марина Арефьева, должность - сеньор разработчик
+    Сотрудник Кирилл Евстегнеев, должность - продакт-менеджер
+    Сотрудник Елена Моисеева, должность – дизайнер
+
+
+    Решение:
+<span style="color: #0000ff;">
+
+    with open('first.txt', 'r', encoding='utf-8') as file1, \
+    open('second.txt', 'r', encoding='utf-8') as file2:
+        for line_x, line_y in zip(file1, file2):
+            print(f'Сотрудник {line_x.strip()}, должность - {line_y.strip()}')
+
+</span>
+    Задание 6
+    Напишите программу, которая:
+
+    генерирует коды букв русского алфавита от а до я;
+    вставляет в полученный список код ё;
+    записывает полный алфавит (строчный и прописной варианты каждой буквы) в столбик в файл alphabet.txt.
+    Содержимое файла после выполнения программы:
+
+
+    Аа
+    Бб
+    Вв
+    Гг
+    Дд
+    Ее
+    Ёё
+    Жж
+    Зз
+    Ии
+    Йй
+    Кк
+    Лл
+    Мм
+    Нн
+    Оо
+    Пп
+    Рр
+    Сс
+    Тт
+    Уу
+    Фф
+    Хх
+    Цц
+    Чч
+    Шш
+    Щщ
+    Ъъ
+    Ыы
+    Ьь
+    Ээ
+    Юю
+    Яя
+
+
+    Решение:
+<span style="color: #0000ff;">
+
+    alpha = [i for i in range(ord('а'), ord('я') + 1)]
+    alpha.insert(6, 1105)
+    with open('alphabet.txt', 'w', encoding='utf-8') as file:
+        for i in alpha:
+            file.write(chr(i).upper() + chr(i) + '\n')
+
+</span>
+    Задание 7
+    Сведения о доходах и расходах компании хранятся в двух файлах, income.txt и outcome.txt. Напишите программу для
+подсчета прибыли компании.
+
+    Пример файла income.txt:
+
+
+    RUB100000
+    RUB200000
+    RUB200000
+    RUB500000
+    RUB600000
+    RUB100000
+    RUB700000
+
+
+    Пример файла outcome.txt:
+
+
+    -RUB1000
+    -RUB2000
+    -RUB50000
+    -RUB200000
+    -RUB10000
+    -RUB5000
+    -RUB6000
+    -RUB10000
+    -RUB19000
+    -RUB7000
+
+
+    Ожидаемый результат:
+
+
+    Прибыль за прошлый месяц: 2090000 RUB
+
+
+    Решение:
+
+<span style="color: #0000ff;">
+    income, outcome = 0, 0
+    with open('income.txt', 'r', encoding='utf-8') as file1, \
+    open('outcome.txt', 'r', encoding='utf-8') as file2:
+        for line in file1:
+            num = line.strip()[3:]
+            income += int(num)
+
+        for line in file2:
+            num = line.strip()[4:]
+            outcome += int(num)
+    print(f'Прибыль за прошлый месяц: {income - outcome} RUB')
+
+</span>
+    Задание 8
+    Напишите программу, которая считывает сведения об успеваемости по основным предметам из файла grades.txt, и
+определяет, кто из студентов имеет средний балл >= 4.5.
+
+    Пример файла grades.txt:
+
+
+    Арефьева И. 5 5 4 4
+    Богданов С. 5 5 3 4
+    Гаврилов Е. 4 4 3 3
+    Егорова А.  3 3 3 4
+    Семенова Е. 4 3 3 4
+    Хворостов И. 5 4 5 5
+
+
+    Ожидаемый результат:
+
+
+    Арефьева И., средний балл: 4.50
+    Хворостов И., средний балл: 4.75
+
+
+    Решение:
+
+<span style="color: #0000ff;">
+    result = {}
+    with open('grades.txt', 'r', encoding='utf-8') as file1:
+        for line in file1:
+            l = line.strip().split()
+            grades = [int(i) for i in l[-4:]]
+            aver_grade = sum(grades) / len(grades)
+            if aver_grade >= 4.5:
+                result[l[0] + ' ' + l[1]] = aver_grade
+    for student, aver_grade in result.items():
+        print(f'{student}, средний балл: {aver_grade:.2f}')
+</span>
+
+    Задание 9
+    Напишите программу, которая получает от пользователя название файла с информацией на русском языке, и выполняет
+транслитерацию текста в соответствии с приведенным ниже словарем. Результат нужно записать в файл result.txt.
+
+    Словарь:
+
+
+    translit = {'а': 'a', 'к': 'k', 'х': 'h', 'б': 'b', 'л': 'l', 'ц': 'c', 'в': 'v', 'м': 'm', 'ч': 'ch', 'г': 'g', 'н': 'n',
+         'ш': 'sh', 'д': 'd', 'о': 'o', 'щ': 'shh', 'е': 'e', 'п': 'p', 'ъ': '*', 'ё': 'jo', 'р': 'r', 'ы': 'y', 'ж': 'zh',
+         'с': 's', 'ь': "'", 'з': 'z', 'т': 't', 'э': 'je', 'и': 'i', 'у': 'u', 'ю': 'ju', 'й': 'j', 'ф': 'f', 'я': 'ya',
+         'А': 'A', 'К': 'K', 'Х': 'H', 'Б': 'B', 'Л': 'L', 'Ц': 'C', 'В': 'V', 'М': 'M', 'Ч': 'Ch', 'Г': 'G', 'Н': 'N',
+         'Ш': 'Sh', 'Д': 'D', 'О': 'O', 'Щ': 'Shh', 'Е': 'E', 'П': 'P', 'Ъ': '*', 'Ё': 'Jo', 'Р': 'R', 'Ы': 'Y', 'Ж': 'Zh',
+         'С': 'S', 'Ь': "'", 'З': 'Z', 'Т': 'T', 'Э': 'Je', 'И': 'I', 'У': 'U', 'Ю': 'Ju', 'Й': 'J', 'Ф': 'F', 'Я': 'Ya'}
+
+
+    Пример русского текста:
+
+
+    Python — это язык программирования, который широко используется в интернет-приложениях, разработке программного
+обеспечения, науке о данных и машинном обучении (ML). Разработчики используют Python, потому что он эффективен, прост в
+изучении и работает на разных платформах.
+
+
+    Ожидаемое содержимое result.txt:
+
+
+    Python — jeto yazyk programmirovaniya, kotoryj shiroko ispol'zuetsya v internet-prilozheniyah, razrabotke
+programmnogo obespecheniya, nauke o dannyh i mashinnom obuchenii (ML). Razrabotchiki ispol'zujut Python, potomu chto on
+jeffektiven, prost v izuchenii i rabotaet na raznyh platformah.
+
+
+    Решение:
+
+<span style="color: #0000ff;">
+    translit = {'а': 'a', 'к': 'k', 'х': 'h', 'б': 'b', 'л': 'l', 'ц': 'c', 'в': 'v', 'м': 'm', 'ч': 'ch', 'г': 'g', 'н': 'n',
+         'ш': 'sh', 'д': 'd', 'о': 'o', 'щ': 'shh', 'е': 'e', 'п': 'p', 'ъ': '*', 'ё': 'jo', 'р': 'r', 'ы': 'y', 'ж': 'zh',
+         'с': 's', 'ь': "'", 'з': 'z', 'т': 't', 'э': 'je', 'и': 'i', 'у': 'u', 'ю': 'ju', 'й': 'j', 'ф': 'f', 'я': 'ya',
+         'А': 'A', 'К': 'K', 'Х': 'H', 'Б': 'B', 'Л': 'L', 'Ц': 'C', 'В': 'V', 'М': 'M', 'Ч': 'Ch', 'Г': 'G', 'Н': 'N',
+         'Ш': 'Sh', 'Д': 'D', 'О': 'O', 'Щ': 'Shh', 'Е': 'E', 'П': 'P', 'Ъ': '*', 'Ё': 'Jo', 'Р': 'R', 'Ы': 'Y', 'Ж': 'Zh',
+         'С': 'S', 'Ь': "'", 'З': 'Z', 'Т': 'T', 'Э': 'Je', 'И': 'I', 'У': 'U', 'Ю': 'Ju', 'Й': 'J', 'Ф': 'F', 'Я': 'Ya'}
+    filename = input()
+    with open(filename, 'r', encoding='utf-8') as source, open('result.txt', 'w', encoding='utf-8') as tr_result:
+        for l in source.read():
+            trans = translit.get(l.lower(), l)
+            tr_result.write(trans if l.islower() else trans.capitalize())
+</span>
+
+    Задание 10
+    Имеется лог-файл crm_log.txt с информацией о времени входа пользователей в CRM-систему и о времени выхода.
+Напишите программу, которая определяет пользователей, работавших в системе более 4 часов, и записывает их имена и
+фамилии в файл best_employees.txt.
+
+    Пример лога crm_log.txt:
+
+
+    Егор Тимофеев, 09:10, 16:50
+    Марина Абрамова, 12:00, 15:59
+    Никита Круглов, 09:10, 12:45
+    Анна Семенова, 08:10, 12:30
+    Юлия Сафонова, 10:10, 10:50
+    Михаил Колесников, 11:10, 12:10
+
+
+    Ожидаемый результат в файле best_employees.txt:
+
+
+    Егор Тимофеев
+    Анна Семенова
+
+
+    Решение:
+
+<span style="color: #0000ff;">
+    with open('crm_log.txt', encoding='utf-8') as file_input, \
+         open('best_employees.txt', 'w', encoding='utf-8') as file_output:
+
+        for line in file_input:
+            start, end = [int(h) * 60 + int(m) for t in line.split(', ')[1:] for h, m in [t.split(':')]]
+            if end - start > 240:
+                file_output.write(line.split(', ')[0] + '\n')
+</span>
+</pre>
+ </span>
+ </span>
+</body>
+</html>

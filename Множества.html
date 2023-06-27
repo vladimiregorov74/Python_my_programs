@@ -1,0 +1,798 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="UTF-8">
+    <style>
+    table,
+    table * {
+      border: 1px solid #000;
+    }
+  </style>
+    <title>Множества</title>
+</head>
+<body>
+    <span style="font-size:26px;"><span style="font-family:arial,helvetica,sans-serif;">
+        <a href="./0_Помощь_Python.html">Помощь_Python.html</a></span></span>
+  <hr>
+<hr id="a">
+    <span style="font-size:26px;"><span style="font-family:arial,helvetica,sans-serif;">
+
+        &nbsp&nbsp&nbsp&nbsp<a href="#a0">создание множества</a>,&nbsp&nbsp<a href="#a1">перебор элементов</a>,&nbsp&nbsp<a href="#a1">принадлежность к множеству,</a>&nbsp&nbsp<a href="#a22">cортировка множества</a>,
+        &nbsp&nbsp<a href="#a3">определения отсутствия общих элементов</a>,&nbsp&nbsp&nbsp&nbsp<a href="#a5">принадлежность к подмножеству</a>,&nbsp&nbsp<a href="#a6">принадлежность к надмножеству</a>,
+        &nbsp&nbsp<a href="#a4">равенство множеств</a>,&nbsp&nbsp&nbsp&nbsp<a href="#a7">объединение нескольких множеств</a>,&nbsp&nbsp&nbsp&nbsp<a href="#a8">пересечение множеств</a>,
+        &nbsp&nbsp&nbsp&nbsp<a href="#a9">разность множеств</a>,&nbsp&nbsp&nbsp&nbsp<a href="#a10">симметрическая разность множеств </a>,&nbsp&nbsp&nbsp&nbsp<a href="#a11">создание копии множества</a>,
+        &nbsp&nbsp&nbsp&nbsp<a href="#a12">объединение с изменением множества</a>,&nbsp&nbsp&nbsp&nbsp<a href="#a13">пересичение и изменение множества</a>,&nbsp&nbsp&nbsp&nbsp<a href="#a14">разница и изменение</a>,
+        &nbsp&nbsp&nbsp&nbsp<a href="#a15">симметрическая разность и изменение множества</a>,&nbsp&nbsp&nbsp&nbsp<a href="#a16">добовление элементов к множеству</a>,&nbsp&nbsp&nbsp&nbsp<a href="#a17">удаление элементов методом remove</a>,
+        &nbsp&nbsp&nbsp&nbsp<a href="#a18">удаление элементов методом discard</a>,&nbsp&nbsp&nbsp&nbsp<a href="#a19">удаление элементов методом pop</a>,&nbsp&nbsp&nbsp&nbsp<a href="#a20">очистка множества</a>,
+        &nbsp&nbsp&nbsp&nbsp<a href="#a21">вычисление суммы множества</a>,&nbsp&nbsp&nbsp&nbsp<a href="#a21">нахождение мин и мах элементов</a>,&nbsp&nbsp&nbsp&nbsp<a href="#a22">сортировка</a>,
+        &nbsp&nbsp&nbsp&nbsp<a href="#a23">примечание</a>,&nbsp&nbsp&nbsp&nbsp<a href="#a24">таблица операторов множества</a>,&nbsp&nbsp&nbsp&nbsp<a href="#a25">frozenset</a></hr>
+<h2>Операции над множествами</h2>
+    <span style="font-size:20px;"><span style="font-family:arial,helvetica,sans-serif;">
+    <li><p><a href="#a0">set1={...}</a> - создание множества.</p></li>
+    <li><p><a href="#a1">len(set1)</a> - число элементов в множестве (размер множества).</p></li>
+    <li><p><a href="#a1">x in set1</a> - принадлежит ли x множеству set1.</p></li>
+    <li><p><a href="#a4"><b>set1 == set2</b></a> - все элементы set1 принадлежат set2, все элементы set2 принадлежат set1.</p></li>
+    <li><p><a href="#a3"><b>set1.isdisjoint</b>(other)</a> - истина, если set1 и other не имеют общих элементов.</p></li>
+    <li><p><a href="#a5"><b>set1.issubset</b>(other)</a> или <a href="#a5"><b>set1 &lt;= other</b></a> - определение подмножества.</p></li>
+    <li><p><a href="#a6"><b>set1.issuperset</b>(other)</a> или <a href="#a6"><b>set1 &gt;= other</b></a> - определение надмножества.</p></li>
+    <li><p><a href="#a7"><b>set1.union</b>(set2, ...)</a> или <a href="#a7"><b>set1 | set2 | ...</b></a> - объединение нескольких множеств.</p></li>
+    <li><p><a href="#a8"><b>set1.intersection</b>(other, ...)</a> или <a href="#a8"><b>set1 &amp; other &amp; ...</b></a> - пересечение множеств.</p></li>
+    <li><p><a href="#a9"><b>set1.difference</b>(other, ...)</a> или <a href="#a9"><b>set1 - other - ...</b></a> - множество из всех элементов set, не принадлежащие ни одному из other.</p></li>
+    <li><p><a href="#a10"><b>set1.symmetric_difference</b>(other)</a> или <a href="#a10"><b>set1 ^ other</b></a> - множество из элементов, встречающихся в одном множестве, но не встречающиеся в обоих.</p></li>
+    <li><p><a href="#a11"><b>set1.copy</b>()</a> - создание копии множества.</p></li>
+    <li><p><a href="#a12"><b>set1.update</b>(other, ...)</a> или <a href="#a12">set1 |= other | ...</a> - объединение и изменение set1.</p></li>
+    <li><p><a href="#a13"><b>set1.intersection_update</b>(other, ...)</a> или <a href="#a13">set1 &amp;= other &amp; ...</a> - пересечение и изменение set1.</p></li>
+    <li><p><a href="#a14"><b>set1.difference_update</b>(other, ...)</a> или <a href="#a14">set1 -= other | ...</a> - разница и изменение set1.</p></li>
+    <li><p><a href="#a15"><b>set1.symmetric_difference_update</b>(other)</a> или <a href="#a15">set1 ^= other</a> - множество из элементов, встречающихся в одном множестве, но не встречающиеся в обоих.</p></li>
+    <li><p><a href="#a16"><b>set1.add</b>(elem)</a> - добавляет элемент в множество.</p></li>
+    <li><p><a href="#a17"><b>set1.remove</b>(elem)</a> - удаляет элемент из множества. KeyError, если такого элемента не существует.</p></li>
+    <li><p><a href="#a18"><b>set1.discard</b>(elem)</a> - удаляет элемент, если он находится в множестве.</p></li>
+    <li><p><a href="#a19"><b>set1.pop</b>()</a> - удаляет первый элемент из множества. Так как множества не упорядочены, нельзя точно сказать, какой элемент будет первым.</p></li>
+    <li><p><a href="#a20"><b>set1.clear</b>()</a> - очистка множества.</p></li>
+    <li><p><a href="#a21"><b>sum(set1)</b>()</a> - вычисляет сумму элементов множества.</p></li>
+    <li><p><a href="#a21"><b>max(set1)/min(set1)</b>()</a> - возращает максимальный/минимальный элемент множества.</p></li>
+    <li><p><a href="#a22"><b>sorted(set1, key)</b>()</a> - возвращает отсортированный список.</p></li>
+    <li><p><a href="#a23"><b>Примечание</b>()</a> - уточнение по работе с множествами</p></li>
+    <li><p><a href="#a24"><b>Таблица</b>()</a> - Операторы множеств</p></li>
+</span></span>
+<h2>Множества</h2>
+<span style="font-size:20px;"><span style="font-family:arial,helvetica,sans-serif;">
+<pre>
+    - все элементы множества различны (уникальны), два элемента не могут иметь одинаковое значение;
+    - множества неупорядочены, то есть элементы не хранятся в каком-то определенном порядке;
+    - элементы множества должны относиться к неизменяемым типам данных(целые числа (int), числа с плавающей запятой (float), булевы значения (bool),
+    строки (str), кортежи (tuple));
+    - хранящиеся в множестве элементы могут иметь разные типы данных.
+</pre></span></span>
+<h2 id="a0">Cоздание множества&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<a href="#a">Up</a></h2>
+    <span style="font-size:20px;"><span style="font-family:arial,helvetica,sans-serif;">
+    <p>Создать объект set в Python можно двумя путями:</p>
+        <pre>
+         Использовать встроенную функцию set() или фигурные скобки с заключенным неизменяемыми элементами
+
+            Пример
+
+    s1 = {}                      # Это создаст пустой словарь
+    s2 = {1, 'pythonru', 20.67}  # Это создаст множество из int, str, float
+    s1 = set()                   # Это создаст пустое множество
+    s2 = set({1, 'pythonru', 20.67})
+        </pre></span></span>
+<h2 id="a1">Перебор элементов и принадлежность к множеству&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<a href="#a">Up</a></h2>
+    <span style="font-size:20px;"><span style="font-family:arial,helvetica,sans-serif;">
+        <p> Узнать число элементов в множестве можно при помощи функции <b>len</b>.
+            Перебрать все элементы множества (в неопределенном порядке!) можно при помощи цикла for:</p>
+<pre>
+    set1 = {2, 3, 5, 7, 11}
+    for num in set1:
+    print(num)
+</pre>
+    <p>Проверить, принадлежит ли элемент множеству можно при помощи операции in, возвращающей значение типа bool. Аналогично есть противоположная операция not in.</p>
+<pre>
+    set1 = {1, 2, 3}
+    print(1 in set1, 4 not in set1)
+</pre></span></span>
+<h2 id="a21">Встроенные функции sum(), min(), max()&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<a href="#a">Up</a></h2>
+<span style="font-size:20px;"><span style="font-family:arial,helvetica,sans-serif;">
+    <pre>
+    Встроенная функция <b>sum()</b> принимает в качестве аргумента множество чисел и вычисляет сумму его элементов.
+Следующий программный код:
+
+    numbers = {2, 2, 4, 6, 6}
+    print('Сумма всех элементов множества =', sum(numbers))
+    выводит:
+
+    Сумма всех элементов множества = 12
+
+    Встроенные функции <b>min()</b> и <b>max()</b> принимают в качестве аргумента множество и находят минимальный и максимальный элементы соответственно.
+Следующий программный код:
+
+    numbers = {2, 2, 4, 6, 6}
+    print('Минимальный элемент =', min(numbers))
+    print('Максимальный элемент =', max(numbers))
+    выводит:
+
+    Минимальный элемент = 2
+    Максимальный элемент = 6
+    </pre></span></span>
+
+<h2 id="a22">Сортировка множества&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<a href="#a">Up</a></h2>
+<span style="font-size:20px;"><span style="font-family:arial,helvetica,sans-serif;">
+    <p>Для сортировки множества можно применить функцию <b>sorted()</b>. Функция вернет отсортированный список</p>
+    <pre>
+    set1 = {10,2,30,4,17}
+    set2 = {'коля','ваня','Аня','Кирил'}
+    print(sorted(set1), sorted(set2, key=str.lower))
+    set1 = set(sorted(set1))
+    set2 = set(sorted(set2, key=str.lower))
+    print(set1, set2)
+    </pre>
+    <p>Выведет</p>
+    <p>&nbsp&nbsp&nbsp[2, 4, 10, 17, 30] ['Аня', 'ваня', 'Кирил', 'коля']</p>
+    <p>&nbsp&nbsp&nbsp{2, 4, 10, 17, 30} {'Аня', 'ваня', 'Кирил', 'коля'}</p></span></span>
+
+<h2 id="a3">Метод isdisjoint()&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<a href="#a">Up</a></h2>
+        <span style="font-size:20px;"><span style="font-family:arial,helvetica,sans-serif;">
+            <p>&nbsp&nbsp&nbsp&nbspДля определения отсутствия общих элементов в множествах используется метод isdisjoint(). Данный метод возвращает значение True, если множества не имеют общих элементов, и  False, когда множества имеют общие элементы.</p>
+            <pre>
+
+Приведенный ниже код:
+
+    set1 = {1, 2, 3, 4, 5}
+    set2 = {5, 6, 7}
+    set3 = {7, 8, 9}
+    print(set1.isdisjoint(set2))
+    print(set1.isdisjoint(set3))
+    print(set2.isdisjoint(set3))
+
+выводит:
+
+    False
+    True
+    False
+            </pre>
+        <p>Метод может принимать в качестве аргумента не только множество (тип данных set), но и любой итерируемый объект (список, строку, кортеж)</p></span></span>
+
+
+<h2 id="a5">Метод issubset()&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<a href="#a">Up</a></h2>
+        <span style="font-size:20px;"><span style="font-family:arial,helvetica,sans-serif;">
+            <p>&nbsp&nbsp&nbsp&nbspДля определения, является ли одно из множеств подмножеством другого, используется метод issubset().
+                Данный метод возвращает значение True, если одно множество является подмножеством другого, и False, если не является.</p>
+<pre>
+      Приведенный ниже код:
+
+    set1 = {2, 3}
+    set2 = {1, 2, 3, 4, 5, 6}
+    print(set1.issubset(set2))
+
+выводит:
+
+    True
+    В этом примере set2 содержит все элементы set1. Это означает, что set1 – подмножество set2. Это также означает, что set2 – надмножество set1.
+Для определения, является ли одно из множеств подмножеством другого, также применяются операторы <= (нестрогое подмножество) и < (строгое подмножество).
+
+Приведенный ниже код:
+
+    set1 = {2, 3}
+    set2 = {1, 2, 3, 4, 5, 6}
+    print(set1 <= set2)
+
+    True
+
+    set1 < set2     Эквивалентно set1 <= set2 and set1 != set2 (строгое подмножество)
+</pre>
+<p>Метод может принимать в качестве аргумента не только множество (тип данных set), но и любой итерируемый объект (список, строку, кортеж)</p></span></span>
+
+<h2 id="a6">Метод issuperset()&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<a href="#a">Up</a></h2>
+        <span style="font-size:20px;"><span style="font-family:arial,helvetica,sans-serif;">
+
+<p>&nbsp&nbsp&nbsp&nbspДля определения, является ли одно из множеств надмножеством другого, используется метод issuperset().
+    Данный метод возвращает значение True, если одно множество является надмножеством другого, в противном случае он возвращает False.</p>
+<pre>
+    Приведенный ниже код:
+
+    set1 = {'a', 'b', 'c', 'd', 'e'}
+    set2 = {'c', 'e'}
+    print(set1.issuperset(set2))
+
+выводит:
+
+    True
+
+    В этом примере set1 содержит все элементы set2. Это означает, что set1 – надмножество set2. Это также означает, что set2 – подмножество set1.
+Для определения, является ли одно из множеств надмножеством другого, также применяются операторы >= (нестрогое надмножество) и > (строгое надмножество).
+
+Приведенный ниже код:
+
+    set1 = {'a', 'b', 'c', 'd', 'e'}
+    set2 = {'c', 'e'}
+    print(set1 >= set2)
+
+    True
+
+    set1 > set2     Эквивалентно set1 >= set2 and set1 != set2 (строгое надмножество)
+</pre>
+<p>Метод может принимать в качестве аргумента не только множество (тип данных set), но и любой итерируемый объект (список, строку, кортеж)</p></span></span>
+
+<h2 id="a4">Равенство множеств&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<a href="#a">Up</a></h2>
+        <span style="font-size:20px;"><span style="font-family:arial,helvetica,sans-serif;">
+
+            <p>&nbsp&nbsp&nbsp&nbspЕсли два множества set1 и set2 состоят из одних и тех же элементов, то они называются равными set1 = set2</p>
+        <pre>
+            Например, если
+            set1 = {'a','xc','vg','e'}
+            set2 = {'e','a','xc','vg'}
+            print(set1==set2)
+
+            True
+            Порядок расположения элементов в записи множеств при их сравнении во внимание не принимается.
+        </pre></span></span>
+
+<h2 id="a7">Объединение множеств: метод union()&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<a href="#a">Up</a></h2>
+        <span style="font-size:20px;"><span style="font-family:arial,helvetica,sans-serif;">
+
+            <p>&nbsp&nbsp&nbsp&nbspОбъединение множеств это множество, состоящее из элементов, принадлежащих хотя бы одному из объединяемых множеств.
+                Для этой операции существует метод <b>union()</b>.</p>
+            <pre>
+Приведенный ниже код:
+
+    myset1 = {1, 2, 3, 4, 5}
+    myset2 = {3, 4, 6, 7, 8}
+    myset3 = myset1.union(myset2)
+    print(myset3)
+
+выводит (порядок элементов может отличаться):
+
+    {1, 2, 3, 4, 5, 6, 7, 8}
+
+Для объединения двух множеств можно также использовать оператор |.
+
+Результат выполнения приведенного ниже кода:
+
+myset1 = {1, 2, 3, 4, 5}
+myset2 = {3, 4, 6, 7, 8}
+myset3 = myset1 | myset2
+print(myset3)
+
+    аналогичен предыдущему.
+            </pre>
+            <p>Метод <b>union()</b> возвращает новое множество в которое входят все элементы множеств myset1 и myset2.
+                Для изменения текущего множества используется метод <b>update()</b>.</p></span></span>
+
+<h2 id="a8">Пересечение множеств: метод intersection()&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<a href="#a">Up</a></h2>
+        <span style="font-size:20px;"><span style="font-family:arial,helvetica,sans-serif;">
+
+            <p>&nbsp&nbsp&nbsp&nbspПересечение множеств это множество, состоящее из элементов, принадлежащих одновременно каждому из пересекающихся множеств.
+                Для этой операции существует метод <b>intersection()</b>.</p>
+            <pre>
+Приведенный ниже код:
+
+    myset1 = {1, 2, 3, 4, 5}
+    myset2 = {3, 4, 6, 7, 8}
+    myset3 = myset1.intersection(myset2)
+    print(myset3)
+
+выводит (порядок элементов может отличаться):
+
+    {3, 4}
+Для пересечения двух множеств можно также использовать оператор &.
+Результат выполнения приведенного ниже кода:
+
+    myset1 = {1, 2, 3, 4, 5}
+    myset2 = {3, 4, 6, 7, 8}
+    myset3 = myset1 & myset2
+    print(myset3)
+
+аналогичен предыдущему.
+            </pre>
+            <p>метод <b>intersection()</b> возвращает новое множество в которое входят общие элементы множеств myset1 и myset2.
+                Для изменения текущего множества используется метод <b>intersection_update()</b>.</p></span></span>
+
+<h2 id="a9">Разность множеств: метод difference()&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<a href="#a">Up</a></h2>
+        <span style="font-size:20px;"><span style="font-family:arial,helvetica,sans-serif;">
+
+            <p>&nbsp&nbsp&nbsp&nbspРазность множеств это множество, в которое входят все элементы первого множества, не входящие во второе множество.
+                Для этой операции существует метод <b>difference()</b>.</p>
+            <pre>
+Приведенный ниже код:
+
+    myset1 = {1, 2, 3, 4, 5}
+    myset2 = {3, 4, 6, 7, 8}
+    myset3 = myset1.difference(myset2)
+    print(myset3)
+
+выводит (порядок элементов может отличаться):
+
+    {1, 2, 5}
+Для разности двух множеств можно также использовать оператор -.
+
+Результат выполнения приведенного ниже кода:
+
+    myset1 = {1, 2, 3, 4, 5}
+    myset2 = {3, 4, 6, 7, 8}
+    myset3 = myset1 - myset2
+    print(myset3)
+
+аналогичен предыдущему.
+
+<p>Обратите внимание: для операции разности множеств важен порядок, в котором указаны множества. Если поменять местами myset1 и myset2, нас ожидает совсем другой результат: элементы входящие в множество myset2 и которых нет в множестве myset1. </p>
+
+Приведенный ниже код:
+
+    myset1 = {1, 2, 3, 4, 5}
+    myset2 = {3, 4, 6, 7, 8}
+    myset3 = myset2.difference(myset1)
+    print(myset3)
+
+выводит (порядок элементов может отличаться):
+
+    {8, 6, 7}
+            </pre></span></span>
+
+<h2 id="a10">Симметрическая разность: метод symmetric_difference()&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<a href="#a">Up</a></h2>
+        <span style="font-size:20px;"><span style="font-family:arial,helvetica,sans-serif;">
+
+            <p>&nbsp&nbsp&nbsp&nbspСимметрическая разность множеств это множество, включающее все элементы исходных множеств, не принадлежащие одновременно обоим исходным множествам.
+                Для этой операции существует метод <b>symmetric_difference()</b>.</p>
+            <pre>
+Приведенный ниже код:
+
+    myset1 = {1, 2, 3, 4, 5}
+    myset2 = {3, 4, 6, 7, 8}
+    myset3 = myset1.symmetric_difference(myset2)
+    print(myset3)
+
+выводит (порядок элементов может отличаться):
+
+    {1, 2, 5, 6, 7, 8}
+Для симметрической разности двух множеств можно также использовать оператор ^.
+
+Результат выполнения приведенного ниже кода:
+
+    myset1 = {1, 2, 3, 4, 5}
+    myset2 = {3, 4, 6, 7, 8}
+    myset3 = myset1 ^ myset2
+    print(myset3)
+
+аналогичен предыдущему.
+            </pre>
+            <p>Обратите внимание: для операции симметрической разности порядок множеств не важен, на то она и симметрическая: myset1 ^ myset2 == myset2 ^ myset1.</p></span></span>
+
+<h2 id="a12">Метод update()&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<a href="#a">Up</a></h2>
+        <span style="font-size:20px;"><span style="font-family:arial,helvetica,sans-serif;">
+
+            <p>&nbsp&nbsp&nbsp&nbspМетод <b>update()</b> изменяет исходное множество по объединению.</p>
+            <pre>
+Приведенный ниже код:
+
+    myset1 = {1, 2, 3, 4, 5}
+    myset2 = {3, 4, 6, 7, 8}
+    myset1.update(myset2)      # изменяем множество myset1
+    print(myset1)
+
+выводит (порядок элементов может отличаться):
+
+    {1, 2, 3, 4, 5, 6, 7, 8}
+Аналогичный результат получается, если использовать оператор |=:
+
+    myset1 = {1, 2, 3, 4, 5}
+    myset2 = {3, 4, 6, 7, 8}
+    myset1 |= myset2
+    print(myset1)
+            </pre></span></span>
+
+     /span></span>
+
+<h2 id="a13">Метод intersection_update()&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<a href="#a">Up</a></h2>
+        <span style="font-size:20px;"><span style="font-family:arial,helvetica,sans-serif;">
+
+            <p>&nbsp&nbsp&nbsp&nbspМетод <b>intersection_update()</b> изменяет исходное множество по пересечению.</p>
+            <pre>
+Приведенный ниже код:
+
+    myset1 = {1, 2, 3, 4, 5}
+    myset2 = {3, 4, 6, 7, 8}
+    myset1.intersection_update(myset2)      # изменяем множество myset1
+    print(myset1)
+
+выводит (порядок элементов может отличаться):
+
+    {3, 4}
+Аналогичный результат получается, если использовать оператор &=:
+
+    myset1 = {1, 2, 3, 4, 5}
+    myset2 = {3, 4, 6, 7, 8}
+    myset1 &= myset2
+    print(myset1)
+            </pre></span></span>
+
+<h2 id="a14">Метод difference_update()&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<a href="#a">Up</a></h2>
+        <span style="font-size:20px;"><span style="font-family:arial,helvetica,sans-serif;">
+
+            <p>&nbsp&nbsp&nbsp&nbspМетод <b>difference_update()</b> изменяет исходное множество по разности.</p>
+            <pre>
+Приведенный ниже код:
+
+    myset1 = {1, 2, 3, 4, 5}
+    myset2 = {3, 4, 6, 7, 8}
+    myset1.difference_update(myset2)      # изменяем множество myset1
+    print(myset1)
+
+выводит (порядок элементов может отличаться):
+
+    {1, 2, 5}
+Аналогичный результат получается, если использовать оператор -=:
+
+    myset1 = {1, 2, 3, 4, 5}
+    myset2 = {3, 4, 6, 7, 8}
+    myset1 -= myset2
+    print(myset1)
+            </pre></span></span>
+
+<h2 id="a15">Метод symmetric_difference_update()&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<a href="#a">Up</a></h2>
+        <span style="font-size:20px;"><span style="font-family:arial,helvetica,sans-serif;">
+
+            <p>&nbsp&nbsp&nbsp&nbspМетод <b>symmetric_difference_update()</b> изменяет исходное множество по симметрической разности.</p>
+            <pre>
+Приведенный ниже код:
+
+    myset1 = {1, 2, 3, 4, 5}
+    myset2 = {3, 4, 6, 7, 8}
+    myset1.symmetric_difference_update(myset2)      # изменяем множество myset1
+    print(myset1)
+
+выводит (порядок элементов может отличаться):
+
+    {1, 2, 5, 6, 7, 8}
+Аналогичный результат получается, если использовать оператор ^=:
+
+    myset1 = {1, 2, 3, 4, 5}
+    myset2 = {3, 4, 6, 7, 8}
+    myset1 ^= myset2
+    print(myset1)
+            </pre></span></span>
+
+<h2 id="a11">Создание копии множества метод copy()&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<a href="#a">Up</a></h2>
+        <span style="font-size:20px;"><span style="font-family:arial,helvetica,sans-serif;">
+
+            <p>&nbsp&nbsp&nbsp&nbspМетод <b>сору()</b> - возвращает копию текущего множества:</p>
+            <pre>
+    s = set([1, 2, 3])
+    с = s
+    print(s is с)     # С помощью оператора = создать копию нельзя(получается один и тот-же объект)!
+    True
+    с = s.copy()      # Создаем копию множества
+    print(s is с)     # Теперь это разные объекты
+False
+            </pre></span></span>
+
+<h2 id="a16">Добавление элементов&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<a href="#a">Up</a></h2>
+        <span style="font-size:20px;"><span style="font-family:arial,helvetica,sans-serif;">
+
+            <p>&nbsp&nbsp&nbsp&nbspДля добавления нового элемента в множество используется метод <b>add()</b>.</p>
+            <pre>
+Следующий программный код:
+
+    numbers = {1, 1, 2, 3, 5, 8, 3}  # создаем множество
+    numbers.add(21)  # добавляем число 21 в множество
+    numbers.add(34)  # добавляем число 34 в множество
+    print(numbers)
+
+выводит (порядок элементов может отличаться):
+
+    {1, 2, 3, 34, 5, 8, 21}
+Обратите внимание, для использования метода <b>add()</b> требуется предварительно созданное множество, при этом оно может быть пустым.
+
+Следующий программный код:
+
+    numbers = set()  # создаем пустое множество
+    numbers.add(1)
+    numbers.add(2)
+    numbers.add(3)
+    numbers.add(1)
+    print(numbers)
+
+выводит (порядок элементов может отличаться):
+
+    {1, 2, 3}
+Если требуется внести несколько значений в множество, то можно воспользоваться циклом for.
+
+Следующий программный код:
+
+    numbers = set()  # создаем пустое множество
+    for i in range(10):
+        numbers.add(i*i + 1)
+    print(numbers)
+
+выводит (порядок элементов может отличаться):
+
+    {1, 2, 65, 5, 37, 10, 17, 50, 82, 26}
+            </pre></span></span>
+
+<h2 id="a17">Удаление элемента&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<a href="#a">Up</a></h2>
+        <span style="font-size:20px;"><span style="font-family:arial,helvetica,sans-serif;">
+
+            <p>&nbsp&nbsp&nbsp&nbspМетод <b>remove()</b> — удаляет элемент из множества с генерацией исключения (ошибки) в случае, если такого элемента нет.</p>
+            <pre>
+Следующий программный код:
+
+    numbers = {1, 2, 3, 4, 5}
+    numbers.remove(3)
+    print(numbers)
+
+выводит (порядок элементов может отличаться):
+
+    {1, 2, 4, 5}
+Следующий программный код:
+
+    numbers = {1, 2, 3, 4, 5}
+    numbers.remove(10)
+    print(numbers)
+
+приводит к возникновению ошибки KeyError, так как элемент 10 отсутствует в множестве.
+            </pre></span></span>
+
+<h2 id="a18">Метод discard()&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<a href="#a">Up</a></h2>
+        <span style="font-size:20px;"><span style="font-family:arial,helvetica,sans-serif;">
+
+            <p>&nbsp&nbsp&nbsp&nbspМетод <b>discard()</b> — удаляет элемент из множества без генерации исключения (ошибки), если элемент отсутствует.</p>
+            <pre>
+Следующий программный код:
+
+    numbers = {1, 2, 3, 4, 5}
+    numbers.discard(3)
+    print(numbers)
+
+выводит (порядок элементов может отличаться):
+
+    {1, 2, 4, 5}
+Следующий программный код:
+
+    numbers = {1, 2, 3, 4, 5}
+    numbers.discard(10)
+    print(numbers)
+
+не приводит к возникновению ошибки и выводит (порядок элементов может отличаться):
+
+    {1, 2, 3, 4, 5}
+            </pre></span></span>
+
+<h2 id="a19">Метод pop()&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<a href="#a">Up</a></h2>
+        <span style="font-size:20px;"><span style="font-family:arial,helvetica,sans-serif;">
+
+            <p>&nbsp&nbsp&nbsp&nbspМетод <b>pop()</b> — удаляет и возвращает случайный элемент из множества с генерацией исключения (ошибки) при попытке удаления из пустого множества.</p>
+            <pre>
+Рассмотрим программный код:
+
+    numbers = {1, 2, 3, 4, 5}
+    print('до удаления:', numbers)
+    num = numbers.pop()                 # удаляет случайный элемент множества, возвращая его
+    print('удалённый элемент:', num)
+    print('после удаления:', numbers)
+
+Результат работы такого кода случаен, например, такой код может вывести:
+
+до удаления: {1, 2, 3, 4, 5}
+удалённый элемент: 1
+после удаления: {2, 3, 4, 5}
+            </pre>
+            <p>Метод <b>pop()</b> можно воспринимать как неконтролируемый способ удаления элементов по одному из множества.</p></span></span>
+
+<h2 id="a20">Метод clear()&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<a href="#a">Up</a></h2>
+        <span style="font-size:20px;"><span style="font-family:arial,helvetica,sans-serif;">
+
+            <p>&nbsp&nbsp&nbsp&nbspМетод <b>clear()</b> удаляет все элементы из множества.</p>
+            <pre>
+Следующий программный код:
+
+    numbers = {1, 2, 3, 4, 5}
+    numbers.clear()
+    print(numbers)
+    выведет:
+
+    set()
+В результате получили пустое множество.
+            </pre>
+            <p>Обратите внимание на то, что пустое множество выводится как set(), а не как {}. С помощью {} выводится пустой словарь.</p></span></span>
+
+<h2 id="a23">Примечания&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<a href="#a">Up</a></h2>
+        <span style="font-size:20px;"><span style="font-family:arial,helvetica,sans-serif;">
+<pre>
+Примечание 1. Все основные операции над множествами выполнятся двумя способами: при помощи метода или соответствующего ему оператора. Различие в том, что метод может принимать в качестве аргумента не только множество (тип данных set), но и любой итерируемый объект (список, строку, кортеж).
+
+Приведенный ниже код:
+
+    mylist = [2021, 2020, 2019, 2018, 2017, 2016]
+    mytuple = (2021, 2020, 2016)
+    mystr = 'abcd'
+    myset = {2009, 2010, 2016}
+    print(myset.union(mystr))              # объединяем со строкой
+    print(myset.intersection(mylist))      # пересекаем со списком
+    print(myset.difference(mytuple))       # находим разность с кортежем
+
+выводит (порядок элементов может отличаться):
+
+    {2016, 'c', 'b', 'a', 'd', 2009, 2010}
+    {2016}
+    {2009, 2010}
+Приведенный ниже код:
+
+    mylist = [2021, 2020, 2019, 2018, 2017, 2016]
+    mytuple = (2021, 2020, 2016)
+    mystr = 'abcd'
+    myset = {2009, 2010, 2016}
+    print(myset | mystr)
+    print(myset & mylist)
+    print(myset - mytuple)
+
+приводит к возникновению ошибок:
+
+    TypeError: unsupported operand type(s) for |: 'set' and 'str'
+    TypeError: unsupported operand type(s) for &: 'set' and 'list'
+    TypeError: unsupported operand type(s) for -: 'set' and 'tuple'
+
+Примечание 2. Некоторые методы <b>(union(), intersection(), difference())</b> и операторы <b>(|, &, -, ^)</b> позволяют совершать операции над несколькими множествами сразу.
+
+Приведенный ниже код:
+
+    myset1 = {1, 2, 3, 4, 5, 6}
+    myset2 = {2, 3, 4, 5}
+    myset3 = {5, 6, 7, 8}
+    union1 = myset1.union(myset2, myset3)
+    union2 = myset1 | myset2 | myset3
+    difference1 = myset1.difference(myset2, myset3)
+    difference2 = myset1 - myset2 - myset3            # порядок выполнения слева-направо
+    print(union1 == union2)
+    print(difference1 == difference2)
+    выводит:
+
+    True
+    True
+    Примечание 3. Оператор <b>^</b> симметрической разности позволяет использовать несколько множеств, а метод <b>symmetric_difference()</b> – нет.
+
+Приведенный ниже код:
+
+    myset1 = {1, 2, 3, 4, 5, 6}
+    myset2 = {2, 3, 4, 7}
+    myset3 = {6, 20, 30}
+    symdifference = myset1 ^ myset2 ^ myset3  # порядок выполнения слева-направо
+    print(symdifference)
+    выводит (порядок элементов может отличаться):
+
+    {1, 5, 7, 20, 30}
+ Приведенный ниже код:
+
+    myset1 = {1, 2, 3, 4, 5, 6}
+    myset2 = {2, 3, 4, 7}
+    myset3 = {6, 20, 30}
+    symdifference = myset1.symmetric_difference(myset2, myset3)
+    print(symdifference)
+    приводит к ошибке:
+
+    TypeError: symmetric_difference() takes exactly one argument (2 given)
+
+    Примечание 4. Методы issuperset(), issubset(), isdisjoint() могут принимать в качестве аргумента не только множество (тип данных set),
+                  но и любой итерируемый объект (список, строку, кортеж).
+    Примечание 5. Операторы >, <, >=, <= требуют наличия в качестве операндов множеств.
+    Примечание 6. Индексация и срезы недоступны для множеств.
+
+    Примечание 7. Операция конкатенации + и умножения на число * недоступны для множеств.
+
+</pre>
+<h2 id="a24" align=center>Примечание 4. Таблица соответствия методов и операторов над множествами&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<a href="#a">Up</a></h2>
+        <span style="font-size:20px;"><span style="font-family:arial,helvetica,sans-serif;">
+
+ <table align=center>
+    <tr align=center>
+      <td>A | B<br/>A.union(B)</td>
+      <td>Возвращает множество, являющееся объединением множеств A и B</td>
+    </tr >
+    <tr align=center>
+      <td>A |= B<br/>A.update(B)d</td>
+      <td>Добавляет в множество A все элементы из множества B</td>
+    </tr>
+    <tr align=center>
+      <td>A & B <br/>A.intersection(B)</td>
+      <td>Возвращает множество, являющееся пересечением множеств A и B</td>
+    </tr>
+    <tr align=center>
+      <td>A &= B <br/>A.intersection_update(B)</td>
+      <td>Оставляет в множестве A только те элементы, которые есть в множестве B</td>
+    </tr>
+    <tr align=center>
+      <td>A - B <br/>A.difference(B)</td>
+      <td>Возвращает разность множеств A и B</td>
+    </tr>
+    <tr align=center>
+      <td>A -= B <br/>A.difference_update(B)</td>
+      <td>Удаляет из множества A все элементы, входящие в B</td>
+    </tr>
+    <tr align=center>
+      <td>A ^ B <br/>A.symmetric_difference(B)</td>
+      <td>Возвращает симметрическую разность множеств A и B</td>
+    </tr>
+    <tr align=center>
+      <td>A ^= B <br/>A.symmetric_difference_update(B)</td>
+      <td>Записывает в A симметрическую разность множеств A и B</td>
+    </tr>
+    <tr align=center>
+      <td>-</td>
+      <td>разность</td>
+    </tr>
+    <tr align=center>
+      <td>&</td>
+      <td>пересечение</td>
+    </tr>
+    <tr align=center>
+      <td>^</td>
+      <td>симметрическая разность</td>
+    </tr>
+    <tr align=center>
+      <td>|</td>
+      <td>объединение</td>
+    </tr>
+    <tr align=center>
+      <td>set1 <= set2 <br/>set1.issubset(set2)</td>
+      <td>Возвращает True, если set1 является подмножеством set2</td>
+    </tr>
+    <tr align=center>
+      <td>set1 >= set2 <br/>set1.issuperset(set2)</td>
+      <td>Возвращает True, если set1 является надмножеством set2</td>
+    </tr>
+     <tr align=center>
+      <td>set1 < set2</td>
+      <td>Эквивалентно set1 <= set2 and set1 != set2 (строгое подмножество)</td>
+    </tr>
+    <tr align=center>
+      <td>set1 > set2</td>
+      <td>Эквивалентно set1 >= set2 and set1 != set2 (строгое надмножество)</td>
+    </tr>
+  </table>
+            <hr></span></span>
+
+   <img src="file:///media/vladimir/Games+/Python_books/HTML/help/Resurs/set.png" alt="Just image">
+
+<h2 id="a25">Замороженное множество (frozenset) &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<a href="#a">Up</a></h2>-->
+       <span style="font-size:20px;"><span style="font-family:arial,helvetica,sans-serif;">-->
+<p>Замороженное множество (frozenset) также является встроенной коллекцией в Python. Обладая характеристиками обычного множества, замороженное
+    множество не может быть изменено после создания.</p>
+           <pre>Операции над замороженными множествами
+Над замороженными множествами можно производить все операции, которые можно производить над обычными множествами:
+
+объединение множеств: метод union() или оператор |;
+пересечение множеств: метод intersection() или оператор &;
+разность множеств: метод difference() или оператор -;
+симметрическая разность множеств: метод symmetric_difference() или оператор ^.</pre>
+           <p> Будучи изменяемыми, обычные множества не могут быть элементами других множеств. Замороженные множества являются неизменяемыми, а значит могут быть элементами других множеств.</p>
+           <pre>если проводится операция между обычным множеством и неизменяемым, то тип нового множества будет зависеть от того, какое множество в выражении было первым:
+    set & frozenset
+    set - forzenset
+    set | frozenset
+    set ^ frozenset
+    ------------------------
+    в результате дадут обычное множество
+
+    frozenset & set
+    frozenset | set
+    frozenset - set
+    frozenset ^ set
+    ------------------------
+    результат - неизменяемое множество
+
+
+
+Так же и с методами - результат того же типа, как и у множества, к которому метод применен:
+
+    set.union(frozenset) -> обычное множество
+    frozenset.union(set) -> неизменяемое множество</pre></span></span>
+<a href="#a">Up</a></h2>
+</body>
+</html>
+
+<!--<h2 id="a4">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<a href="#a">Up</a></h2>-->
+<!--        <span style="font-size:20px;"><span style="font-family:arial,helvetica,sans-serif;">-->
+
+<!--            <p>&nbsp&nbsp&nbsp&nbsp</p>-->
+<!--            <pre>-->
+
+<!--            </pre>-->
+<!--            <p></p></span></span>-->

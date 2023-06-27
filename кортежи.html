@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="UTF-8">
+    <style>
+    table,
+    table * {border: 1px solid #000;}
+    </style>
+    <title>Кортежи</title>
+</head>
+<body>
+<span style="font-size:26px;"><span style="font-family:arial,helvetica,sans-serif;">
+        <a href="./0_Помощь_Python.html">Помощь_Python.html</a></span></span>
+  <hr>
+    <hr id="a">
+        <span style="font-size:26px;"><span style="font-family:arial,helvetica,sans-serif;">
+
+            &nbsp&nbsp&nbsp&nbsp<a href="#a0">создание</a>,&nbsp&nbsp&nbsp<a href="#a1">функция len() и оператор принадлежности in</a>,&nbsp&nbsp&nbsp<a href="#a3">метод index()</a>,
+            &nbsp&nbsp&nbsp<a href="#a5">сортировка кортежа</a>,&nbsp&nbsp&nbsp<a href="#a6">преобразование кортежа в строку</a>,&nbsp&nbsp&nbsp<a href="#a4">метод count()</a>,
+            &nbsp&nbsp&nbsp<a href="#a7">сравнение кортежей</a>,&nbsp&nbsp&nbsp<a href="#a8">встроенные функции sum(), min(), max()</a></hr>
+    <h2>Операции над кортежами</h2>
+            <span style="font-size:20px;"><span style="font-family:arial,helvetica,sans-serif;">
+        <li><p><a href="#a0">tpl = tuple()</a> - создание кортежа.</p></li>
+        <li><p><a href="#a1">len(tpl)</a> - число элементов в множестве (размер множества).</p></li>
+        <li><p><a href="#a1">val in tpl</a> - принадлежит ли val кортежу tpl.</p></li>
+        <li><p><a href="#a3"><b>tpl.index(val)</b></a> - возвращает индекс первого элемента, значение которого равняется переданному в метод значению.</p></li>
+        <li><p><a href="#a4"><b>tpl.count(val)</b></a> - возвращает количество элементов в кортеже, значения которых равны переданному в метод значению.</p></li>
+        <li><p><a href="#a5"><b>tpl(sorted(not_sorted_tpl))</b></a> - сортировка кортежа</p></li>
+        <li><p><a href="#a6"><b>'char'.join(tpl)</b></a> - переобразование в строку с разделителем char.</p></li>
+        <li><p><a href="#a7"><b>==, >=, <=, <, >, != </b></a> - сравнение кортежей.</p></li>
+        <li><p><a href="#a8"><b>sum(), min(), max() </b></a> - суммирование и нахождение макс и мин значений.</p></li>
+            </span></span></span>
+            <h2>Создание кортежей</h2>
+            <span style="font-size:20px;"><span style="font-family:arial,helvetica,sans-serif;">
+                <p>Кортежи представляют собой не изменяемые списки с возможностью итерации и срезов.</p>
+                <p>Для создания кортежа используются круглые скобки, в которые помещаются его значения, разделенные запятыми:</p>
+                <pre >
+                    tom = ("Tom", 23)
+                    print(tom)     # ("Tom", 23)
+                </pre>
+                <p>Также для определения кортежа мы можем просто перечислить значения через запятую без применения скобок:</p>
+                <pre>
+                    tom = "Tom", 23
+                    print(tom)     # ("Tom", 23)
+                </pre>
+                <p>Если вдруг кортеж состоит из одного элемента, то после единственного элемента кортежа необходимо поставить запятую:</p>
+                <pre >tom = ("Tom",)
+                </pre>
+                <p>Для создания кортежа из другого набора элементов, например, из списка, можно передать список в функцию <span class="b">tuple()</span>, которая возвратит кортеж:</p>
+                <pre >
+                data = ["Tom", 37, "Google"]
+                tom = tuple(data)
+                print(tom)      # ("Tom", 37, "Google")
+                </pre>
+                <pre>
+Строку можно преобразовать в кортеж с помощью функции tuple().
+Приведенный ниже код:
+
+                letters = 'abcdefghijkl'
+                tpl = tuple(letters)
+                print(tpl)
+                выводит:
+
+                ('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l')
+Обратите внимание, что следующий код:
+
+                number = 12345
+                tpl = tuple(number)
+                print(tpl)
+приведет к ошибке:
+
+                TypeError: 'int' object is not iterable
+поскольку тип данных int не является итерируемым объектом. Для преобразования числа в кортеж, сначала нужно число преобразовать в строку,
+                    а уже потом использовать функцию tuple().
+                </pre></span></span>
+            <h2 id="a1">Функция len(). Оператор принадлежности in&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<a href="#a">Up</a></h2>
+        <span style="font-size:20px;"><span style="font-family:arial,helvetica,sans-serif;">
+            <p>&nbsp&nbsp&nbsp&nbspДлиной кортежа называется количество его элементов. Для того чтобы посчитать длину кортежа мы используем встроенную функцию <b>len()</b>.
+                Оператор <b>in</b> позволяет проверить, содержит ли кортеж некоторый элемент.</p>
+            <pre>
+Следующий программный код:
+
+    numbers = (2, 4, 6, 8, 10)
+    languages = ('Python', 'C#', 'C++', 'Java')
+    print(len(numbers))      # выводим длину кортежа numbers
+    print(len(languages))    # выводим длину кортежа languages
+    print(len(('apple', 'banana', 'cherry')))   # выводим длину кортежа, состоящего из 3 элементов
+
+выведет:
+
+    5
+    4
+    3
+            </pre>
+        <pre>
+            Рассмотрим следующий код:
+
+    numbers = (2, 4, 6, 8, 10)
+    if 2 in numbers:
+        print('Кортеж numbers содержит число 2')
+    else:
+        print('Кортеж numbers не содержит число 2')
+Такой код проверяет, содержит ли кортеж numbers число 2 и выводит соответствующий текст:
+
+    Кортеж numbers содержит число 2
+Мы можем использовать оператор <b>in</b> вместе с логическим оператором not. Например
+
+numbers = (2, 4, 6, 8, 10)
+if 0 not in numbers:
+    print('Кортеж numbers не содержит нулей')
+        </pre></span></span>
+            <h2 id="a3">Метод index()&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<a href="#a">Up</a></h2>
+        <span style="font-size:20px;"><span style="font-family:arial,helvetica,sans-serif;">
+            <pre>
+    Метод index() возвращает индекс первого элемента, значение которого равняется переданному в метод значению. Таким образом, в метод передается один
+параметр: <b>value</b> - значение, индекс которого требуется найти.
+Если элемент в кортеже не найден, то во время выполнения происходит ошибка.
+Следующий программный код:
+
+    names = ('Gvido', 'Roman' , 'Timur')
+    position = names.index('Timur')
+    print(position)
+выведет:
+
+    2
+Следующий программный код:
+
+    names = ('Gvido', 'Roman' , 'Timur')
+    position = names.index('Anders')
+    print(position)
+приводит к ошибке:
+
+    ValueError: tuple.index(x): x not in tuple
+Чтобы избежать таких ошибок, можно использовать метод <b>index()</b> вместе с оператором принадлежности <b>in</b>:
+
+    names = ('Gvido', 'Roman' , 'Timur')
+    if 'Anders' in names:
+        position = names.index('Anders')
+        print(position)
+    else:
+        print('Такого значения нет в кортеже')
+            </pre></span></span>
+            <h2 id="a4">Метод count()&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<a href="#a">Up</a></h2>
+        <span style="font-size:20px;"><span style="font-family:arial,helvetica,sans-serif;">
+            <p>&nbsp&nbsp&nbsp&nbspМетод <b>count()</b> возвращает количество элементов в кортеже, значения которых равны переданному в метод значению.</p>
+            <pre>
+Таким образом, в метод передается один параметр:
+<b>value</b>: значение, количество элементов, равных которому,  нужно посчитать.
+Если значение в кортеже не найдено, то метод возвращает 0.
+
+Следующий программный код:
+
+    names = ('Timur', 'Gvido', 'Roman', 'Timur', 'Anders', 'Timur')
+    cnt1 = names.count('Timur')
+    cnt2 = names.count('Gvido')
+    cnt3 = names.count('Josef')
+    print(cnt1)
+    print(cnt2)
+    print(cnt3)
+выведет:
+
+    3
+    1
+    0
+            </pre></span></span>
+            <h2 id="a5">Сортировка кортежа&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<a href="#a">Up</a></h2>
+        <span style="font-size:20px;"><span style="font-family:arial,helvetica,sans-serif;">
+            <p>&nbsp&nbsp&nbsp&nbspКак мы помним, списки имеют метод <b>sort()</b>, который осуществляет сортировку на месте, то есть меняет порядок исходного списка.
+                Поскольку кортежи по своей природе неизменяемы, то встроенного метода <b>sort()</b> они не содержат, тем не менее с помощью встроенной функции <b>sorted()</b>
+                (не путать с списочным методом <b>sort()</b>) мы можем сортировать значения в кортежах.</p>
+            <pre>
+    Приведенный ниже код:
+
+    not_sorted_tuple = (34, 1, 8, 67, 5, 9, 0, 23)
+    print(not_sorted_tuple)
+    sorted_tuple = tuple(sorted(not_sorted_tuple))
+    print(sorted_tuple)
+выводит:
+
+    (34, 1, 8, 67, 5, 9, 0, 23)
+    (0, 1, 5, 8, 9, 23, 34, 67)
+Обратите внимание, что функция <b>sorted()</b> возвращает список, но с помощью функции <b>tuple()</b> мы приводим результат сортировки к кортежу.
+Для сортировки кортежа можно воспользоваться явным преобразованием в список и использовать метод <b>ort()</b>s:
+
+    not_sorted_tuple = ('cc', 'aa', 'dd', 'bb')
+    tmp = list(not_sorted_tuple)
+    tmp.sort()
+    sorted_tuple = tuple(tmp)
+    print(sorted_tuple)
+            </pre></span></span>
+            <h2 id="a6">Преобразование кортежа в строку&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<a href="#a">Up</a></h2>
+        <span style="font-size:20px;"><span style="font-family:arial,helvetica,sans-serif;">
+            <p>&nbsp&nbsp&nbsp&nbspКортеж можно преобразовать в строку с помощью строкового метода <b>join()</b>.</p>
+            <pre>
+    notes = ('Do', 'Re', 'Mi', 'Fa', 'Sol', 'La', 'Si')
+    string1 = ''.join(notes)
+    string2 = '.'.join(notes)
+    print(string1)
+    print(string2)
+выводит:
+
+    DoReMiFaSolLaSi
+    Do.Re.Mi.Fa.Sol.La.Si
+Обратите внимание, что следующий код:
+
+    number = 12345
+    tpl = tuple(number)
+    print(tpl)
+    приведет к ошибке:
+
+TypeError: 'int' object is not iterable
+поскольку тип данных int не является итерируемым объектом. Для преобразования числа в кортеж, сначала нужно число преобразовать в строку, а уже потом
+использовать функцию tuple().
+            </pre></span></span>
+            <h2 id="a7">Сравнение кортежей&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<a href="#a">Up</a></h2>
+        <span style="font-size:20px;"><span style="font-family:arial,helvetica,sans-serif;">
+            <p>&nbsp&nbsp&nbsp&nbspКортежи можно сравнивать между собой.</p>
+            <pre>
+    Приведенный ниже код:
+
+    print((1, 8) == (1, 8))
+    print((1, 8) != (1, 10))
+    print((1, 9) < (1, 2))
+    print((2, 5) < (6,))
+    print(('a', 'bc') > ('a', 'de'))
+выводит:
+
+    True
+    True
+    False
+    True
+    False
+Обратите внимание: операции == и != применимы к любым кортежам, независимо от типов элементов. А вот операции <, >, <=, >= применимы только в том случае, когда соответствующие элементы кортежей имеют один тип.
+
+Приведенный ниже код:
+
+    print((7, 5) < ('java', 'python'))
+выводит:
+
+    TypeError: '<' not supported between instances of 'int' and 'str'
+            </pre></span></span>
+            <h2 id="a8">Встроенные функции sum(), min(), max()&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<a href="#a">Up</a></h2>
+        <span style="font-size:20px;"><span style="font-family:arial,helvetica,sans-serif;">
+            <pre>
+                Встроенная функция <b>sum()</b> принимает в качестве параметра кортеж чисел и вычисляет сумму его элементов.
+
+Следующий программный код:
+
+    numbers = (1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+    print('Сумма всех элементов кортежа =', sum(numbers))
+выводит:
+
+    Сумма всех элементов кортежа = 55
+Встроенные функции <b>min()</b> и <b>max()</b> принимают в качестве параметра кортеж и находят минимальный и максимальный элементы соответственно.
+
+Следующий программный код:
+
+    numbers = (3, 4, 10, 3333, 12, -7, -5, 4)
+    print('Минимальный элемент кортежа =', min(numbers))
+    print('Максимальный элемент кортежа =', max(numbers))
+выводит:
+
+    Минимальный элемент кортежа = -7
+    Максимальный элемент кортежа = 3333
+Функции <b>min()</b> и <b>max()</b> можно применять только к кортежам с одним типом данных. Если кортеж содержит разные типы данных, скажем целое число <b>(int)</b> и строку <b>(str)</b>,
+то во время выполнения программы произойдет ошибка.
+            </pre>
+        <a href="#a">Up</a></h2></span></span>
+
+</body>
+</html>

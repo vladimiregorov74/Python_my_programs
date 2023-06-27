@@ -1,0 +1,501 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<hr id="a">
+	<title>Списки</title>
+
+</head>
+
+    <span style="font-size:26px;"><span style="font-family:arial,helvetica,sans-serif;">
+        <a href="./0_Помощь_Python.html">Помощь_Python.html</a></span></span> <br><br>
+<body>
+  <span style="font-size:26px;"><span style="font-family:arial,helvetica,sans-serif;"><span style="color:#00f;">
+  <a href="#a1">Создание списка</a>,&nbsp&nbsp&nbsp<a href="#a2">обращение к элементам списка</a>, &nbsp&nbsp&nbsp<a href="#a3">pазложение списка</a>,&nbsp&nbsp&nbsp<a href="#a4">перебор элементов</a>,&nbsp&nbsp&nbsp<a href="#a5">сравнение списков</a>,&nbsp&nbsp&nbsp<a href="#a6">получение части списка</a>,&nbsp&nbsp&nbsp<a href="#a7">методы и функции по работе со списками</a>,&nbsp&nbsp&nbsp<a href="#a8">добавление и удаление элементов</a>,&nbsp&nbsp&nbsp<a href="#a9">проверка наличия элемента</a>,&nbsp&nbsp&nbsp<a href="#a10">удаление с помощью del</a>,&nbsp&nbsp&nbsp<a href="#a11">подсчет вхождений</a>,&nbsp&nbsp&nbsp<a href="#a12">сортировка</a>,&nbsp&nbsp&nbsp<a href="#a13">минимальное и максимальное значения</a>,&nbsp&nbsp&nbsp<a href="#a14">копирование списков</a>,&nbsp&nbsp&nbsp<a href="#a15">соединение списков</a>,&nbsp&nbsp&nbsp<a href="#a16">списки списков</a>,&nbsp&nbsp&nbsp<a href="#a17">преобразование списка в строку</a> </span></span></span>
+  <hr>
+<span style="font-size:26px;"><span style="font-family:arial,helvetica,sans-serif;">
+	<p>Для работы с наборами данных Python предоставляет такие встроенные типы как списки, кортежи и словари.</p>
+	<p>Список (list) представляет тип данных, который хранит набор или последовательность элементов. Во многих языках программирования есть аналогичная структура данных, которая называется массив.</p>
+	<h2 id="a7">Методы и функции по работе со списками</h2>
+	<p>Для управления элементами списки имеют целый ряд методов. Некоторые из них:</p>
+	<ul>
+	<li><p><span style="color: #0000ff;"><a href="#a8">append(item)</a></span>: добавляет элемент item в конец списка</p></li>
+	<li><p><span style="color: #0000ff;"><a href="#a8">insert(index, item)</a></span>: добавляет элемент item в список по индексу index</p></li>
+	<li><p><span style="color: #0000ff;"><a href="#a8">extend(items)</a></span>: добавляет набор элементов items в конец списка</p></li>
+	<li><p><span style="color: #0000ff;"><a href="#a8">remove(item)</a></span>: удаляет элемент item. Удаляется только первое вхождение элемента. Если элемент не найден, генерирует исключение ValueError</p></li>
+	<li><p><span style="color: #0000ff;"><a href="#a8">clear()</a></span>: удаление всех элементов из списка</p></li>
+	<li><p><span style="color: #0000ff;"><a href="#a8">index(item)</a></span>: возвращает индекс элемента item. Если элемент не найден, генерирует исключение ValueError</p></li>
+	<li><p><span style="color: #0000ff;"><a href="#a8">pop([index])</a></span>: удаляет и возвращает элемент по индексу index. Если индекс не передан, то просто удаляет последний элемент.</p></li>
+	<li><p><span style="color: #0000ff;"><a href="#a9">item in list</a></span>: проверять наличие элементa item в списке list.</p></li>
+	<li><p><span style="color: #0000ff;"><a href="#a10">del item</a></span>: удаляет указанный элемент.</p></li>
+	<li><p><span style="color: #0000ff;"><a href="#a11">count(item)</a></span>: возвращает количество вхождений элемента item в список</p></li>
+	<li><p><span style="color: #0000ff;"><a href="#a12">sort([key])</a></span>: сортирует элементы. По умолчанию сортирует по возрастанию. Но с помощью параметра key мы можем передать функцию сортировки.</p></li>
+	<li><p><span style="color: #0000ff;"><a href="#a12">reverse()</a></span>: расставляет все элементы в списке в обратном порядке</p></li>
+	<li><p><span style="color: #0000ff;"><a href="#a14">copy()</a></span>: копирует список</p></li>
+	</ul>
+	<p>Кроме того, Python предоставляет ряд встроенных функций для работы со списками:</p>
+	<ul>
+	<li><p><span style="color: #0000ff;">len(list)</span>: возвращает длину списка</p></li>
+	<li><p><span style="color: #0000ff;"><a href="#a12">sorted(list, [key])</a></span>: возвращает отсортированный список</p></li>
+	<li><p><span style="color: #0000ff;"><a href="#a13">min(list)</a></span>: возвращает наименьший элемент списка</p></li>
+	<li><p><span style="color: #0000ff;"><a href="#a13">max(list)</a></span>: возвращает наибольший элемент списка</p></li>
+	<li><p><span style="color: #0000ff;"><a href="#a17">"...".join(list)</a></span>: возвращает строку из элементов списка</p></li>
+	</ul>
+	<h2 id="a1">Создание списка&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<a href="#a">Up</a></h2>
+	<p>Для создания списка применяются квадратные скобки <span style="color: #0000ff;">[]</span>, внутри которых через запятую перечисляются элементы списка. Например, определим список чисел:</p>
+	<pre>
+	numbers = [1, 2, 3, 4, 5]
+	</pre>
+	<p>Подобным образом можно определять списки с данными других типов, например, определим список строк:</p>
+	<pre>people = ["Tom", "Sam", "Bob"]</pre>
+	<p>Также для создания списка можно использовать функцию-конструктор <span style="color: #0000ff;">list()</span>:</p>
+	<pre>
+	numbers1 = []
+	numbers2 = list()
+	</pre>
+	<div>
+	<p>Оба этих определения списка аналогичны - они создают пустой список.</p>
+	<p>Список необязательно должен содержать только однотипные объекты. Мы можем поместить в один и тот же список одновременно строки, числа, объекты других типов данных:</p>
+	<pre>objects = [1, 2.6, "Hello", True]</pre>
+	<p>Для проверки элементов списка можно использовать стандартную функцию print, которая выводит содержимое списка в удобочитаемом виде:</p>
+	</div>
+	<pre>
+	numbers = [1, 2, 3, 4, 5]
+	people = ["Tom", "Sam", "Bob"]
+
+	print(numbers)  # [1, 2, 3, 4, 5]
+	print(people)   # ["Tom", "Sam", "Bob"]
+	</pre>
+	<p>Конструктор list может принимать набор значений, на основе которых создается список:</p>
+	<pre>
+	numbers1 = [1, 2, 3, 4, 5]
+	numbers2 = list(numbers1)
+	print(numbers2)  # [1, 2, 3, 4, 5]
+
+	letters = list("Hello")
+	print(letters)      # ['H', 'e', 'l', 'l', 'o']
+	</pre>
+	<div>
+	<p>Если необходимо создать список, в котором повторяется одно и то же значение несколько раз, то можно использовать символ звездочки *,
+	то есть фактически применить операцию умножения к уже существующему списку:</p></div>
+	<pre>
+	numbers = [5] * 6   # 6 раз повторяем 5
+	print(numbers)      # [5, 5, 5, 5, 5, 5]
+
+	people = ["Tom"] * 3    # 3 раза повторяем "Tom"
+	print(people)           # ["Tom", "Tom", "Tom"]
+
+	students = ["Bob", "Sam"] * 2   # 2 раза повторяем "Bob", "Sam"
+	print(students)                 # ["Bob", "Sam", "Bob", "Sam"]
+
+	</pre>
+	<h2 id="a2">Обращение к элементам списка&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<a href="#a">Up</a></h2>
+	<div>
+	<p>Для обращения к элементам списка надо использовать индексы, которые представляют номер элемента в списка. Индексы начинаются с нуля.
+	То есть первый элемент будет иметь индекс 0, второй элемент - индекс 1 и так далее. Для обращения к элементам с конца можно использовать отрицательные индексы, начиная с -1. То есть у последнего элемента
+	будет индекс -1, у предпоследнего  -2 и так далее.</p></div>
+	<pre>
+	people = ["Tom", "Sam", "Bob"]
+	# получение элементов с начала списка
+	print(people[0])   # Tom
+	print(people[1])   # Sam
+	print(people[2])   # Bob
+
+	# получение элементов с конца списка
+	print(people[-2])   # Sam
+	print(people[-1])   # Bob
+	print(people[-3])   # Tom
+	</pre>
+	<p>Для изменения элемента списка достаточно присвоить ему новое значение:</p>
+	<pre>
+	people = ["Tom", "Sam", "Bob"]
+
+	people[1] = "Mike"  # изменение второго элемента
+	print(people[1])    # Mike
+	print(people)       # ["Tom", "Mike", "Bob"]
+	</pre>
+	<h2 id="a3">Разложение списка&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<a href="#a">Up</a></h2>
+	<p>Python позволяет разложить список на отдельные элементы:</p>
+	<pre>
+	people = ["Tom", "Bob", "Sam"]
+
+	tom, bob, sam = people
+
+	print(tom)      # Tom
+	print(bob)      # Bob
+	print(sam)      # Sam
+	</pre>
+	<div>
+	<p>В данном случае переменным tom, bob и sam последовательно присваиваются элементы из списка people. Однако следует учитывать, что количество переменных
+	должно быть равно числу элементов присваиваемого списка.</p></div>
+	<h2 id="a4">Перебор элементов&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<a href="#a">Up</a></h2>
+	<p>Для перебора элементов можно использовать как цикл for, так и цикл while.</p>
+	<p>Перебор с помощью цикла <span style="color: #0000ff;">for</span>:</p>
+	<pre>
+	people = ["Tom", "Sam", "Bob"]
+	for person in people:
+		print(person)
+	</pre>
+	<p>Здесь будет производиться перебор списка people, и каждый его элемент будет помещаться в переменную person.</p>
+	<p>Перебор также можно сделать с помощью цикла <span style="color: #0000ff;">while</span>:</p>
+	<pre>
+	people = ["Tom", "Sam", "Bob"]
+	i = 0
+	while i &lt; len(people):
+		print(people[i])    # применяем индекс для получения элемента
+		i += 1
+	</pre>
+	<p>Для перебора с помощью функции <span style="color: #0000ff;">len()</span> получаем длину списка. С помощью счетчика i выводит по элементу, пока значение счетчика не станет равно
+	длине списка.</p>
+	<h2 id="a5">Сравнение списков&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<a href="#a">Up</a></h2>
+	<p>Два списка считаются равными, если они содержат один и тот же набор элементов:</p>
+	<pre>
+	numbers1 = [1, 2, 3, 4, 5]
+	numbers2 = list([1, 2, 3, 4, 5])
+	if numbers1 == numbers2:
+		print("numbers1 equal to numbers2")
+	else:
+		print("numbers1 is not equal to numbers2")
+	</pre>
+	<p>В данном случае оба списка будут равны.</p>
+	<h2 id="a6">Получение части списка&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<a href="#a">Up</a></h2>
+	<p>Если необходимо получить какую-то определенную часть списка, то мы можем применять специальный синтаксис, который может принимать следующие формы:</p>
+	<ul>
+	<li><p><code>list[:end]</code>: через параметр end передается индекс элемента, до которого нужно копировать список</p></li>
+	<li><p><code>list[start:end]</code>: параметр start указывает на индекс элемента, начиная с которого надо скопировать элементы</p></li>
+	<li><p><code>list[start:end:step]</code>: параметр step указывает на шаг, через который будут копироваться элементы из списка. По умолчанию этот параметр равен 1.</p></li>
+	</ul>
+	<pre>
+	people = ["Tom", "Bob", "Alice", "Sam", "Tim", "Bill"]
+
+	slice_people1 = people[:3]   # с 0 по 3
+	print(slice_people1)   # ["Tom", "Bob", "Alice"]
+
+	slice_people2 = people[1:3]   # с 1 по 3
+	print(slice_people2)   # ["Bob", "Alice"]
+
+	slice_people3 = people[1:6:2]   # с 1 по 6 с шагом 2
+	print(slice_people3)   # ["Bob", "Sam", "Bill"]
+	</pre>
+	<p>Можно использовать отрицательные индексы, тогда отсчет будет идти с конца, например, -1 - предпоследний, -2 - третий сконца и так далее.</p>
+	<pre>
+	people = ["Tom", "Bob", "Alice", "Sam", "Tim", "Bill"]
+
+	slice_people1 = people[:-1]   # с предпоследнего по нулевой
+	print(slice_people1)   # ["Tom", "Bob", "Alice", "Sam", "Tim", "Bill"]
+
+	slice_people2 = people[-3:-1]   # с третьего с конца по предпоследний
+	print(slice_people2)   # [ "Sam", "Tim"]
+	</pre>
+
+	<h2 id="a8">Добавление и удаление элементов&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<a href="#a">Up</a></h2>
+	<p>Для добавления элемента применяются методы <code>append()</code>, <code>extend</code> и <code>insert</code>, а для удаления - методы <code>remove()</code>,
+	<code>pop()</code> и <code>clear()</code>.</p>
+	<p>Использование методов:</p>
+	<pre >
+	people = ["Tom", "Bob"]
+
+	# добавляем в конец списка
+	people.append("Alice")  # ["Tom", "Bob", "Alice"]
+	# добавляем на вторую позицию
+	people.insert(1, "Bill")  # ["Tom", "Bill", "Bob", "Alice"]
+	# добавляем набор элементов ["Mike", "Sam"]
+	people.extend(["Mike", "Sam"])      # ["Tom", "Bill", "Bob", "Alice", "Mike", "Sam"]
+	# получаем индекс элемента
+	index_of_tom = people.index("Tom")
+	# удаляем по этому индексу
+	removed_item = people.pop(index_of_tom)     # ["Bill", "Bob", "Alice", "Mike", "Sam"]
+	# удаляем последний элемент
+	last_item = people.pop()     # ["Bill", "Bob", "Alice", "Mike"]
+	# удаляем элемент "Alice"
+	people.remove("Alice")      # ["Bill", "Bob", "Mike"]
+	print(people)       # ["Bill", "Bob", "Mike"]
+	# удаляем все элементы
+	people.clear()
+	print(people)       # []
+
+	</pre>
+	<h2 id="a9">Проверка наличия элемента&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<a href="#a">Up</a></h2>
+	<p>Если определенный элемент не найден, то методы remove и index генерируют исключение. Чтобы избежать подобной ситуации, перед операцией с
+	элементом можно проверять его наличие с помощью ключевого слова <span style="color: #0000ff;">in</span>:</p>
+	<pre>
+	people = ["Tom", "Bob", "Alice", "Sam"]
+
+	if "Alice" in people:
+		people.remove("Alice")
+	print(people)       # ["Tom", "Bob", "Sam"]
+	</pre>
+	<p>Выражение <code>if "Alice" in people</code> возвращает True, если элемент "Alice" имеется в списке people. Поэтому конструкция <code>if "Alice" in people</code>
+	может выполнить последующий блок инструкций в зависимости от наличия элемента в списке.</p>
+	<h2 id="a10">Удаление с помощью del&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<a href="#a">Up</a></h2>
+	<p>Python также поддерживает еще один способ удаления элементов списка - с помощью оператора <span style="color: #0000ff;">del</span>. В качестве параметра этому оператору передается удаляемый элемент
+	или набор элементов:</p>
+	<pre>
+	people = ["Tom", "Bob", "Alice", "Sam", "Bill", "Kate", "Mike"]
+
+	del people[1]   # удаляем второй элемент
+	print(people)   # ["Tom", "Alice", "Sam", "Bill", "Kate", "Mike"]
+	del people[:3]   # удаляем  по четвертый элемент не включая
+	print(people)   # ["Bill", "Kate", "Mike"]
+	del people[1:]   # удаляем  со второго элемента
+	print(people)   # ["Bill"]
+	</pre>
+	<h2 id="a11">Подсчет вхождений&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<a href="#a">Up</a></h2>
+	<p>Если необходимо узнать, сколько раз в списке присутствует тот или иной элемент, то можно применить метод <code>count()</code>:</p>
+	<pre>
+	people = ["Tom", "Bob", "Alice", "Tom", "Bill", "Tom"]
+
+	people_count = people.count("Tom")
+	print(people_count)      # 3
+
+
+	</pre>
+	<h2 id="a12">Сортировка&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<a href="#a">Up</a></h2>
+	<p>Для сортировки по возрастанию применяется метод <span style="color: #0000ff;">sort()</span>:</p>
+	<pre>
+	people = ["Tom", "Bob", "Alice", "Sam", "Bill"]
+
+	people.sort()
+	print(people)      # ["Alice", "Bill", "Bob", "Sam", "Tom"]
+	</pre>
+	<p>Если необходимо отсортировать данные в обратном порядке, то мы можем после сортировки применить метод <code>reverse()</code>:</p>
+	<pre>
+	people = ["Tom", "Bob", "Alice", "Sam", "Bill"]
+
+	people.sort()
+	people.reverse()
+	print(people)      # ["Tom", "Sam", "Bob", "Bill", "Alice"]
+	</pre>
+	<p>При сортировке фактически сравниваются два объекта, и который из них "меньше", ставится перед тем, который "больше". Понятия "больше" и "меньше"
+	довольно условны. И если для чисел все просто - числа расставляются в порядке возрастания, то для строк и других объектов ситуация сложнее. В частности, строки
+	оцениваются по первым символам. Если первые символы равны, оцениваются вторые символы и так далее. При чем цифровой символ считается "меньше",
+	чем алфавитный заглавный символ, а заглавный символ считается меньше, чем строчный.</p>
+	<p>Таким образом, если в списке сочетаются строки с верхним и нижним регистром, то мы можем получить не совсем корректные результаты, так как для нас строка
+	"bob" должна стоять до строки "Tom". И чтобы изменить стандартное поведение сортировки, мы можем передать в метод <code>sort()</code> в качестве параметра функцию:</p>
+	<pre>
+	people = ["Tom", "bob", "alice", "Sam", "Bill"]
+
+	people.sort()       # стандартная сортировка
+	print(people)      # ["Bill", "Sam", "Tom", "alice", "bob"]
+
+	people.sort(key=str.lower)  # сортировка без учета регистра
+	print(people)      # ["alice", "Bill", "bob", "Sam", "Tom"]
+	</pre>
+	<p>Кроме метода <span style="color: #0000ff;">sort</span> мы можем использовать встроенную функцию <span style="color: #0000ff;">sorted</span>, которая имеет две формы:</p>
+	<ul>
+	<li><p><code>sorted(list)</code>: сортирует список list</p></li>
+	<li><p><code>sorted(list, key=функция1, функция2... , reverse=True\False)</code>: сортирует список list, применяя к элементам функцию key. Функция записывается без скобок в конце. Последующие функции применяются если значения отсортированные по предыдущей функции равны.</p></li>
+	</ul>
+	<pre>
+	people = ["Tom", "bob", "alice", "Sam", "Bill"]
+
+	sorted_people = sorted(people, key=str.lower)
+	print(sorted_people)      # ["alice", "Bill", "bob", "Sam", "Tom"]
+	</pre>
+	<pre>При использовании этой функции следует учитывать, что эта функция не изменяет сортируемый список, а все отсортированные элементы
+она помещает в новый список, который возвращается в качестве результата.
+	Вот еще несколько примеров использования функции key при сортировке списка
+Отсортируем список по второму символу:
+	def f(x):
+    	return x[1]
+
+	people = ["Tom", "bob", "alice", "Sam", "Bill", "base", "ball"]
+
+	sorted_people = sorted(people, key=f)
+	print(sorted_people)
+
+	Получим:
+
+	['Sam', 'base', 'ball', 'Bill', 'alice', 'Tom', 'bob']
+
+	Если к тому же необходимо отсортировать и по третьему символу, то код будет иметь вид:
+
+	def f(x):
+    return x[1], x[2]
+
+	people = ["Tom", "bob", "alice", "Sam", "Bill", "base", "ball"]
+
+	sorted_people = sorted(people, key=f)
+	print(sorted_people)
+
+	При этом выведется:
+
+	['ball', 'Sam', 'base', 'Bill', 'alice', 'bob', 'Tom']
+
+	Функцию f можно заменить безымянной функцией lambda. При этом если необходимо выполнить множественную сортировку,
+то после двоеточия функции сортировки заключают в скобки:
+
+	people = ["Tom", "bob", "alice", "Sam", "Bill", "base", "ball"]
+
+	sorted_people = sorted(people, key=lambda x: (x[1], x[2]))
+
+	print(sorted_people)  # ['ball', 'Sam', 'base', 'Bill', 'alice', 'bob', 'Tom']
+
+Отсортируем числа по сумме их составляющих:
+
+	def func(x):
+	'''Функция подсчитывает сумму цифр переданного числа'''
+	s = 0
+	for i in x:
+		s += int(i)
+	return s
+
+	# на вход подаем 10 11 12 13 14 15 16 17 18 19 20 21 22 23
+
+	s = [i for i in input().split()]
+	print(*sorted(s, key=lambda x: func(x)))
+
+Скрипт выводит
+
+	10 11 20 12 21 13 22 14 23 15 16 17 18 19
+
+Та же задача:
+
+	def comparator(n):
+		return sum([int(i) for i in str(n)])
+
+	numbers = [int(i) for i in input().split()]
+
+	print(*sorted(numbers, key=comparator))
+
+Та же задача:
+
+	print(*sorted(input().split(), key=lambda x: sum(map(int, x))))
+
+Та же задача:
+
+	l = input().split()
+	def com(x):
+		return sum([int(i) for i in x])
+	l.sort(key=com)
+	print(*l)
+
+Та же задача:
+
+	print(*sorted(input().split(), key=lambda x: sum([int(i) for i in x])))
+
+	</pre>
+	<h2 id="a13">Минимальное и максимальное значения&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<a href="#a">Up</a></h2>
+	<p>Встроенный функции Python <code>min()</code> и <code>max()</code> позволяют найти минимальное и максимальное значения соответственно:</p>
+	<pre>
+		numbers = [9, 21, 12, 1, 3, 15, 18]
+		print(min(numbers))     # 1
+		print(max(numbers))     # 21</pre>
+
+		<div>Функции min() и max() в Python имеют необязательный параметр key, который позволяет определить функцию, которая
+	будет применяться к каждому элементу итерируемого объекта перед поиском минимального или максимального значения.
+	Например, если вы хотите найти самое длинное слово в списке слов, вы можете использовать функцию max() с параметром
+	key=len, чтобы сортировать элементы по их длине:</div>
+<pre>
+		words = ["apple", "banana", "cherry", "date"]
+		longest_word = max(words, key=len)
+		print(longest_word) # Вывод: "banana"</pre>
+
+		<div>Здесь мы используем функцию max() для поиска наибольшего элемента в списке words, передавая параметр key=len,
+	который указывает, что каждый элемент должен быть сравнен по длине.<br>
+
+	Аналогично, мы можем использовать функцию min() с параметром key для поиска наименьшего элемента по определенному критерию.</div>
+
+
+
+
+	<h2 id="a14">Копирование списков&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<a href="#a">Up</a></h2>
+	<p>При копировании списков следует учитывать, что списки представляют изменяемый (mutable) тип, поэтому если обе переменных будут указывать на один и тот же список, то изменение
+	одной переменной, затронет и другую переменную:</p>
+	<pre>
+	people1 = ["Tom", "Bob", "Alice"]
+	people2 = people1
+	people2.append("Sam")   # добавляем элемент во второй список
+	# people1 и people2 указывают на один и тот же список
+	print(people1)   # ["Tom", "Bob", "Alice", "Sam"]
+	print(people2)   # ["Tom", "Bob", "Alice", "Sam"]
+	</pre>
+	<p>Это так называемое "поверхностное копирование" (shallow copy). И, как правило, такое поведение нежелательное. И чтобы происходило копирование элементов, но при этом
+	переменные указывали на разные списки, необходимо выполнить глубокое копирование (deep copy). Для этого можно использовать метод <span style="color: #0000ff;">copy()</span>:</p>
+	<pre>
+	people1 = ["Tom", "Bob", "Alice"]
+	people2 = people1.copy()    # копируем элементы из people1 в people2
+	people2.append("Sam")   # добавляем элемент ТОЛЬКО во второй список
+	# people1 и people2 указывают на разные списки
+	print(people1)   # ["Tom", "Bob", "Alice"]
+	print(people2)   # ["Tom", "Bob", "Alice", "Sam"]
+	</pre>
+
+	<h2 id="a15">Соединение списков&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<a href="#a">Up</a></h2>
+	<p>Для объединения списков применяется операция сложения (+):</p>
+	<pre>
+	people1 = ["Tom", "Bob", "Alice"]
+	people2 = ["Tom", "Sam", "Tim", "Bill"]
+	people3 = people1 + people2
+	print(people3)   # ["Tom", "Bob", "Alice", "Tom", "Sam", "Tim", "Bill"]
+	</pre>
+	<h2 id="a16">Списки списков&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<a href="#a">Up</a></h2>
+	<p>Списки кроме стандартных данных типа строк, чисел, также могут содержать другие списки. Подобные списки можно ассоциировать с таблицами, где вложенные списки
+	выполняют роль строк. Например:</p>
+	<pre>
+	people = [
+		["Tom", 29],
+		["Alice", 33],
+		["Bob", 27]
+	]
+
+	print(people[0])         # ["Tom", 29]
+	print(people[0][0])      # Tom
+	print(people[0][1])      # 29
+	</pre>
+	<p>Чтобы обратиться к элементу вложенного списка, необходимо использовать пару индексов: <code>people[0][1]</code> - обращение ко второму элементу первого вложенного списка.</p>
+	<p>Добавление, удаление и изменение общего списка, а также вложенных списков аналогично тому, как это делается с обычными (одномерными) списками:</p>
+	<pre>
+	people = [
+		["Tom", 29],
+		["Alice", 33],
+		["Bob", 27]
+	]
+
+	# создание вложенного списка
+	person = list()
+	person.append("Bill")
+	person.append(41)
+	# добавление вложенного списка
+	people.append(person)
+
+	print(people[-1])         # ["Bill", 41]
+
+	# добавление во вложенный список
+	people[-1].append("+79876543210")
+
+	print(people[-1])         # ["Bill", 41, "+79876543210"]
+
+	# удаление последнего элемента из вложенного списка
+	people[-1].pop()
+	print(people[-1])         # ["Bill", 41]
+
+	# удаление всего последнего вложенного списка
+	people.pop(-1)
+
+	# изменение первого элемента
+	people[0] = ["Sam", 18]
+	print(people)            # [ ["Sam", 18], ["Alice", 33], ["Bob", 27]]
+	</pre>
+	<p>Перебор вложенных списков:</p>
+	<pre>
+	people = [
+		["Tom", 29],
+		["Alice", 33],
+		["Bob", 27]
+	]
+
+	for person in people:
+		for item in person:
+			print(item, end=" | ")
+	</pre>
+	<h2 id="a17">Преобразование списка в строку&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<a href="#a">Up</a></h2>
+	<p>Для преобразования списка в строку применяют метод  <code>"разделитель".join(list)</p>
+	<pre>
+	numbers = [9, 21, 12, 1, 3, 15, 18]
+	s = "-".join(numbers)     # используем в качестве разделителя знак минус
+	print(s)     		  # "9-21-12-1-3-15-18"
+	</pre>
+
+</body>
+</html>

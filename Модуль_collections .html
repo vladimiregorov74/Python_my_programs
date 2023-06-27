@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Модуль Collections </title>
+</head>
+<body><hr id="a">
+    <span style="font-size:26px;"><span style="font-family:arial,helvetica,sans-serif;">
+        <a href="./0_Помощь_Python.html">Помощь_Python.html</a></span></span>
+    <hr>
+
+    <span style="font-size:26px;"><span style="font-family:arial,helvetica,sans-serif;">
+        &nbsp;&nbsp;&nbsp;&nbsp;<li><a href="#a1">Класс ChainMap</a></li>
+        &nbsp;&nbsp;&nbsp;&nbsp;<li><a href="#a2">Класс Counter</a></li>
+        &nbsp;&nbsp;&nbsp;&nbsp;<li><a href="#a3">Класс deque</a></li>
+        &nbsp;&nbsp;&nbsp;&nbsp;<li><a href="#a4">Класс defaultdict</a></li>
+        &nbsp;&nbsp;&nbsp;&nbsp;<li><a href="#a5">Класс namedtuple()</a></li>
+        &nbsp;&nbsp;&nbsp;&nbsp;<li><a href="#a6">Класс OrderedDict</a></li>
+
+
+    </span></span><br><br>
+
+    <div>&nbsp;&nbsp;&nbsp;&nbsp;Этот модуль реализует специализированные типы данных контейнеров, предоставляя альтернативы встроенным контейнерам
+        общего назначения Python, dict, list, set и tuple.</div>
+    <h2 id="a1"> Класс ChainMap&nbsp;&nbsp;&nbsp;&nbsp;<a href="#a">Up</a></h2>
+    <div>&nbsp;&nbsp;&nbsp;&nbsp;Модуль collections в Python предоставляет различные структуры данных и инструменты для обработки коллекций
+    объектов. Один из полезных классов в этом модуле - ChainMap. Он позволяет объединить несколько словарей в единое
+    представление и обращаться к ним, как к одному словарю. Рассмотрим примеры использования ChainMap:</div>
+    <pre><span style="color: #8010ff;">
+    from collections import ChainMap
+
+    # Создание нескольких словарей
+    dict1 = {'a': 1, 'b': 2}
+    dict2 = {'c': 3, 'd': 4}
+    dict3 = {'e': 5}
+
+    # Создание ChainMap
+    chain_map = ChainMap(dict1, dict2, dict3)
+
+    # Обращение к элементам
+    print(chain_map['a'])  # Вывод: 1
+    print(chain_map['c'])  # Вывод: 3
+    print(chain_map['e'])  # Вывод: 5
+    </span>
+    </pre>
+    <div>В этом примере мы создаем три словаря dict1, dict2 и dict3. Затем мы создаем ChainMap, передавая эти словари в
+        качестве аргументов. После этого мы можем обращаться к элементам ChainMap так же, как к обычному словарю.</div>
+
+    <p>ChainMap также предоставляет несколько полезных методов:</p>
+
+    <div></div><span style="color: #0010ff;">new_child()</span> - создает новый ChainMap, добавляя словарь в начало
+    цепочки. Изменения в новом словаре будут видны в ChainMap.</div>
+    <pre><span style="color: #8010ff;">
+    from collections import ChainMap
+
+    # Создание нескольких словарей
+    dict1 = {'a': 1, 'b': 2}
+    dict2 = {'c': 3, 'd': 4}
+    dict3 = {'e': 5}
+    chain_map = ChainMap(dict1)
+    chain_map = chain_map.new_child(dict2)
+    print(chain_map)  # Вывод: ChainMap({'c': 3, 'd': 4}, {'a': 1, 'b': 2})
+    </span>
+    </pre>
+    <div><span style="color: #0010ff;">maps</span> - возвращает список всех словарей в ChainMap.</div>
+    <pre><span style="color: #8010ff;">
+    from collections import ChainMap
+
+    # Создание нескольких словарей
+    dict1 = {'a': 1, 'b': 2}
+    dict2 = {'c': 3, 'd': 4}
+    dict3 = {'e': 5}
+
+    chain_map = ChainMap(dict1, dict2, dict3)
+    print(chain_map.maps)  # Вывод: [{'a': 1, 'b': 2}, {'c': 3, 'd': 4}, {'e': 5}]
+
+    </span></pre>
+    <div><span style="color: #0010ff;">parents</span> - возвращает новый ChainMap, исключая последний словарь из цепочки.</div>
+    <pre><span style="color: #8010ff;">
+    from collections import ChainMap
+
+    # Создание нескольких словарей
+    dict1 = {'a': 1, 'b': 2}
+    dict2 = {'c': 3, 'd': 4}
+    dict3 = {'e': 5}
+
+    chain_map = ChainMap(dict1, dict2, dict3)
+    parents_chain_map = chain_map.parents
+    print(parents_chain_map.maps)  # Вывод: [{'a': 1, 'b': 2}, {'c': 3, 'd': 4}]
+
+    </span></pre>
+    <div>ChainMap также обладает другими функциями, позволяющими выполнять операции над словарями, такие как<span style="color: #0010ff;">
+        keys(), values(), items(), </span>а также возможность проверки наличия ключа в ChainMap с помощью оператора <span style="color: #0010ff;">in</span>.
+    ChainMap очень полезен, когда вам нужно объединить несколько словарей в один и обращаться к ним как к единому словарю,
+    сохраняя при этом доступ к исходным словарям. Это может быть особенно удобно при работе с конфигурационными файлами или настройками.</div>
+
+    <h2 id="a2"> Класс Counter&nbsp;&nbsp;&nbsp;&nbsp;<a href="#a">Up</a></h2>
+    <div>Модуль <span style="color: #0010ff;">collections</span> в Python также содержит класс Counter, который предоставляет удобный способ подсчета
+    элементов в итерируемом объекте. Вот некоторые примеры использования класса Counter:</div>
+    <pre><span style="color: #8010ff;">
+    from collections import Counter
+
+    # Создание объекта Counter из списка
+    my_list = [1, 2, 3, 2, 1, 3, 4, 2, 1]
+    counter = Counter(my_list)
+    print(counter)  # Вывод: Counter({1: 3, 2: 3, 3: 2, 4: 1})
+
+    # Создание объекта Counter из строки
+    my_string = 'abracadabra'
+    counter = Counter(my_string)
+    print(counter)  # Вывод: Counter({'a': 5, 'b': 2, 'r': 2, 'c': 1, 'd': 1})
+    </span></pre>
+    <div>Давайте подробнее рассмотрим каждый метод класса `Counter` из модуля `collections`:</div><br>
+
+    <div><span style="color: #0010ff;">most_common([n])</span>> - возвращает наиболее распространенные элементы и их количество
+        в порядке убывания. Метод принимает необязательный аргумент `n`, который указывает, сколько элементов нужно вернуть
+        (по умолчанию возвращаются все элементы).</div>
+
+    <pre><span style="color: #8010ff;">
+    my_list = [1, 2, 3, 2, 1, 3, 4, 2, 1]
+    counter = Counter(my_list)
+    most_common = counter.most_common(2)
+    print(most_common)  # Вывод: [(1, 3), (2, 3)]
+    </span></pre>
+
+
+    <div><span style="color: #0010ff;">update([elements])</span> - обновляет текущий объект `Counter`, добавляя элементы
+        из `elements`. Если `elements` не указан, то метод не делает ничего.</div>
+
+    <pre><span style="color: #8010ff;">
+    counter1 = Counter({'a': 2, 'b': 3})
+    counter2 = Counter({'b': 1, 'c': 2})
+    counter1.update(counter2)
+    print(counter1)  # Вывод: Counter({'a': 2, 'b': 4, 'c': 2})
+    </span></pre>
+
+    <div><span style="color: #0010ff;">subtract([elements])</span> - вычитает элементы из текущего объекта `Counter`. Если `elements`
+        не указан, то метод не делает ничего.</div>
+
+    <pre><span style="color: #8010ff;">
+    counter1 = Counter({'a': 2, 'b': 3})
+    counter2 = Counter({'b': 1, 'c': 2})
+    counter1.subtract(counter2)
+    print(counter1)  # Вывод: Counter({'a': 2, 'b': 2, 'c': -2})
+    </span></pre>
+
+    <div><span style="color: #0010ff;">elements()</span> - возвращает итератор, перечисляющий все элементы объекта `Counter`
+        в произвольном порядке. Если количество элемента равно нулю или отрицательному числу, элементы будут пропущены.</div>
+
+    <pre><span style="color: #8010ff;">
+    my_list = [1, 2, 3, 2, 1, 3, 4, 2, 1]
+    counter = Counter(my_list)
+    elements = list(counter.elements())
+    print(elements)  # Вывод: [1, 1, 1, 2, 2, 2, 3, 3, 4]
+    </span></pre>
+
+    <div><span style="color: #0010ff;">total()</span> возвращает общую сумму всех элементов в объекте Counter.</div>
+    <pre><span style="color: #8010ff;">
+    from collections import Counter
+
+    c = Counter(a=10, b=5, c=0)
+
+    tot = c.total()
+    print(tot)  # Вывод: 9
+    </span></pre>
+
+    <div><span style="color: #0010ff;">keys()</span> - возвращает итератор, перечисляющий все уникальные элементы объекта `Counter`.</div>
+
+    <pre><span style="color: #8010ff;">
+    from collections import Counter
+
+    my_list = [1, 2, 3, 2, 1, 3, 4, 2, 1]
+    counter = Counter(my_list)
+    keys = list(counter.keys())
+    print(keys)  # Вывод: [1, 2, 3, 4]
+    </span></pre>
+
+    <div><span style="color: #0010ff;">values()</span> - возвращает итератор, перечисляющий количество каждого элемента
+        в объекте `Counter`.</div>
+    <pre><span style="color: #8010ff;">
+    from collections import Counter
+
+    my_list = [1, 2, 3, 2, 1, 3, 4, 2, 1]
+    counter = Counter(my_list)
+    values = list(counter.values())
+    print(values)  # Вывод: [3, 3, 2, 1]
+    </span></pre>
+
+    <div><span style="color: #0010ff;">items()</span> - возвращает итератор, перечисляющий пары (элемент, количество) для каждого элемента в объекте `Counter`.</div>
+    <pre><span style="color: #8010ff;">
+    from collections import Counter
+
+    my_list = [1, 2, 3, 2, 1, 3, 4, 2, 1]
+    counter = Counter(my_list)
+    items = list(counter.items())
+    print(items)  # Вывод: [(1, 3), (2, 3), (3, 2), (4, 1)]
+    </span></pre>
+    <div>Класс `Counter` также поддерживает операции сложения (`+`), вычитания (`-`), пересечения (`&`) и объединения (`|`),
+        что позволяет производить различные операции над объектами `Counter` и другими итерируемыми объектами.</div>
+
+    <h2 id="a3"> Класс deque&nbsp;&nbsp;&nbsp;&nbsp;<a href="#a">Up</a></h2>
+
+    <div>&nbsp;&nbsp;&nbsp;&nbsp;Класс <span style="color: #0010ff;">deque</span> представляет двустороннюю очередь (double-ended queue), работающую
+        со списками, что означает, что вы можете добавлять и удалять элементы как с начала, так и с конца очереди эффективно.
+        Он обеспечивает эффективные операции добавления и удаления элементов из обоих концов очереди.<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;Чтобы использовать класс `deque`, сначала нужно импортировать его из модуля `collections`:</div>
+
+    <pre><span style="color: #8010ff;">
+    from collections import deque
+    </span></pre>
+
+    <div>После этого вы можете создать объект <span style="color: #0010ff;">deque</span> с помощью следующего синтаксиса:</div>
+    <pre><span style="color: #8010ff;">
+    my_deque = deque()
+    </span></pre>
+    <div>Вы также можете передать итерируемый объект в конструктор <span style="color: #0010ff;">deque</span> для инициализации начальными элементами:</div>
+
+    <pre><span style="color: #8010ff;">
+    my_deque = deque([1, 2, 3])
+    </span></pre>
+
+    <div>Теперь давайте рассмотрим основные методы класса <span style="color: #0010ff;">deque</span>:<br><br>
+        <span style="color: #0010ff;">append(x)</span> - добавляет элемент `x` в конец очереди.</div>
+
+    <pre><span style="color: #8010ff;">
+    from collections import deque
+    my_deque = deque()
+    my_deque = deque([1, 2, 3])
+    my_deque.append(4)  # Получим deque([1, 2, 3, 4])
+    </span></pre>
+
+    <div><span style="color: #0010ff;">appendleft(x)</span> - добавляет элемент `x` в начало очереди.</div>
+    <pre><span style="color: #8010ff;">
+    from collections import deque
+    my_deque = deque()
+    my_deque = deque([1, 2, 3])
+    my_deque.appendleft(0)  # Получим deque([0, 1, 2, 3, 4])
+    </span></pre>
+
+    <div><span style="color: #0010ff;">extend(iterable)</span> - добавляет элементы из итерируемого объекта `iterable` в конец очереди.</div>
+    <pre><span style="color: #8010ff;">
+    from collections import deque
+    my_deque = deque()
+    my_deque = deque([1, 2, 3])
+    my_deque.extend([5, 6, 7])  # Получим deque([1, 2, 3, 5, 6, 7])
+    </span></pre>
+
+
+    <div><span style="color: #0010ff;">extendleft(iterable)</span> - добавляет элементы из итерируемого объекта `iterable` в начало
+        очереди. Элементы будут добавлены в обратном порядке, чтобы сохранить порядок итерируемого объекта.</div>
+   <pre><span style="color: #8010ff;">
+    from collections import deque
+    my_deque = deque()
+    my_deque = deque([1, 2, 3])
+    my_deque.extendleft([4, 3, 2, 1])  # Получим deque([1, 2, 3, 4, 1, 2, 3])
+    </span></pre>
+
+    <div><span style="color: #0010ff;">pop()</span> - удаляет и возвращает элемент с конца очереди.</div>
+
+    <pre><span style="color: #8010ff;">
+    from collections import deque
+    my_deque = deque()
+    my_deque = deque([1, 2, 3])
+    last_element = my_deque.pop()  # Получим 3
+    </span></pre>
+    <div><span style="color: #0010ff;">popleft()</span> - удаляет и возвращает элемент с начала очереди.</div>
+
+    <pre><span style="color: #8010ff;">
+    from collections import deque
+    my_deque = deque()
+    my_deque = deque([1, 2, 3])
+    first_element = my_deque.popleft()  # Получим 1
+    </span></pre>
+
+    <div><span style="color: #0010ff;">remove(x)</span> - удаляет первое вхождение элемента `x` из очереди.</div>
+    <pre><span style="color: #8010ff;">
+    from collections import deque
+    my_deque = deque()
+    my_deque = deque([1, 2, 3])
+    my_deque.remove(3)  # Получим deque([1, 2, 4])
+    </span></pre>
+
+    <div><span style="color: #0010ff;">clear()</span> - удаляет все элементы из очереди, делая ее пустой.</div>
+
+    <pre><span style="color: #8010ff;">
+    from collections import deque
+    my_deque = deque()
+    my_deque = deque([1, 2, 3])
+    my_deque.clear()  # Получим deque([])
+    </span></pre>
+
+    <div><span style="color: #0010ff;">count(x)</span> - возвращает количество вхождений элемента `x` в очереди.</div>
+
+    <pre><span style="color: #8010ff;">
+    from collections import deque
+    my_deque = deque()
+    my_deque = deque([1, 2, 3])
+    count = my_deque.count(2)  # Получим 1
+    </span></pre>
+
+    <div><span style="color: #0010ff;">rotate(n)</span> - выполняет циклический сдвиг очереди вправо (положительное `n`) или влево (отрицательное `n`) на `n` шагов.</div>
+
+    <pre><span style="color: #8010ff;">
+    from collections import deque
+    my_deque = deque()
+    my_deque = deque([1, 2, 3])
+    my_deque.append(4)  # Получим deque([1, 2, 3, 4])
+    my_deque.rotate(1)  # сдвиг вправо на 1 шаг deque([4, 1, 2, 3])
+    my_deque.rotate(-3)  # сдвиг влево на 1 шаг deque([3, 4, 1, 2])
+    </span></pre>
+
+    <div><span style="color: #0010ff;">reverse()</span> - обращает порядок элементов в очереди.</div>
+
+    <pre><span style="color: #8010ff;">
+    from collections import deque
+    my_deque = deque()
+    my_deque = deque([1, 2, 3])
+    my_deque.append(4)
+    my_deque.reverse()   # Получим deque([4, 3, 2, 1])
+    </span></pre>
+
+    <div><span style="color: #0010ff;">copy()</span> - создает и возвращает копию очереди.</div>
+
+    <pre><span style="color: #8010ff;">
+    from collections import deque
+    my_deque = deque()
+    my_deque = deque([1, 2, 3])
+    my_deque_copy = my_deque.copy()  # Получим deque([1, 2, 3])
+    my_deque.append(4)  # Получим deque([1, 2, 3, 4])
+    </span></pre>
+
+    <div>Это основные методы класса <span style="color: #0010ff;">deque</span>. Он также поддерживает операции индексирования
+        и проверки наличия элементов, а также имеет атрибуты, такие как <span style="color: #0010ff;">`len()`, `maxlen` и `clear()`</span></div>.
+    <div><span style="color: #0010ff;">maxlen</span> - атрибут, который определяет максимальную длину (количество элементов),
+        которое может содержать очередь. При добавлении новых элементов в очередь, если ее длина превышает
+        <span style="color: #0010ff;">maxlen</span>, самые старые элементы будут автоматически удаляться с противоположного конца.
+        Если <span style="color: #0010ff;">maxlen</span> не задан (по умолчанию), очередь может содержать произвольное количество
+        элементов.</div>
+    <pre>Пример использования maxlen:<span style="color: #8010ff;">
+    from collections import deque
+
+    my_deque = deque(maxlen=3)
+    my_deque.extend([1, 2, 3, 4])
+    print(my_deque)  # Вывод: deque([2, 3, 4], maxlen=3)
+    </span></pre>
+    <div><span style="color: #0010ff;">append()</span> и <span style="color: #0010ff;">appendleft()</span> - методы добавления элементов в очередь могут использоваться вместе с атрибутом <span style="color: #0010ff;">maxlen</span>
+        для автоматического удаления старых элементов. Если длина очереди превышает <span style="color: #0010ff;">maxlen</span>, при добавлении новых элементов
+        самые старые элементы будут удалены.</div>
+
+    <pre><span style="color: #8010ff;">
+    from collections import deque
+
+    my_deque = deque(maxlen=3)
+    my_deque.append(1)  # Вывод: eque([1], maxlen=3)
+    my_deque.append(2)  # Вывод: deque([1, 2], maxlen=3)
+    my_deque.append(3)  # Вывод: deque([1, 2, 3], maxlen=3)
+    my_deque.append(4)
+    print(my_deque)  # Вывод: deque([2, 3, 4], maxlen=3)
+
+    </span></pre>
+    <h2 id="a4"> Класс defaultdict&nbsp;&nbsp;&nbsp;&nbsp;<a href="#a">Up</a></h2>
+    <div><span style="color: #0010ff;">defaultdict</span> - это класс из модуля `collections` в Python, который представляет
+    словарь с автоматически создаваемыми значениями по умолчанию для отсутствующих ключей. Он расширяет функциональность обычного
+    словаря, позволяя определить значение по умолчанию при создании, которое будет возвращаться, если обратиться к несуществующему ключу.<br>
+        Чтобы использовать <span style="color: #0010ff;">defaultdict</span>, необходимо сначала импортировать его, затем вы можете создать объект <span style="color: #0010ff;">defaultdict</span>, указав
+    функцию, которая будет использоваться для создания значений по умолчанию:</div>
+    <pre><span style="color: #8010ff;">
+
+    from collections import defaultdict
+    my_dict = defaultdict(int)
+
+    </span></pre>
+
+    <div>В этом примере мы создаем <span style="color: #0010ff;">defaultdict</span> с типом данных <span style="color: #0010ff;">int</span>. Это означает, что если обратиться к несуществующему
+    ключу, будет автоматически создано значение типа <span style="color: #0010ff;">int</span> со значением 0.<br>
+    Теперь рассмотрим основные особенности и методы <span style="color: #0010ff;">defaultdict</span>:<br><br>
+    Автоматическое создание значений по умолчанию:</div>
+
+    <pre><span style="color: #8010ff;">
+
+    my_dict = defaultdict(int)
+    print(my_dict["key"])  # Вывод: 0
+
+    </span></pre>
+
+    <div>В этом примере мы обращаемся к ключу <span style="color: #0010ff;">"key"</span>, которого нет в словаре. Однако, вместо возникновения ошибки, будет
+        автоматически создано значение 0 типа <span style="color: #0010ff;">int</span> для этого ключа.<br><br>
+        Задание других типов значений по умолчанию:</div>
+
+    <pre><span style="color: #8010ff;">
+    my_dict = defaultdict(str)
+    print(my_dict["key"])  # Вывод: ""
+    </span></pre>
+
+    <div>В этом примере мы создаем <span style="color: #0010ff;">defaultdict</span> с типом данных <span style="color: #0010ff;">str</span>. Если обратиться к несуществующему ключу, будет создано
+        пустое значение типа <span style="color: #0010ff;">str</span>.<br><br>
+        Использование лямбда-функции для создания значений по умолчанию:</div>
+
+    <pre><span style="color: #8010ff;">
+    my_dict = defaultdict(lambda: "N/A")
+    print(my_dict["key"])  # Вывод: "N/A"
+    </span></pre>
+
+    <div>В этом примере мы используем лямбда-функцию, чтобы определить значение по умолчанию как `"N/A"`. Это значение будет
+        возвращаться, если обратиться к несуществующему ключу.<br><br>
+        Доступ к значениям и добавление новых элементов:</div>
+
+    <pre><span style="color: #8010ff;">
+    my_dict = defaultdict(int)
+    my_dict["key1"] = 1
+    my_dict["key2"] += 1
+    print(my_dict)  # Вывод: defaultdict(<class 'int'>, {'key1': 1, 'key2': 1})
+    </span></pre>
+
+    <div>В этом примере мы присваиваем значение 1 ключу `"key1"` и увеличиваем значение ключа `"key2"` на 1. Если ключа
+        `"key2"` еще не существует, то будет автоматически создано значение 0 типа `int` и затем увеличено на 1.<br><br>
+        Проверка наличия ключа:</div>
+
+    <pre><span style="color: #8010ff;">
+    my_dict = defaultdict(int)
+    print("key" in my_dict)  # Вывод: False
+    </span></pre>
+
+    <div>В этом примере мы проверяем наличие ключа `"key"` в словаре. Поскольку ключ не существует, возвращается значение `False`.<br><br>
+        Это основные функции и методы класса `defaultdict`. Он предоставляет удобный способ автоматического создания
+        значений по умолчанию для словарей, особенно в случаях, когда вы работаете со словарем, содержащим множество значений
+        различных типов или когда вам нужно предотвратить возникновение ошибки при обращении к несуществующему ключу.</div>
+
+    <h2 id="a5"> Класс namedtuple()&nbsp;&nbsp;&nbsp;&nbsp;<a href="#a">Up</a></h2>
+    <div>Класс <span style="color: #0010ff;">namedtuple </span>в модуле <span style="color: #0010ff;">collections</span> предоставляет удобный
+    способ создания и использования неизменяемых (<span style="color: #0010ff;">immutable</span>) кортежей с доступом к элементам по именам.<br><br>
+    Давайте рассмотрим его подробнее:<br><br>Импортирование класса `<span style="color: #0010ff;">namedtuple</span>`:</div>
+
+    <pre><span style="color: #8010ff;">
+
+    from collections import namedtuple
+
+    </span></pre>
+    <div>Создание именованного кортежа:</div>
+
+    <pre><span style="color: #8010ff;">
+
+    Person = namedtuple('Person', ['name', 'age', 'gender'])
+
+    </span></pre>
+
+    <div>В этом примере мы создаем именованный кортеж с именем `Person` и указываем имена полей в виде списка. Каждое имя
+        поля соответствует конкретному атрибуту в кортеже.<br><br>Создание экземпляра именованного кортежа:</div>
+
+    <pre><span style="color: #8010ff;">
+
+    person = Person(name='John', age=25, gender='male')
+
+    </span></pre>
+<div>Мы создаем экземпляр именованного кортежа `Person`, указывая значения для каждого поля. Теперь мы можем обращаться к
+    элементам по именам:</div>
+
+    <pre><span style="color: #8010ff;">
+
+    print(person.name)   # Вывод: 'John'
+    print(person.age)    # Вывод: 25
+    print(person.gender) # Вывод: 'male'
+
+    </span></pre>
+
+    <div>Доступ к элементам по индексам:</div>
+
+    <pre><span style="color: #8010ff;">
+
+    print(person[0])  # Вывод: 'John'
+    print(person[1])  # Вывод: 25
+
+    </span></pre>
+
+    <div>Мы также можем получить доступ к элементам по индексам, как в обычном кортеже.<br><br>Неизменяемость (<span style="color: #0010ff;">Immutable</span>):</div>
+    <pre><span style="color: #8010ff;">
+
+    person.name = 'Mike'  # Ошибка: именованный кортеж неизменяем
+
+    </span></pre>
+
+    <div>Именованные кортежи неизменяемы, что означает, что нельзя изменить значения их полей после создания. Если попытаться сделать
+        изменения, будет возбуждено исключение `<span style="color: #0010ff;">AttributeError</span>`.<br><br>Методы и атрибуты именованного кортежа:</div>
+
+    <pre><span style="color: #8010ff;">
+
+    from collections import namedtuple
+
+    Person = namedtuple('Person', ['name', 'age', 'gender'])
+    person = Person('John', 25, 'male')
+
+    print(person._fields)  # Вывод: ('name', 'age', 'gender')
+    print(person._asdict())  # Вывод: OrderedDict([('name', 'John'), ('age', 25), ('gender', 'male')])
+    print(person._replace(age=30))  # Вывод: Person(name='John', age=30, gender='male')
+    print(person._asdict())  # Вывод: {'name': 'John', 'age': 25, 'gender': 'male'}
+    person = person._replace(age=30)  # Фиксирует изменения в age=30
+    print(person._asdict())  # Вывод: {'name': 'John', 'age': 30, 'gender': 'male'}
+
+    </span></pre>
+
+    <div>У именованного кортежа есть некоторые полезные атрибуты и методы, такие как `<span style="color: #0010ff;">_fields</span>`, который возвращает имена полей,
+        `<span style="color: #0010ff;">_asdict()</span>`, который возвращает кортеж в виде упорядоченного словаря (<span style="color: #0010ff;">OrderedDict</span>) и
+        `<span style="color: #0010ff;">_replace</span>`. Изменение значения поля <span style="color: #0010ff;">age</span> на <span style="color: #0010ff;">30</span> с помощью метода <span style="color: #0010ff;">_replace()</span> не изменяет сам экземпляр
+        <span style="color: #0010ff;">person</span>. Вместо этого, метод <span style="color: #0010ff;">_replace()</span> возвращает новый экземпляр именованного кортежа, в котором указанное поле было заменено на новое значение.
+        Оригинальный экземпляр person остается без изменений.<br><br>
+
+        Поэтому, когда мы вызываем <span style="color: #0010ff;">print(person._asdict())</span>, мы выводим значения полей текущего экземпляра person, а не значения после
+        использования <span style="color: #0010ff;">_replace()</span>.<br><br>
+
+        Если вы хотите сохранить изменения, вам нужно присвоить результат метода <span style="color: #0010ff;">_replace()</span> новой переменной или обновить сам экземпляр
+        <span style="color: #0010ff;">person</span>.<br> Теперь, после присваивания <span style="color: #0010ff;">person = person._replace(age=30)</span>, значение
+        поля <span style="color: #0010ff;">age</span> в person будет равно <span style="color: #0010ff;">30</span>, и при вызове <span style="color: #0010ff;">print(person._asdict())</span> будет отображаться новое значение.<br><br>
+
+        Изменение значений полей в <span style="color: #0010ff;">namedtuple</span> требует явного сохранения изменений, так как <span style="color: #0010ff;">namedtuple</span> является неизменяемым
+        <span style="color: #0010ff;">(immutable)</span> типом данных. <br><br>Класс `<span style="color: #0010ff;">namedtuple</span>` предоставляет удобный
+        способ определения и использования кортежей с доступом по именам. Он особенно полезен, когда вам нужно работать с набором
+        данных, имеющих разные поля, и вы хотите, чтобы ваш код был более читаемым и понятным.</div>
+
+    <h2 id="a6"> Класс OrderedDict&nbsp;&nbsp;&nbsp;&nbsp;<a href="#a">Up</a></h2>
+    <div>Класс <span style="color: #0010ff;">OrderedDict</span> из модуля <span style="color: #0010ff;">collections</span> в Python представляет словарь, который запоминает порядок добавления
+        элементов. В отличие от обычного словаря (<span style="color: #0010ff;">dict</span>), в котором порядок элементов не гарантируется, <span style="color: #0010ff;">`OrderedDict`</span> сохраняет
+    порядок элементов в том порядке, в котором они были добавлены. <br><br>Давайте рассмотрим основные особенности и методы
+    класса <span style="color: #0010ff;">`OrderedDict`:<br><br>
+            1. Импортирование класса <span style="color: #0010ff;">`OrderedDict`</span>:</div>
+    <pre><span style="color: #8010ff;">
+
+    from collections import OrderedDict
+
+    </span></pre>
+    <div>2. Создание экземпляра <span style="color: #0010ff;">`OrderedDict</span>`:</div>
+    <pre><span style="color: #8010ff;">
+
+    ordered_dict = OrderedDict()
+
+    </span></pre>
+    <div>3. Добавление элементов в <span style="color: #0010ff;">`OrderedDict`</span>:</div>
+    <pre><span style="color: #8010ff;">
+
+    ordered_dict['key1'] = 'value1'
+    ordered_dict['key2'] = 'value2'
+    ordered_dict['key3'] = 'value3'
+
+    </span></pre>
+    <div>Элементы добавляются в <span style="color: #0010ff;">`OrderedDict`</span> с помощью оператора <span style="color: #0010ff;">`[]`</span> так же, как в обычном словаре. Порядок добавления
+    элементов сохраняется.<br><br>
+        4. Итерация по <span style="color: #0010ff;">`OrderedDict`</span>:</div>
+    <pre><span style="color: #8010ff;">
+
+    for key, value in ordered_dict.items():
+        print(key, value)
+
+    </span></pre>
+    <div>При итерации по <span style="color: #0010ff;">`OrderedDict`</span> элементы будут возвращаться в порядке их добавления.<br><br>
+        5. Переупорядочивание элементов <span style="color: #0010ff;">`OrderedDict`</span>:</div>
+    <pre><span style="color: #8010ff;">
+
+    ordered_dict.move_to_end('key1')  # Переместить элемент 'key1' в конец
+
+    </span></pre>
+    <div>Метод <span style="color: #0010ff;">`move_to_end()</span>` позволяет переместить элемент в указанную позицию: в начало (<span style="color: #0010ff;">`last=False</span>`) или в конец
+        (<span style="color: #0010ff;">`last=True</span>`) <span style="color: #0010ff;">`OrderedDict</span>`. Это полезно, если вам нужно изменить порядок элементов.<br><br>
+            6. Сравнение <span style="color: #0010ff;">`OrderedDict</span>`:</div>
+    <pre><span style="color: #8010ff;">
+
+    od1 = OrderedDict({'a': 1, 'b': 2})
+    od2 = OrderedDict({'b': 2, 'a': 1})
+
+    print(od1 == od2)  # Вывод: False
+
+    </span></pre>
+    <div><span style="color: #0010ff;">`OrderedDict`</span> учитывает порядок элементов при сравнении. Если порядок элементов различается, даже если ключи и значения
+        совпадают, сравнение вернет <span style="color: #0010ff;">`False`</span>.<br><br>
+    7. Дополнительные методы:<br><br>
+
+        - <span style="color: #0010ff;">`popitem(last=True)</span>`: Удаляет и возвращает последний (если `<span style="color: #0010ff;">last=True</span>`) или первый (если `<span style="color: #0010ff;">last=False</span>`)
+        добавленный элемент и его значение.<br><br>
+        - <span style="color: #0010ff;">`update(iterable)</span>`: Обновляет <span style="color: #0010ff;">`OrderedDict</span>`, добавляя элементы из другого итерируемого объекта (словаря,
+        списка пар ключ-значение и т.д.).<br><br>
+
+        Вот пример, который демонстрирует использование класса <span style="color: #0010ff;">`OrderedDict</span>`:</div>
+    <pre><span style="color: #8010ff;">
+
+    from collections import OrderedDict
+
+    ordered_dict = OrderedDict()
+
+    ordered_dict['c'] = 3
+    ordered_dict['a'] = 1
+    ordered_dict['b'] = 2
+
+    print(ordered_dict)  # Вывод: OrderedDict([('c', 3), ('a', 1), ('b', 2)])
+
+    ordered_dict.move_to_end('a')
+    print(ordered_dict)
+
+    # Вывод: OrderedDict([('c', 3), ('b', 2), ('a', 1)])
+
+    ordered_dict.popitem(last=False)
+    print(ordered_dict)  # Вывод: OrderedDict([('b', 2), ('a', 1)])
+
+    od1 = OrderedDict({'a': 1, 'b': 2})
+    od2 = OrderedDict({'b': 2, 'a': 1})
+
+    print(od1 == od2)  # Вывод: False
+
+    </span></pre>
+    <div><span style="color: #0010ff;">`OrderedDict</span>` предоставляет удобный способ сохранять порядок элементов при работе со словарями и обеспечивает
+        предсказуемость при их итерации.</div><br><br>
+
+
+
+
+
+
+
+    <a href="#a">Up</a>
+</body>
+</html>
