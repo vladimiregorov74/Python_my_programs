@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Упаковка приложений PyQt5 для Linux с помощью PyInstaller и fpm </title>
+</head>
+<span style="font-size:26px;"><span style="font-family:arial,helvetica,sans-serif;">
+<a href="./0_Помощь_Python.html">Помощь_Python.html</a></span></span>
+  <hr>
+<body>
+<h2>Упаковка приложений PyQt5 для Linux с помощью PyInstaller и fpm
+Превратите свое приложение PyQt5 в устанавливаемые пакеты Linux
+
+Упаковка приложений PyQt5 с помощью fbs</h2>
+<a href="https://www.pythonguis.com/tutorials/packaging-pyqt5-applications-linux-pyinstaller/#menu">Упаковка приложений PyQt5 для Linux с помощью PyInstaller и fpm</a>
+<p>Это руководство разбито на ряд шагов, в которых PyInstaller используется для сборки сначала простых, а затем более сложных приложений PyQt5 в исполняемые файлы Linux. Вы можете пройти его полностью или перейти к частям, наиболее важным для вашего проекта.</p>
+
+В завершение мы создаем .deb-пакет Ubuntu — обычный метод распространения приложений в этих системах. Благодаря магии fpm инструкции будут работать и для других дистрибутивов Linux, таких как Redhat .rpm или Arch .pacman.
+
+Вам всегда необходимо скомпилировать приложение в целевой системе. Итак, если вы хотите создать пакет Ubuntu, сделайте это в Ubuntu.
+
+
+
+
+<h2>Требования</h2>
+PyInstaller «из коробки» работает с PyQt5, и на момент написания статьи текущие версии PyInstaller совместимы с Python 3.6+. Над каким бы проектом вы ни работали, у вас должна быть возможность упаковывать свои приложения. В этом руководстве предполагается, что у вас есть работающая установка Python с pipработающим управлением пакетами.
+
+Для установки PyInstaller, наберите <code>pip</code>.
+<pre><code>
+bash
+pip3 install PyInstaller
+</code></pre>
+Если у вас возникли проблемы с упаковкой ваших приложений, вашим первым шагом всегда должно быть обновление вашего PyInstaller и обновление пакетов последних версий с помощью
+<pre><code>
+bash
+pip3 install --upgrade PyInstaller pyinstaller-hooks-contrib
+</code></pre>
+Модуль перехватчиков содержит инструкции по упаковке PyInstaller для конкретного пакета, которые регулярно обновляются.
+
+<h2>Установка виртуальной среды (необязательно)</h2>
+Вы также можете установить PyQt5 и PyInstaller в виртуальной среде (или виртуальной среде вашего приложения), чтобы поддерживать чистоту вашей среды.
+<pre><code>
+bash
+python3 -m venv packenv
+</code></pre>
+После создания активируйте виртуальную среду, запустив из командной строки:
+<pre><code>
+bash
+call packenv\scripts\activate.bat
+</code></pre>
+Наконец, установите необходимые библиотеки. Для PyQt5 вы должны использовать —
+<pre><code>
+ПИТОН
+pip3 install PyQt5 PyInstaller
+</code></pre>
+<h2>Начнем</h2>
+Рекомендуется начать упаковывать приложение с самого начала, чтобы вы могли убедиться, что упаковка все еще работает по мере ее разработки. Это особенно важно, если вы добавляете дополнительные зависимости.
+
+В этом примере мы начнем с простого скелетного приложения, которое не делает ничего интересного. Как только мы наладим базовый процесс упаковки, мы расширим приложение, включив в него значки и файлы данных. Мы подтвердим сборку по мере продвижения.
+
+Для начала создайте новую папку для своего приложения, а затем добавьте следующий скелет приложения в файл с именем app.py. Вы также можете скачать исходный код и связанные файлы.
+<pre><code>
+#ПИТОН
+from PyQt5 import QtWidgets
+
+import sys
+
+class MainWindow(QtWidgets.QMainWindow):
+
+    def __init__(self):
+        super().__init__()
+
+        self.setWindowTitle("Hello World")
+        l = QtWidgets.QLabel("My simple app.")
+        l.setMargin(10)
+        self.setCentralWidget(l)
+        self.show()
+
+if __name__ == '__main__':
+    app = QtWidgets.QApplication(sys.argv)
+    w = MainWindow()
+    app.exec()
+</code></pre>
+Это простое приложение, которое создает собственный виджет QMainWindowи добавляет к нему простой виджет QLabel. Вы можете запустить это приложение следующим образом.
+<pre><code>
+bash
+python app.py
+</code></pre>
+Должно появиться следующее окно (в Ubuntu).
+
+ <figure class="full-width "><img src="./Resurs/PyInstaller/basic_app.webp" width="150" height="140" data-src="./Resurs/PyInstaller/basic_app.webp"><figcaption></figcaption></figure>
+
+Простое скелетное приложение на PyQt5
+
+<h2>Упаковка приложений Python с помощью PyInstaller</h2>
+
+<h3>Создание базового приложения</h3>
+Теперь у нас есть простой скелет приложения, и мы можем запустить первый тест сборки, чтобы убедиться, что все работает.
+
+Откройте терминал (оболочку) и перейдите в папку, содержащую ваш проект. Теперь вы можете запустить следующую команду, чтобы запустить сборку PyInstaller .
+<pre><code>
+ПИТОН
+pyinstaller app.py
+</code></pre>
+Вы увидите несколько сообщений, предоставляющих отладочную информацию о том, что делает PyInstaller. Они полезны для отладки проблем в вашей сборке, но в противном случае их можно игнорировать. Результат, который я получаю при запуске команды в моей системе, показан ниже.
+<pre><code>
+bash
+$ pyinstaller app.py
+85 INFO: PyInstaller: 4.10
+85 INFO: Python: 3.9.7
+88 INFO: Platform: Linux-5.13.0-39-generic-x86_64-with-glibc2.34
+89 INFO: wrote /home/martin/pyinstaller/linux2/no-datas/pyqt5/app.spec
+91 INFO: UPX is not available.
+91 INFO: Extending PYTHONPATH with paths
+['/home/martin/pyinstaller/linux2/no-datas/pyqt5']
+236 INFO: checking Analysis
+240 INFO: Building because inputs changed
+240 INFO: Initializing module dependency graph...
+243 INFO: Caching module graph hooks...
+255 INFO: Analyzing base_library.zip ...
+2008 INFO: Processing pre-find module path hook distutils from '/home/martin/.local/lib/python3.9/site-packages/PyInstaller/hooks/pre_find_module_path/hook-distutils.py'.
+2013 INFO: distutils: retargeting to non-venv dir '/usr/lib/python3.9'
+4231 INFO: Caching module dependency graph...
+4348 INFO: running Analysis Analysis-00.toc
+4379 INFO: Analyzing /home/martin/pyinstaller/linux2/no-datas/pyqt5/app.py
+4403 INFO: Processing module hooks...
+4403 INFO: Loading module hook 'hook-PyQt5.py' from '/home/martin/.local/lib/python3.9/site-packages/PyInstaller/hooks'...
+4559 WARNING: Hidden import "sip" not found!
+4559 INFO: Loading module hook 'hook-xml.etree.cElementTree.py' from '/home/martin/.local/lib/python3.9/site-packages/PyInstaller/hooks'...
+4560 INFO: Loading module hook 'hook-heapq.py' from '/home/martin/.local/lib/python3.9/site-packages/PyInstaller/hooks'...
+4562 INFO: Loading module hook 'hook-distutils.py' from '/home/martin/.local/lib/python3.9/site-packages/PyInstaller/hooks'...
+4568 INFO: Loading module hook 'hook-xml.py' from '/home/martin/.local/lib/python3.9/site-packages/PyInstaller/hooks'...
+4627 INFO: Loading module hook 'hook-PyQt5.QtWidgets.py' from '/home/martin/.local/lib/python3.9/site-packages/PyInstaller/hooks'...
+4709 INFO: Loading module hook 'hook-difflib.py' from '/home/martin/.local/lib/python3.9/site-packages/PyInstaller/hooks'...
+4711 INFO: Loading module hook 'hook-multiprocessing.util.py' from '/home/martin/.local/lib/python3.9/site-packages/PyInstaller/hooks'...
+4712 INFO: Loading module hook 'hook-sysconfig.py' from '/home/martin/.local/lib/python3.9/site-packages/PyInstaller/hooks'...
+4713 INFO: Loading module hook 'hook-encodings.py' from '/home/martin/.local/lib/python3.9/site-packages/PyInstaller/hooks'...
+4759 INFO: Loading module hook 'hook-PyQt5.QtGui.py' from '/home/martin/.local/lib/python3.9/site-packages/PyInstaller/hooks'...
+4807 INFO: Loading module hook 'hook-lib2to3.py' from '/home/martin/.local/lib/python3.9/site-packages/PyInstaller/hooks'...
+4820 INFO: Loading module hook 'hook-pickle.py' from '/home/martin/.local/lib/python3.9/site-packages/PyInstaller/hooks'...
+4827 INFO: Loading module hook 'hook-PyQt5.QtCore.py' from '/home/martin/.local/lib/python3.9/site-packages/PyInstaller/hooks'...
+4853 INFO: Loading module hook 'hook-distutils.util.py' from '/home/martin/.local/lib/python3.9/site-packages/PyInstaller/hooks'...
+4862 INFO: Looking for ctypes DLLs
+4897 INFO: Analyzing run-time hooks ...
+4900 INFO: Including run-time hook '/home/martin/.local/lib/python3.9/site-packages/PyInstaller/hooks/rthooks/pyi_rth_subprocess.py'
+4903 INFO: Including run-time hook '/home/martin/.local/lib/python3.9/site-packages/PyInstaller/hooks/rthooks/pyi_rth_pkgutil.py'
+4905 INFO: Including run-time hook '/home/martin/.local/lib/python3.9/site-packages/PyInstaller/hooks/rthooks/pyi_rth_multiprocessing.py'
+4910 INFO: Including run-time hook '/home/martin/.local/lib/python3.9/site-packages/PyInstaller/hooks/rthooks/pyi_rth_inspect.py'
+4912 INFO: Including run-time hook '/home/martin/.local/lib/python3.9/site-packages/PyInstaller/hooks/rthooks/pyi_rth_pyqt5.py'
+4916 INFO: Looking for dynamic libraries
+6561 INFO: Looking for eggs
+6561 INFO: Python library not in binary dependencies. Doing additional searching...
+6596 INFO: Using Python library /lib/x86_64-linux-gnu/libpython3.9.so.1.0
+6604 INFO: Warnings written to /home/martin/pyinstaller/linux2/no-datas/pyqt5/build/app/warn-app.txt
+6625 INFO: Graph cross-reference written to /home/martin/pyinstaller/linux2/no-datas/pyqt5/build/app/xref-app.html
+6643 INFO: checking PYZ
+6645 INFO: Building because name changed
+6645 INFO: Building PYZ (ZlibArchive) /home/martin/pyinstaller/linux2/no-datas/pyqt5/build/app/PYZ-00.pyz
+6923 INFO: Building PYZ (ZlibArchive) /home/martin/pyinstaller/linux2/no-datas/pyqt5/build/app/PYZ-00.pyz completed successfully.
+6926 INFO: checking PKG
+6926 INFO: Building because name changed
+6927 INFO: Building PKG (CArchive) app.pkg
+6959 INFO: Building PKG (CArchive) app.pkg completed successfully.
+6962 INFO: Bootloader /home/martin/.local/lib/python3.9/site-packages/PyInstaller/bootloader/Linux-64bit-intel/run
+6963 INFO: checking EXE
+6963 INFO: Building because name changed
+6964 INFO: Building EXE from EXE-00.toc
+6969 INFO: Copying bootloader EXE to /home/martin/pyinstaller/linux2/no-datas/pyqt5/build/app/app
+6970 INFO: Appending PKG archive to custom ELF section in EXE
+6979 INFO: Building EXE from EXE-00.toc completed successfully.
+6981 INFO: checking COLLECT
+6982 INFO: Building COLLECT COLLECT-00.toc
+8674 INFO: Building COLLECT COLLECT-00.toc completed successfully.
+</code></pre>
+Если вы заглянете в свою папку, вы заметите, что теперь у вас есть две новые папки dist и build.
+
+<figure class="full-width "><img src="./Resurs/PyInstaller/build_dist_folders.webp" width="400" height="300" data-src="./Resurs/PyInstaller/build_dist_folders.webp"><figcaption></figcaption></figure>
+папки сборки и распространения, созданные PyInstaller
+
+Ниже приведен сокращенный список содержимого папки с указанием папок build и dist.
+<pre><code>
+bash
+.
+├── app.py
+├── app.spec
+├── build
+│   └── app
+│       ├── localpycos
+│       ├── Analysis-00.toc
+│       ├── COLLECT-00.toc
+│       ├── EXE-00.toc
+│       ├── PKG-00.pkg
+│       ├── PKG-00.toc
+│       ├── PYZ-00.pyz
+│       ├── PYZ-00.toc
+│       ├── app
+│       ├── app.pkg
+│       ├── base_library.zip
+│       ├── warn-app.txt
+│       └── xref-app.html
+└── dist
+    ├── app
+    │   ├── lib-dynload
+    │   ├── PyQt5
+    │   ...
+    │   ├── app
+    │   └── libQt5Core.so.5
+    └── app.app
+</code></pre>
+Папка build используется PyInstaller для сбора и подготовки файлов к объединению, содержит результаты анализа и некоторые дополнительные журналы. По большей части вы можете игнорировать содержимое этой папки, если только вы не пытаетесь устранить проблемы.
+
+Папка dist(для «распространения») содержит файлы, подлежащие распространению. Сюда входит ваше приложение в виде исполняемого файла вместе со всеми связанными библиотеками (например, PyQt5) и двоичными .so файлами.
+
+Все необходимое для запуска вашего приложения будет находиться в этой папке, то есть вы можете взять эту папку и «раздать» ее кому-то другому для запуска вашего приложения.
+
+Вы можете попробовать запустить приложение самостоятельно, запустив исполняемый файл, имя которого указано app в dist папке. После небольшой задержки вы увидите знакомое всплывающее окно вашего приложения, как показано ниже.
+
+<figure class="full-width "><img src="./Resurs/PyInstaller/basic_app.webp" width="150" height="140" data-src="./Resurs/PyInstaller/basic_app.webp"><figcaption></figcaption></figure>
+Простое приложение, работающее после упаковки
+
+<p>В той же папке, что и ваш файл Python, рядом с папками build и PyInstaller также создаст файл. В следующем разделе мы рассмотрим этот файл, что это такое и что он делает.dist.spec</p>
+
+<h2>Файл спецификации</h2>
+Файл .spec содержит конфигурацию сборки и инструкции, которые PyInstaller использует для упаковки вашего приложения. В каждом проекте PyInstaller есть .spec файл, который создается на основе параметров командной строки, которые вы передаете при запуске pyinstaller.
+
+Когда мы запускали pyinstaller наш скрипт, мы не передавали ничего, кроме имени файла нашего приложения Python. Это означает, что наш файл спецификации в настоящее время содержит только конфигурацию по умолчанию. Если вы откроете его, вы увидите нечто похожее на то, что у нас есть ниже.
+<pre><code>
+ПИТОН
+# -*- mode: python ; coding: utf-8 -*-
+
+block_cipher = None
+
+a = Analysis(['app.py'],
+             pathex=[],
+             binaries=[],
+             datas=[],
+             hiddenimports=[],
+             hookspath=[],
+             hooksconfig={},
+             runtime_hooks=[],
+             excludes=[],
+             win_no_prefer_redirects=False,
+             win_private_assemblies=False,
+             cipher=block_cipher,
+             noarchive=False)
+
+pyz = PYZ(a.pure, a.zipped_data,
+             cipher=block_cipher)
+
+exe = EXE(pyz,
+          a.scripts,
+          [],
+          exclude_binaries=True,
+          name='app',
+          debug=False,
+          bootloader_ignore_signals=False,
+          strip=False,
+          upx=True,
+          console=True,
+          disable_windowed_traceback=False,
+          target_arch=None,
+          codesign_identity=None,
+          entitlements_file=None )
+
+coll = COLLECT(exe,
+               a.binaries,
+               a.zipfiles,
+               a.datas,
+               strip=False,
+               upx=True,
+               upx_exclude=[],
+               name='app')
+</code></pre>
+Первое, на что следует обратить внимание, это то, что это файл Python, а это означает, что вы можете редактировать его и использовать код Python для расчета значений настроек. Это особенно полезно для сложных сборок, например, когда вы ориентируетесь на разные платформы и хотите условно определить дополнительные библиотеки или зависимости для связывания.
+
+После .spec создания файла вы можете передать его pyinstallerвместо скрипта, чтобы повторить предыдущий процесс сборки. Запустите это сейчас, чтобы восстановить исполняемый файл.
+<pre><code>
+bash
+pyinstaller app.spec
+</code></pre>
+Полученная сборка будет идентична сборке, использованной для создания .spec файла (при условии, что вы не внесли никаких изменений). Для многих изменений конфигурации PyInstaller у вас есть возможность передать аргументы командной строки или изменить существующий .spec файл. Что вы выберете, зависит от вас.
+
+<h2>Настройка сборки</h2>
+На данный момент мы создали простую первую сборку очень простого приложения. Теперь мы рассмотрим несколько вещей, которые мы можем сделать, чтобы настроить нашу сборку.
+
+<h2>Название вашего приложения</h2>
+Одно из самых простых изменений, которое вы можете сделать, — это указать правильное «имя» для вашего приложения. По умолчанию приложение принимает имя исходного файла (без расширения), например main или app. Обычно это не то, чего вы хотите.
+
+Вы можете предоставить PyInstaller более красивое имя для вашего исполняемого файла (и dist папки), отредактировав .spec файл, добавив его name=в блоки EXE и COLLECT. В Linux вам следует использовать имя без пробелов (вместо этого используйте дефисы).
+<pre><code>
+ПИТОН
+exe = EXE(pyz,
+          a.scripts,
+          [],
+          exclude_binaries=True,
+          name='hello-world',
+          debug=False,
+          bootloader_ignore_signals=False,
+          strip=False,
+          upx=True,
+          console=False
+         )
+coll = COLLECT(exe,
+               a.binaries,
+               a.zipfiles,
+               a.datas,
+               strip=False,
+               upx=True,
+               upx_exclude=[],
+               name='hello-world')
+</code></pre>
+Имя под EXE — это имя исполняемого файла, имя под COLLECT — это имя выходной папки. Обычно вы хотите, чтобы они были одинаковыми.
+
+Альтернативно вы можете повторно запустить pyinstaller команду и передать флаг конфигурации -n или --name вместе со app.py сценарием.
+<pre><code>
+bash
+pyinstaller -n "hello-world" app.py
+# or
+pyinstaller --name "hello-world" app.py
+</code></pre>
+Получившемуся исполняемому файлу будет присвоено имя hello-world, а распакованная сборка будет помещена в папку dist\hello-world\. Имя файла .spec берется из имени, введенного в командной строке, поэтому для вас также будет создан новый файл спецификации, вызываемый hello-world.spec в вашей корневой папке.
+
+<pre>Если вы создали новый файл, .spec удалите старый, чтобы не запутаться!</pre>
+
+<figure class="full-width "><img src="./Resurs/PyInstaller/app_name_kz1bTZt.webp" width="450" height="350" data-src="./Resurs/PyInstaller/app_name_kz1bTZt.webp"><figcaption></figcaption></figure>
+Приложение с произвольным именем «hello-world»
+
+<h2>Значок приложения</h2>
+Одно простое улучшение, которое мы можем сделать, — это изменить значок приложения, который отображается во время его работы. Мы можем установить этот значок напрямую в коде. Чтобы отобразить значок в нашем окне, нам нужно немного изменить наше простое приложение, добавив вызов .setWindowIcon().
+<pre><code>
+ПИТОН
+from PyQt5 import QtWidgets, QtGui
+import sys
+
+class MainWindow(QtWidgets.QMainWindow):
+
+    def __init__(self):
+        super().__init__()
+
+        self.setWindowTitle("Hello World")
+        l = QtWidgets.QLabel("My simple app.")
+        l.setMargin(10)
+        self.setCentralWidget(l)
+
+        self.show()
+
+if __name__ == '__main__':
+    app = QtWidgets.QApplication(sys.argv)
+    app.setWindowIcon(QtGui.QIcon('penguin.svg'))
+    w = MainWindow()
+    app.exec()
+</code></pre>
+Здесь мы добавили .setWindowIcon вызов к app экземпляру. Это определяет значок по умолчанию, который будет использоваться для всех окон нашего приложения. Если хотите, вы можете переопределить это для каждого окна, вызвав .setWindowIconсамо окно.
+
+Если вы запустите вышеуказанное приложение, вы должны увидеть значок на доке.
+
+<figure class="full-width "><img src="./Resurs/PyInstaller/window_icon_custom.webp" width="450" height="380" data-src="./Resurs/PyInstaller/window_icon_custom.webp"><figcaption></figcaption></figure>
+Окно с пользовательским значком пингвина
+
+Вместо SVG вы можете использовать файл PNG, но при использовании PNG убедитесь, что значок достаточно большой и не выглядит размытым из-за масштабирования.
+
+Даже если вы не видите значок, продолжайте читать!
+
+<h2>Работа с относительными путями</h2>
+Здесь есть подвох, который может быть не сразу очевиден. Чтобы продемонстрировать это, откройте оболочку и перейдите в папку, где находится наш скрипт. Запустите его с
+<pre><code>
+bash
+python3 app.py
+</code></pre>
+Если значки находятся в правильном месте, вы должны их увидеть. Теперь перейдите в родительскую папку и попробуйте снова запустить сценарий (измените <folder>имя папки, в которой находится ваш сценарий).
+<pre><code>
+bash
+cd ..
+python3 <folder>/app.py
+</code></pre>
+
+<figure class="full-width "><img src="./Resurs/PyInstaller/window_icon_missing.webp" width="450" height="380" data-src="./Resurs/PyInstaller/window_icon_missing.webp"><figcaption></figcaption></figure>
+<p>Окно со значком отсутствует.</p>
+
+Значки не появляются. Что происходит?
+
+Мы используем относительные пути для ссылки на наши файлы данных. Эти пути относятся к текущему рабочему каталогу, а не к папке, в которой находится ваш скрипт. Поэтому, если вы запустите скрипт из другого места, он не сможет найти файлы.
+
+Одной из частых причин, по которой значки не отображаются, является запуск примеров в IDE, которая использует корень проекта в качестве текущего рабочего каталога.
+
+Это незначительная проблема до того, как приложение будет упаковано, но после его установки вы не знаете, каким будет текущий рабочий каталог при его запуске - если это неправильно, ваше приложение не сможет ничего найти. Нам нужно исправить это, прежде чем идти дальше, что мы можем сделать, создав пути относительно папки нашего приложения.
+
+В обновленном коде ниже мы определяем новую переменную basedir, используя ее os.path.dirname для получения папки, в __file__которой содержится полный путь к текущему файлу Python. Затем мы используем это для создания относительных путей для значков с помощью os.path.join().
+
+Поскольку наш app.py файл находится в корне нашей папки, все остальные пути указаны относительно него.
+<pre><code>
+ПИТОН
+from PyQt5 import QtWidgets, QtGui
+import sys, os
+
+basedir = os.path.dirname(__file__)
+
+
+class MainWindow(QtWidgets.QMainWindow):
+
+    def __init__(self):
+        super().__init__()
+
+        self.setWindowTitle("Hello World")
+        l = QtWidgets.QLabel("My simple app.")
+        l.setMargin(10)
+        self.setCentralWidget(l)
+        self.show()
+
+if __name__ == '__main__':
+    app = QtWidgets.QApplication(sys.argv)
+    app.setWindowIcon(QtGui.QIcon(os.path.join(basedir, 'penguin.svg')))
+    w = MainWindow()
+    app.exec_()
+    </code></pre>
+Попробуйте еще раз запустить приложение из родительской папки — вы обнаружите, что значок теперь отображается так, как ожидалось, независимо от того, откуда вы запускаете приложение.
+
+Если это добавлено в ваш скрипт, при его запуске в вашем окне и на панели задач должен появиться значок. Последний шаг — убедиться, что этот значок правильно упакован вместе с вашим приложением и продолжает отображаться при запуске из папки dist.
+
+Проблема в том, что наше приложение теперь зависит от внешнего файла данных (файла значка), который не является частью нашего источника. Чтобы наше приложение работало, нам теперь нужно распространить этот файл данных вместе с ним. PyInstaller может сделать это за нас, но нам нужно указать ему, что мы хотим включить и куда поместить это в вывод.
+
+В следующем разделе мы рассмотрим доступные вам варианты управления файлами данных, связанными с вашим приложением.
+
+<h2>Файлы данных и ресурсы</h2>
+На данный момент мы успешно создали простое приложение, не имевшее внешних зависимостей. Однако, как только нам понадобилось загрузить внешний файл (в данном случае значок), мы столкнулись с проблемой. Файл не был скопирован в нашу dist папку и поэтому не может быть загружен.
+
+В этом разделе мы рассмотрим варианты объединения внешних ресурсов, таких как значки или .ui файлы Qt Designer, с нашими приложениями.
+
+<h2>Объединение файлов данных с помощью PyInstaller</h2>
+Самый простой способ поместить эти файлы данных в dist папку — просто попросить PyInstaller скопировать их. PyInstaller принимает список отдельных путей к файлам для копирования, а также путь к папке относительно папки, dist/<h name>в которую их следует скопировать.
+
+Как и другие параметры, это можно указать с помощью аргументов командной строки:--add-data
+<pre><code>
+bash
+pyinstaller --add-data "penguin.svg:." --name "hello-world" app.py
+    </code></pre>
+Вы можете указать `--add-data` несколько раз. Обратите внимание, что разделитель путей зависит от платформы: в Linux или Mac используйте `:`, а в Windows используйте `;`
+
+Или через datas список в разделе «Анализ» файла спецификации, показанный ниже.
+<pre><code>
+ПИТОН
+a = Analysis(['app.py'],
+             pathex=[],
+             binaries=[],
+             datas=[('penguin.svg', '.')],
+             hiddenimports=[],
+             hookspath=[],
+             runtime_hooks=[],
+             excludes=[],
+             win_no_prefer_redirects=False,
+             win_private_assemblies=False,
+             cipher=block_cipher,
+             noarchive=False)
+    </code></pre>
+А затем выполните .spec файл с помощью
+<pre><code>
+bash
+pyinstaller hello-world.spec
+</code></pre>
+В обоих случаях мы говорим PyInstaller скопировать указанный файл penguin.svg в .папку вывода dist. Если бы мы захотели, мы могли бы указать здесь и другие места. В командной строке источник и место назначения разделяются разделителем пути :, тогда как в .spec файле значения предоставляются в виде кортежа из двух строк.
+
+Если вы запустите сборку, вы должны увидеть свой .svg файл в выходной папке dist, готовый к распространению вместе с вашим приложением.
+
+<figure class="full-width "><img src="./Resurs/PyInstaller/application_icon_build_in_dest.webp" width="450" height="380" data-src="./Resurs/PyInstaller/application_icon_build_in_dest.webp"><figcaption></figcaption></figure>
+Файл значка скопирован в папку dist.
+
+<p>Если вы запустите приложение из него, dist вы должны увидеть значок в окне и на панели задач, как и ожидалось.</p>
+
+<figure class="full-width "><img src="./Resurs/PyInstaller/window_icon_custom.webp" width="450" height="380" data-src="./Resurs/PyInstaller/window_icon_custom.webp"><figcaption></figcaption></figure>
+Значок пингвина отображается на доке
+
+<p>Чтобы это работало, файл должен быть загружен в Qt по относительному пути и находиться в том же относительном месте относительно EXE, что и файл ..py</p>
+
+<h2>Объединение папок данных</h2>
+Обычно у вас есть несколько файлов данных, которые вы хотите включить в упакованный файл. Последние версии PyInstaller позволяют объединять папки так же, как файлы, сохраняя структуру подпапок. Например, давайте расширим наше приложение, добавив несколько дополнительных значков и поместив их в папку.
+<pre><code>
+ПИТОН
+from PyQt5.QtWidgets import QMainWindow, QApplication, QLabel, QVBoxLayout, QPushButton, QWidget
+from PyQt5.QtGui import QIcon
+import sys, os
+
+basedir = os.path.dirname(__file__)
+
+
+class MainWindow(QMainWindow):
+
+    def __init__(self):
+        super().__init__()
+
+        self.setWindowTitle("Hello World")
+        layout = QVBoxLayout()
+        label = QLabel("My simple app.")
+        label.setMargin(10)
+        layout.addWidget(label)
+
+        button = QPushButton("Push")
+        button.setIcon(QIcon(os.path.join(basedir, "icons", "lightning.svg")))
+        button.pressed.connect(self.close)
+        layout.addWidget(button)
+
+        container = QWidget()
+        container.setLayout(layout)
+
+        self.setCentralWidget(container)
+
+        self.show()
+
+if __name__ == '__main__':
+    app = QApplication(sys.argv)
+    app.setWindowIcon(QIcon(os.path.join(basedir, "icons", "penguin.svg")))
+    w = MainWindow()
+    app.exec_()
+    </code></pre>
+Значки (оба файла SVG) хранятся в подпапке с именем «icons».
+<pre><code>
+bash
+.
+├── app.py
+└── icons
+    └── lightning.svg
+    └── penguin.svg
+</code></pre>
+Если вы запустите это, вы увидите следующее окно со значком на кнопке и значком в доке.
+
+<figure class="full-width "><img src="./Resurs/PyInstaller/basic_app_icons2.webp" width="450" height="380" data-src="./Resurs/PyInstaller/basic_app_icons2.webp"><figcaption></figcaption></figure>
+Окно с двумя иконками и кнопкой.
+
+<p>В путях используется /соглашение о прямой косой черте Unix, поэтому они являются кроссплатформенными для macOS. Если вы разрабатываете только для Windows, вы можете использовать\\</p>
+
+Чтобы скопировать icons папку в наше приложение сборки, нам просто нужно добавить папку в наш .spec файловый Analysis блок. Что касается одного файла, мы добавляем его как кортеж с исходным путем (из папки нашего проекта) и папкой назначения в полученной dist папке.
+<pre><code>
+ПИТОН
+# -*- mode: python ; coding: utf-8 -*-
+
+
+block_cipher = None
+
+
+a = Analysis(['app.py'],
+             pathex=[],
+             binaries=[],
+             datas=[('icons', 'icons')],   # tuple is (source_folder, destination_folder)
+             hiddenimports=[],
+             hookspath=[],
+             hooksconfig={},
+             runtime_hooks=[],
+             excludes=[],
+             win_no_prefer_redirects=False,
+             win_private_assemblies=False,
+             cipher=block_cipher,
+             noarchive=False)
+pyz = PYZ(a.pure, a.zipped_data,
+             cipher=block_cipher)
+
+exe = EXE(pyz,
+          a.scripts,
+          [],
+          exclude_binaries=True,
+          name='hello-world',
+          debug=False,
+          bootloader_ignore_signals=False,
+          strip=False,
+          upx=True,
+          console=False,
+          disable_windowed_traceback=False,
+          target_arch=None,
+          codesign_identity=None,
+          entitlements_file=None )
+coll = COLLECT(exe,
+               a.binaries,
+               a.zipfiles,
+               a.datas,
+               strip=False,
+               upx=True,
+               upx_exclude=[],
+               name='hello-world')
+</code></pre>
+
+Если вы запустите сборку с использованием этого файла спецификации, вы увидите icons папку, скопированную в нее dist. Если вы запустите приложение из папки, значки будут отображаться так, как ожидалось — относительные пути останутся правильными в новом месте.
+
+Альтернативно вы можете объединить файлы данных, используя архитектуру Qt QResource. Дополнительную информацию смотрите в нашем руководстве.
+
+
+<h2>Создание пакета Linux (Deb Ubuntu)</h2>
+До сих пор мы использовали PyInstaller для объединения приложения в исполняемый файл Linux вместе со связанными файлами данных. Результатом этого процесса объединения является папка. Однако, чтобы поделиться этим приложением с другими людьми и позволить им его установить, нам нужно создать пакет Linux. Пакеты — это распространяемые файлы, которые позволяют пользователям устанавливать программное обеспечение в своей системе Linux, а также настраивать такие вещи, как записи приложений в доке/меню.
+
+В Ubuntu (и Debian) пакеты именуются .deb-файлами, в Redhat .rpm и Arch Linux .pacman. Все эти файлы имеют разные форматы, но, к счастью, процесс их создания один и тот же: с помощью инструмента с именем fpm.
+
+В этом уроке мы рассмотрим шаги по созданию пакета Linux .deb на примере файла Ubuntu. Однако вы сможете использовать те же шаги для своей собственной системы.
+
+<h2>Установка FPM</h2>
+Инструмент fpm написан на Ruby, и для его использования требуется установка Ruby. Установите Ruby, например, с помощью менеджера пакетов вашей системы.
+<pre><code>
+bash
+$ sudo apt install ruby
+    </code></pre>
+После установки Ruby fpm вы можете установить его с помощью этого gem инструмента.
+<pre><code>
+bash
+$ gem install fpm --user-install
+    </code></pre>
+Если вы видите предупреждение, например, «У вас нет /home/martin/.local/share/gem/ruby/2.7.0/bin в вашем PATH», вам нужно будет добавить его к вашему пути в .bashrcфайле.
+
+...вот и все. После завершения установки вы готовы к использованию fpm. Вы можете проверить, что он установлен и работает, выполнив:
+<pre><code>
+bash
+$ fpm --version
+1.14.2
+</code></pre>
+Проверяем вашу сборку
+В терминале перейдите в папку, содержащую исходные файлы вашего приложения, и запустите сборку PyInstaller, чтобы создать dist папку. Проверьте, что созданная сборка работает должным образом (она работает и появляются значки), открыв папку distв файловом менеджере и дважды щелкнув исполняемый файл приложения.
+
+Если все работает, вы готовы упаковать приложение, если нет, вернитесь и еще раз проверьте все.
+
+Всегда полезно протестировать созданное приложение перед его упаковкой. Тогда, если что-то пойдет не так, вы знаете, в чем проблема!
+
+Теперь давайте упакуем нашу папку, используя fpm.
+
+Структурирование вашего пакета
+Файлы Linux используются для установки всевозможных приложений, включая системные инструменты. По этой причине они настроены таким образом, чтобы вы могли размещать файлы в любом месте файловой системы Linux, и существуют определенные правильные места для размещения разных файлов. Для такого связанного пакета, как наш, мы можем — к счастью — поместить наши исполняемые файлы и связанные файлы данных в одну и ту же папку (в формате /opt). Однако, чтобы наше приложение отображалось в меню/поиске, нам также необходимо установить файл .desktop в каталоге /usr/share/applications.
+
+Самый простой способ убедиться, что все окажется в правильном месте, — это воссоздать целевую файловую структуру в папке, а затем указать fpm пакету использовать эту папку в качестве корня. Этот процесс также легко автоматизировать с помощью скрипта (см. ниже).
+
+В корневой папке вашего проекта создайте новую папку с именем package и подпапки, которые сопоставляются с целевой файловой системой - будут содержать папку/opt нашего приложения и наш файл, а также значок нашего приложения. hello-world/usr/share/applications.desktop/usr/share/icons...
+<pre><code>
+bash
+$ mkdir -p package/opt
+$ mkdir -p package/usr/share/applications
+$ mkdir -p package/usr/share/icons/hicolor/scalable/apps
+</code></pre>
+Затем скопируйте (рекурсивно, -r включая подпапки) содержимое dist/appв package/opt/hello-world— /opt/hello-world путь — это место назначения папки нашего приложения после установки.
+<pre><code>
+bash
+$ cp -r dist/hello-world package/opt/hello-world
+ </code></pre>
+Копируем dist/hello-world папку. Имя этой папки будет зависеть от имени приложения, настроенного в PyInstaller.
+
+
+<h2>Значки</h2>
+Мы уже установили значок для нашего приложения во время его работы, используя файл penguin.svg. Однако мы хотим, чтобы наше приложение показывало его значок в доке/меню. Чтобы сделать это правильно, нам нужно скопировать значки наших приложений в определенное место в папке /usr/share/icons.
+
+В этой папке содержатся все темы значков, установленные в системе, но значки приложений по умолчанию всегда размещаются в резервной hicolor теме по адресу /usr/share/icons/hicolor. Внутри этой папки находятся различные папки для значков разного размера.
+<pre><code>
+bash
+$ ls /usr/share/icons/hicolor/
+128x128/          256x256/          64x64/            scalable/
+16x16/            32x32/            72x72/            symbolic/
+192x192/          36x36/            96x96/
+22x22/            48x48/            icon-theme.cache
+24x24/            512x512/          index.theme
+</code></pre>
+Мы используем scalable папку, поскольку наш значок представляет собой SVG (масштабируемую векторную графику). Если вы используете PNG-файл определенного размера, поместите его в правильное место и не стесняйтесь добавлять несколько разных размеров, чтобы значок вашего приложения выглядел хорошо при масштабировании. Значки приложений находятся в подпапке apps.
+<pre><code>
+bash
+$ cp icons/penguin.svg package/usr/share/icons/hicolor/scalable/apps/hello-world.svg
+    </code></pre>
+Назовите целевой файл значка в честь вашего приложения, чтобы он не конфликтовал с другими! Вот мы и называем это hello-world.svg.
+
+<h2>Файл .desktop</h2>
+Этот .desktop файл представляет собой текстовый файл конфигурации, который сообщает рабочему столу Linux о настольном приложении, например, где назначить исполняемый файл, имя и какой значок отображать. Вам следует включить .desktop файл для своих приложений, чтобы их было легко использовать. Пример .deskt opфайла показан ниже — добавьте его в корневую папку вашего проекта — с именем hello-world.desktop и внесите любые изменения, которые вам нравятся.
+<pre><code>
+INI
+[Desktop Entry]
+
+# The type of the thing this desktop file refers to (e.g. can be Link)
+Type=Application
+
+# The application name.
+Name=Hello World
+
+# Tooltip comment to show in menus.
+Comment=A simple Hello World application.
+
+# The path (folder) in which the executable is run
+Path=/opt/hello-world
+
+# The executable (can include arguments)
+Exec=/opt/hello-world/hello-world
+
+# The icon for the entry, using the name from `hicolor/scalable` without the extension.
+# You can also use a full path to a file in /opt.
+Icon=hello-world
+</code></pre>
+Дополнительную информацию о создании .desktop файлов смотрите в этой документации.
+
+Теперь hello-world.desktop файл готов, мы можем скопировать его в наш установочный пакет с помощью.
+<pre><code>
+bash
+$ cp hello-world.desktop package/usr/share/applications
+</code></pre>
+<h2>Разрешения</h2>
+<p>Пакеты сохраняют разрешения установленных файлов с момента их упаковки, но будут установлены с помощью root. Чтобы обычные пользователи могли запускать приложение, необходимо изменить разрешения создаваемых файлов.</p>
+
+Мы можем рекурсивно применить правильные разрешения <code>755 — владелец может читать/записывать/выполнять, группа/другие могут читать/выполнять</code>, к нашему исполняемому файлу и папкам, а также <code>644, владелец может читать/записывать, группа/другие могут читать все остальные наши библиотеки и значки/файлы рабочего стола</code>.
+<pre><code>
+bash
+find package/opt/hello-world -type f -exec chmod 644 -- {} +
+find package/opt/hello-world -type d -exec chmod 755 -- {} +
+find package/usr/share -type f -exec chmod 644 -- {} +
+chmod +x package/opt/hello-world/hello-world
+</code></pre>
+<h2>Создание вашего пакета</h2>
+Теперь в нашей «файловой системе» все на своих местах package, и мы готовы приступить к созданию самого пакета.
+
+Введите следующее в свою оболочку.
+<pre><code>
+bash
+fpm -C package -s dir -t deb -n "hello-world" -v 0.1.0 -p hello-world.deb
+</code></pre>
+Аргументы по порядку:
+<pre>
+    -C папка, в которую нужно перейти перед поиском файлов: наша package папка
+    -s тип источника(ов) для упаковки: в нашем случае dir это папка
+    -t тип пакета для сборки: deb-пакет Debian/Ubuntu
+    -n название приложения: "hello-world"
+    -v версия приложения: 0.1.0
+    -p имя пакета для вывода: hello-world-deb
+
+</pre>
+Дополнительные аргументы командной строки см. в документации fpm.
+
+Вы можете создать другие типы пакетов (для других дистрибутивов Linux), изменив аргумент -t.
+
+Через несколько секунд вы должны увидеть сообщение о том, что пакет создан.
+<pre><code>
+bash
+$ fpm -C package -s dir -t deb -n "hello-world" -v 0.1.0 -p hello-world.deb
+Created package {:path=>"hello-world.deb"}
+    </code></pre>
+
+<h2>Установка</h2>
+Пакет готов! Давайте установим его.
+<pre><code>
+bash
+$ sudo dpkg -i hello-world.deb
+</code></pre>
+По завершении установки вы увидите некоторые выходные данные.
+<pre><code>
+ПИТОН
+Selecting previously unselected package hello-world.
+(Reading database ... 172208 files and directories currently installed.)
+Preparing to unpack hello-world.deb ...
+Unpacking hello-world (0.1.0) ...
+Setting up hello-world (0.1.0) ...
+</code></pre>
+После завершения установки вы можете проверить, находятся ли файлы там, где вы ожидаете, в разделе/opt/hello-world
+<pre><code>
+bash
+$ ls /opt/hello-world
+app                        libpcre2-8.so.0
+base_library.zip           libpcre.so.3
+icons                      libpixman-1.so.0
+libatk-1.0.so.0            libpng16.so.16
+libatk-bridge-2.0.so.0     libpython3.9.so.1.0
+etc.
+</code></pre>
+Затем попробуйте запустить приложение из меню/док-станции — вы можете выполнить поиск «Hello World», и приложение будет найдено (благодаря файлу .desktop).
+<figure class="full-width "><img src="./Resurs/PyInstaller/installed_ubuntu_search.webp" width="450" height="380" data-src="./Resurs/PyInstaller/installed_ubuntu_search.webp"><figcaption></figcaption></figure>
+Привет, мир в поиске Ubuntu
+<p>Приложение отображается на панели поиска Ubuntu, а также в меню других сред.</p>
+
+Если вы запустите приложение, значки будут отображаться так, как ожидалось.
+
+<figure class="full-width "><img src="./Resurs/PyInstaller/installed_running.webp" width="450" height="380" data-src="./Resurs/PyInstaller/installed_running.webp"><figcaption></figcaption></figure>
+Приложение запускается, и все значки отображаются должным образом.
+
+<h2>Скрипт сборки</h2>
+Мы рассмотрели шаги, необходимые для сборки устанавливаемого .deb-пакета Ubuntu из приложения PyQt5. Здесь не так уж и много действий, но если вам придется делать это несколько раз, это быстро станет довольно утомительным и приведет к ошибкам. Чтобы избежать проблем, я рекомендую написать это с помощью простого сценария Bash и fpm собственного инструмента автоматизации.
+
+В этом разделе я дам вам сценарии, которые автоматизируют сборку нашего приложения Hello World.
+
+<h3><code>package.sh</code></h3>
+Сохраните в корне проекта и chmod +x сделайте его исполняемым.
+
+<pre><code>
+#!/bin/sh
+# Create folders.
+[ -e package ] && rm -r package
+mkdir -p package/opt
+mkdir -p package/usr/share/applications
+mkdir -p package/usr/share/icons/hicolor/scalable/apps
+
+# Copy files (change icon names, add lines for non-scaled icons)
+cp -r dist/hello-world package/opt/hello-world
+cp icons/penguin.svg package/usr/share/icons/hicolor/scalable/apps/hello-world.svg
+cp hello-world.desktop package/usr/share/applications
+
+# Change permissions
+find package/opt/hello-world -type f -exec chmod 644 -- {} +
+find package/opt/hello-world -type d -exec chmod 755 -- {} +
+find package/usr/share -type f -exec chmod 644 -- {} +
+chmod +x package/opt/hello-world/hello-world
+</code></pre>
+<h3><code>.fpm файл</code></h3>
+fpm позволяет хранить конфигурацию упаковки в файле конфигурации. Имя файла должно быть таким .fpm, и он должен находиться в папке, в которой вы запускаете fpm инструмент. Наша конфигурация следующая.
+
+<pre><code>
+-C package
+-s dir
+-t deb
+-n "hello-world"
+-v 0.1.0
+-p hello-world.deb
+    </code></pre>
+Вы можете переопределить любые параметры, которые вам нравятся при выполнении fpm, передав аргументы командной строки как обычно.
+
+<h2>Выполнение сборки</h2>
+При наличии этих сценариев наше приложение можно воспроизводимо упаковать с помощью команд:
+<pre><code>
+bash
+pyinstaller hello-world.spec
+./package.sh
+fpm
+    </code></pre>
+Не стесняйтесь настраивать эти сценарии сборки самостоятельно в соответствии с вашим собственным проектом!
+
+<h2>Подведение итогов</h2>
+В этом руководстве мы рассмотрели, как превратить ваши приложения PyQt5 в исполняемый файл Linux с помощью PyInstaller, включая добавление файлов данных вместе с вашим кодом. Затем мы прошли процесс создания .deb-пакета Ubuntu для распространения вашего приложения среди других. Следуя этим шагам, вы сможете упаковать свои собственные приложения и сделать их доступными для других людей.
+</body>
+</html>

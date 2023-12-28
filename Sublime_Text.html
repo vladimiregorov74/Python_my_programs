@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Установка HTML-CSS-JS Prettifi </title>
+</head>
+<body>
+	<div>
+		Для установки HTML-CSS-JS Prettifi переходим в меню Tools - Command Palette и набираем HTML - CSS - JS Prettifi.Пробуем, если вываливается ошибка о не установленном node.js идем в терминал и прописываем:
+			sudo snap install node--classic
+		Затем устанавливаем nvm
+		curl - o - https: //raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+			Смотрим версию
+		node--version
+		Смотрим возможные версии
+		nvm list - remote
+		Устанавливаем последнию, например v20 .10 .0
+		nvm install v20 .10 .0
+		Дальше идем в папку в Linux путь может быть в формате / home / <user>/.nvm/<node version>/bin/node(в моем случае /home/vladimiregorov/.nvm/versions/node/v20.10.0/bin/node)
+		Копируем полный путь к node
+		Открываем файл настроек HTML-CSS-JS Prettifi и копируем наш путь вместо выбранного. 
+		Сохраняем файл.
+		Пробуем. Все работает.
+		См. https://github.com/victorporof/Sublime-HTMLPrettify/blob/master/README.md
+			https://www.youtube.com/watch?v=KtTe_ckT3iM
+			https://www.youtube.com/watch?v=iFod37NPhnA
+			https://www.youtube.com/watch?v=HZ4BUcogWCQ
+	</div>
+
+</body>
+</html>
+

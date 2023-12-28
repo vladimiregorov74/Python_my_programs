@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="UTF-8">
+    <style>
+    table,
+    table * {border: 1px solid #000;}
+    </style>
+    <title>Название</title>
+</head>
+<body>
+<span style="font-size:26px;"><span style="font-family:arial,helvetica,sans-serif;">
+        <a href="./0_Помощь_Python.html">Помощь_Python.html</a></span></span>
+  <hr>
+    <hr id="a">
+
+
+            <h2>Модуль sys</h2>
+            <span style="font-size:20px;"><span style="font-family:arial,helvetica,sans-serif;">
+
+         <pre>
+
+
+        Модуль sys обеспечивает доступ к некоторым переменным и функциям, взаимодействующим с интерпретатором python.
+         </pre>
+         <p><b>&nbsp&nbsp&nbsp&nbspsys.argv </b>- список аргументов командной строки, передаваемых сценарию Python. sys.argv[0] является именем скрипта (пустой строкой в интерактивной оболочке).</p>
+
+        <p><b>&nbsp&nbsp&nbsp&nbspsys.byteorder </b>- порядок байтов. Будет иметь значение 'big' при порядке следования битов от старшего к младшему, и 'little', если наоборот (младший байт первый).</p>
+
+        <p><b>&nbsp&nbsp&nbsp&nbspsys.builtin_module_names </b>- кортеж строк, содержащий имена всех доступных модулей.</p>
+
+        <p><b>&nbsp&nbsp&nbsp&nbspsys.call_tracing(функция, аргументы) </b>- вызывает функцию с аргументами и включенной трассировкой, в то время как трассировка включена.</p>
+
+        <p><b>&nbsp&nbsp&nbsp&nbspsys.copyright </b>- строка, содержащая авторские права, относящиеся к интерпретатору Python.</p>
+
+        <p><b>&nbsp&nbsp&nbsp&nbspsys._clear_type_cache() </b>- очищает внутренний кэш типа.</p>
+
+        <p><b>&nbsp&nbsp&nbsp&nbspsys._current_frames() </b>- возвращает словарь-отображение идентификатора для каждого потока в верхнем кадре стека в настоящее время в этом потоке в момент вызова функции.</p>
+
+        <p><b>&nbsp&nbsp&nbsp&nbspsys.dllhandle </b>- целое число, определяющее дескриптор DLL Python (Windows).</p>
+
+        <p><b>&nbsp&nbsp&nbsp&nbspsys.exc_info() </b>- возвращает кортеж из трех значений, которые дают информацию об исключениях, обрабатывающихся в данный момент.</p>
+
+        <p><b>&nbsp&nbsp&nbsp&nbspsys.exec_prefix </b>- каталог установки Python.</p>
+
+        <p><b>&nbsp&nbsp&nbsp&nbspsys.executable </b>- путь к интерпретатору Python.</p>
+
+        <p><b>&nbsp&nbsp&nbsp&nbspsys.exit([arg]) </b>- выход из Python. Возбуждает исключение SystemExit, которое может быть перехвачено.</p>
+
+        <p> sys.flags </b>- флаги командной строки. Атрибуты только для чтения.</p>
+
+        <p><b>&nbsp&nbsp&nbsp&nbspsys.float_info </b>- информация о типе данных float.</p>
+
+        <p><b>&nbsp&nbsp&nbsp&nbspsys.float_repr_style </b>- информация о применении встроенной функции repr() для типа float.</p>
+
+        <p><b>&nbsp&nbsp&nbsp&nbspsys.getdefaultencoding() </b>- возвращает используемую кодировку.</p>
+
+        <p><b>&nbsp&nbsp&nbsp&nbspsys.getdlopenflags() </b>- значения флагов для вызовов dlopen().</p>
+
+        <p><b>&nbsp&nbsp&nbsp&nbspsys.getfilesystemencoding() </b>- возвращает кодировку файловой системы.</p>
+
+        <p><b>&nbsp&nbsp&nbsp&nbspsys.getrefcount(object) </b>- возвращает количество ссылок на объект. Аргумент функции getrefcount </b>- еще одна ссылка на объект.</p>
+
+        <p><b>&nbsp&nbsp&nbsp&nbspsys.getrecursionlimit() </b>- возвращает лимит рекурсии.</p>
+
+        <p><b>&nbsp&nbsp&nbsp&nbspsys.getsizeof(object[, default]) </b>- возвращает размер объекта (в байтах).</p>
+
+        <p><b>&nbsp&nbsp&nbsp&nbspsys.getswitchinterval() </b>- интервал переключения потоков.</p>
+
+        <p><b>&nbsp&nbsp&nbsp&nbspsys.getwindowsversion() </b>- возвращает кортеж, описывающий версию Windows.</p>
+
+        <p><b>&nbsp&nbsp&nbsp&nbspsys.hash_info </b>- информация о параметрах хэширования.</p>
+
+        <p><b>&nbsp&nbsp&nbsp&nbspsys.hexversion </b>- версия python как шестнадцатеричное число (для 3.2.2 final это будет 30202f0).</p>
+
+        <p><b>&nbsp&nbsp&nbsp&nbspsys.implementation </b>- объект, содержащий информацию о запущенном интерпретаторе python.</p>
+
+        <p><b>&nbsp&nbsp&nbsp&nbspsys.int_info </b>- информация о типе int.</p>
+
+        <p><b>&nbsp&nbsp&nbsp&nbspsys.intern(строка) </b>- возвращает интернированную строку.</p>
+
+        <p><b>&nbsp&nbsp&nbsp&nbspsys.last_type, sys.last_value, sys.last_traceback </b>- информация об обрабатываемых исключениях. По смыслу похоже на sys.exc_info().</p>
+
+        <p><b>&nbsp&nbsp&nbsp&nbspsys.maxsize </b>- максимальное значение числа типа Py_ssize_t (231 на 32-битных и 263 на 64-битных платформах).</p>
+
+        <p><b>&nbsp&nbsp&nbsp&nbspsys.maxunicode </b>- максимальное число бит для хранения символа Unicode.</p>
+
+        <p><b>&nbsp&nbsp&nbsp&nbspsys.modules </b>- словарь имен загруженных модулей. Изменяем, поэтому можно позабавиться :)</p>
+
+        <p><b>&nbsp&nbsp&nbsp&nbspsys.path </b>- список путей поиска модулей.</p>
+
+        <p><b>&nbsp&nbsp&nbsp&nbspsys.path_importer_cache </b>- словарь-кэш для поиска объектов.</p>
+
+        <p><b>&nbsp&nbsp&nbsp&nbspsys.platform </b>- информация об операционной системе.</p>
+        <pre>
+        Linux (2.x and 3.x)'linux'
+
+        Windows'win32'
+
+        Windows/Cygwin'cygwin'
+
+        Mac OS X'darwin'
+
+        OS/2'os2'
+
+        OS/2 EMX'os2emx'
+        </pre>
+        <p><b>&nbsp&nbsp&nbsp&nbspsys.prefix </b>- папка установки интерпретатора python.</p>
+
+        <p><b>&nbsp&nbsp&nbsp&nbspsys.ps1, sys.ps2 </b>- первичное и вторичное приглашение интерпретатора (определены только если интерпретатор находится в интерактивном режиме). По умолчанию sys.ps1 == ">>> ", а sys.ps2 == "... ".</p>
+
+        <p><b>&nbsp&nbsp&nbsp&nbspsys.dont_write_bytecode </b>- если true, python не будет писать .pyc файлы.</p>
+
+        <p><b>&nbsp&nbsp&nbsp&nbspsys.setdlopenflags(flags) </b>- установить значения флагов для вызовов dlopen().</p>
+
+        <p><b>&nbsp&nbsp&nbsp&nbspsys.setrecursionlimit(предел) </b>- установить максимальную глубину рекурсии.</p>
+
+        <p><b>&nbsp&nbsp&nbsp&nbspsys.setswitchinterval(интервал) </b>- установить интервал переключения потоков.</p>
+
+        <p><b>&nbsp&nbsp&nbsp&nbspsys.settrace(tracefunc) </b>- установить "след" функции.</p>
+
+        <p><b>&nbsp&nbsp&nbsp&nbspsys.stdin </b>- стандартный ввод.</p>
+
+        <p><b>&nbsp&nbsp&nbsp&nbspsys.stdout </b>- стандартный вывод.</p>
+
+        <p><b>&nbsp&nbsp&nbsp&nbspsys.stderr </b>- стандартный поток ошибок.</p>
+
+        <p></p>sys.__stdin__, sys.__stdout__, sys.__stderr__ </b>- исходные значения потоков ввода, вывода и ошибок.</p>
+
+        <p><b>&nbsp&nbsp&nbsp&nbspsys.tracebacklimit </b>- максимальное число уровней отслеживания.</p>
+
+        <p><b>&nbsp&nbsp&nbsp&nbspsys.version </b>- версия python.</p>
+
+        <p><b>&nbsp&nbsp&nbsp&nbspsys.api_version </b>- версия C API.</p>
+
+        <p><b>&nbsp&nbsp&nbsp&nbspsys.version_info </b>- Кортеж, содержащий пять компонентов номера версии.</p>
+
+        <p><b>&nbsp&nbsp&nbsp&nbspsys.warnoptions </b>- реализация предупреждений.</p>
+
+        <p><b>&nbsp&nbsp&nbsp&nbspsys.winver </b>- номер версии python, использующийся для формирования реестра Windows.</p>
+
+
+
+        <h2><a href="#a">Up</a></h2></span></span>
+
+    </body>
+</html>

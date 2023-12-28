@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <meta charset="UTF-8">
+    <title>Модуль Pyinstaller</title>
+</head>
+<body>
+    <span style="font-size:26px;"><span style="font-family:arial,helvetica,sans-serif;">
+        <a href="./0_Помощь_Python.html">Помощь_Python.html</a></span></span>
+    <hr>
+    <span style="font-size:26px;"><span style="font-family:arial,helvetica,sans-serif;">
+    <div> <a href="https://pyinstaller.org/en/stable/index.html">Pyinstaller</a> <br><br>
+        &nbsp&nbsp&nbsp&nbsp&nbsp&nbspPyInstaller объединяет приложение Python и все его зависимости в один пакет. Пользователь может запустить
+         упакованное приложение без установки интерпретатора Python или каких-либо модулей. PyInstaller поддерживает
+         Python 3.7 и новее и правильно объединяет многие основные пакеты Python, такие как numpy, matplotlib, PyQt,
+         wxPython и другие.
+
+         PyInstaller протестирован на Windows, MacOS X и Linux. Однако это не кросс-компилятор; для создания приложения
+         Windows вы запускаете PyInstaller в Windows, а для создания приложения Linux запускаете его в Linux и т. д.
+    </div>
+
+
+        <h2>Быстрый старт</h2>
+   <div>Убедитесь, что у вас установлены требования , а затем установите PyInstaller из PyPI:<br>
+    <pre>
+    <span style="color: #0000ff;">pip install -U pyinstaller</span>
+    </pre>
+
+    &nbsp&nbsp&nbsp&nbsp&nbsp&nbspОткройте окно командной строки/оболочки и перейдите в каталог, где находится ваш файл .py , затем создайте приложение с
+    помощью следующей команды:
+    <pre>
+        <span style="color: #0000ff;">pyinstaller your_program.py</span>
+    </pre>
+
+    Теперь ваше связанное приложение должно быть доступно в папке dist.<br><br>
+    </div>
+
+        <h2>Использование PyInstaller</h2>
+    <div>Синтаксис команды pyinstaller:<br>
+    <pre>
+        <span style="color: #0000ff;">pyinstaller[ опции ] скрипт [ скрипт …] | спецфайл</span>
+    </pre><br>
+
+
+    &nbsp&nbsp&nbsp&nbsp&nbsp&nbspВ самом простом случае установите текущую директорию на местонахождение вашей программы myscript.py и выполните:<br>
+    <pre>
+        <span style="color: #0000ff;">pyinstaller myscript.py</span>
+    </pre>
+
+    PyInstaller анализирует myscript.py и:<br><br>
+    Пишет myscript.spec в ту же папку что и скрипт.<br>
+    Создает папку build в той же папке, что и скрипт, если она не существует.<br>
+    Записывает в build папку некоторые лог-файлы и рабочие файлы.<br>
+    Создает папку dist в той же папке, что и скрипт, если она не существует.<br>
+    Записывает myscript исполняемый файл в dist папку.<br>
+    </div>
+    <div>
+    Для определенных целей вы можете редактировать содержимое myscript.spec (описано в разделе «Использование
+    спецификационных файлов »). После этого вы называете файл спецификации PyInstaller вместо сценария:
+    <pre>
+        <span style="color: #0000ff;">pyinstaller myscript.spec</span>
+    </pre>
+
+    Файл myscript.spec содержит большую часть информации, предоставляемой параметрами, которые были указаны при запуске
+    pyinstaller (или pyi-makespec ) с файлом сценария в качестве аргумента. Обычно вам не нужно указывать какие-либо
+    параметры при запуске pyinstaller со спецификационным файлом.
+    </div>
+        <h2>Параметры</h2>
+
+    <div>
+    Не полный список pyinstaller параметров команды выглядит следующим образом<br>
+    <pre>
+        <span style="color: #0000ff;">-F(или --onefile)</span>
+    </pre>
+        Создайте исполняемый файл, состоящий из одного файла.
+    <pre>
+        <span style="color: #0000ff;">-n ИМЯ(или --name ИМЯ)</span>
+    </pre>
+        Имя, назначаемое связанному приложению и файлу спецификаций (по умолчанию: базовое имя первого скрипта).
+    <pre>
+        <span style="color: #0000ff;">--add-data <SRC;Назначение или SRC:Назначение></span>
+    </pre>
+     Дополнительные недвоичные файлы или папки, которые необходимо добавить в исполняемый файл. Разделитель пути зависит
+     от платформы os.pathsep(который используется ;в Windows и :в большинстве систем Unix). Эту опцию можно
+     использовать несколько раз.
+    <pre>
+        <span style="color: #0000ff;">--add-binary <SRC;Назначение или SRC:Назначение></span>
+    </pre>
+    Дополнительные бинарные файлы, которые необходимо добавить в исполняемый файл. Смотрите --add-data вариант для более
+    подробной информации. Эту опцию можно использовать несколько раз.
+     <pre>
+        <span style="color: #0000ff;">-w, --windowed, --noconsole</span>
+     </pre>
+     Windows и Mac OS X: не выводят окно консоли для стандартного ввода-вывода.
+        <h2>Запуск PyInstaller из кода Python</h2>
+     &nbsp&nbsp&nbsp&nbsp&nbsp&nbspЕсли вы хотите запустить PyInstaller из кода Python, вы можете использовать runфункцию, определенную в PyInstaller.__main__. Например, следующий код:
+    <pre>
+        <span style="color: #0000ff;">import PyInstaller.__main__
+        PyInstaller.__main__.run([
+        'my_script.py',
+        '--onefile',
+        '--windowed'
+        ])
+        </span>
+     </pre>
+
+    Эквивалентно:
+    <pre>
+        <span style="color: #0000ff;">pyinstaller my_script.py --onefile --windowed</span>
+    </pre>
+    <h2>Особености сборки PyQt6 в один файл под Windows</h2>
+    1. Запустите командную строку(не PowerShell) и пропешите:
+    <pre>
+        <span style="color: #0000ff;">py -m venv venv && venv\scripts\activate
+        py -m pip install --upgrade pip pyinstaller PyQt6
+        pyinstaller -F --noconsole main.py</span>
+
+    </pre>
+        2. Перейдите в <span style="color: #0000ff;">venv\Lib\site-packages</span> папку и скопируйте каталог
+        <span style="color: #0000ff;">PyQt6</span> в каталог верхнего уровня рядом с <span style="color: #0000ff;">main.py</span> и
+        <span style="color: #0000ff;">venv</span>
+        3. Добавьте внутри main.spec запись
+    <pre>
+        <span style="color: #0000ff;">datas=[('venv/Lib/site-packages/PyQt6/Qt6/plugins/multimedia',
+        '/PyQt6/Qt6/plugins/multimedia')]</span>
+    </pre>
+        4. Выполните в командной строке:
+    <pre>
+        <span style="color: #0000ff;">pyinstaller main.spec</span>
+    </pre>
+
+
+    </div>
+        <h2> Auto PY to EXE </h2>
+        <div>
+            С помощью Auto PY to EXE можно с лёгкостью преобразовывать файлы .py в файлы .exe.<br>
+            Благодаря этому ваш проект на Python будет работать как десктопное приложение и вы сможете запускать приложение на других машинах без необходимости установки Python.<br>
+            Решение будет работать вне зависимости от количества файлов .py в приложении.<br>
+            Стоит учесть, что Auto PY to EXE работает только с Python 3.5 или выше.<br><br>
+
+            Установка Auto PY to EXE<br><br>
+
+            Установка через pip<br><br>
+
+            При помощи следующей команды можно установить текущую версию Auto PY to EXE.<br><br>
+            <pre>
+                <span style="color: #0000ff;">$ pip install auto-py-to-exe</span>
+
+            </pre>
+            Открываем приложение<br>
+
+            Чтобы открыть Auto PY to EXE, нужно выполнить в терминале следующую команду:<br>
+            <pre>
+                <span style="color: #0000ff;">$ auto-py-to-exe</span>
+
+            </pre>
+
+            Откроется удобное приложение с GUI
+        </div>
+    </span></span>
+</body>
+</html>

@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="UTF-8">
+    <title>Рисование, черепаха</title>
+
+    <body>
+<span style="font-size:26px;"><span style="font-family:arial,helvetica,sans-serif;">
+        <a href="./0_Помощь_Python.html">Помощь_Python.html</a></span></span>
+  <hr>
+<span style="font-size:26px;"><span style="font-family:arial,helvetica,sans-serif;">
+  <hr id="a">
+  &nbsp;&nbsp;&nbsp;&nbsp;<a href="#a0">Модуль turtle</a>,&nbsp;&nbsp;&nbsp;&nbsp;<a href="#a1">Рисование отрезков прямой</a>,&nbsp;&nbsp;&nbsp;&nbsp;<a href="#a2">Поворот черепашки</a>,
+    ,&nbsp;&nbsp;&nbsp;&nbsp;<a href="#a3">Установка углового направления черепашки</a>,&nbsp;&nbsp;&nbsp;&nbsp;<a href="#a4">Получение текущего углового направления черепашки</a>,&nbsp;&nbsp;&nbsp;&nbsp;<a href="#a5">Изменение внешнего вида черепашки</a>,
+    &nbsp;&nbsp;&nbsp;&nbsp;<a href="#a6">Поднятие и опускание пера</a>,&nbsp;&nbsp;&nbsp;&nbsp;<a href="#a7">Рисование кругов и точек</a>,&nbsp;&nbsp;&nbsp;&nbsp;<a href="#a8">Изменение размера пера</a>,&nbsp;&nbsp;&nbsp;&nbsp;<a href="#a9">Изменение цвета рисунка</a>,&nbsp;&nbsp;&nbsp;&nbsp;<a href="#a10">Изменение цвета фона</a>,&nbsp;&nbsp;&nbsp;&nbsp;<a href="#a11">Создание штампа</a>,
+    &nbsp;&nbsp;&nbsp;&nbsp;<a href="#a12">Возвращение экрана в исходное состояние</a>,&nbsp;&nbsp;&nbsp;&nbsp;<a href="#a13">Вывод текста в графическое окно</a>,&nbsp;&nbsp;&nbsp;&nbsp;<a href="#a14">Заполнение геометрических фигур</a>,&nbsp;&nbsp;&nbsp;&nbsp;<a href="#a15">Создание нескольких черепашек</a>,&nbsp;&nbsp;&nbsp;&nbsp;<a href="#a16">Отслеживание нажатия клавиш</a>,
+    &nbsp;&nbsp;&nbsp;&nbsp;<a href="#a17">Отслеживание нажатия мыши</a>,&nbsp;&nbsp;&nbsp;&nbsp;<a href="#a18"></a>
+
+    <br>
+    <br>
+  <li><a href="#a0">Модуль turtle</a></li>
+  <li><a href="#a1">Рисование отрезков прямой</a></li>
+  <li><a href="#a2">Поворот черепашки</a></li>
+  <li><a href="#a3">Установка углового направления черепашки</a></li>
+  <li><a href="#a4">Получение текущего углового направления черепашки</a></li>
+  <li><a href="#a5">Изменение внешнего вида черепашки</a></li>
+  <li><a href="#a6">Поднятие и опускание пера</a></li>
+  <li><a href="#a7">Рисование кругов и точек</a></li>
+  <li><a href="#a8">Изменение размера пера</a></li>
+  <li><a href="#a9">Изменение цвета рисунка</a></li>
+  <li><a href="#a10">Изменение цвета фона</a></li>
+  <li><a href="#a11">Создание штампа</a></li>
+  <li><a href="#a12">Возвращение экрана в исходное состояние</a></li>
+  <li><a href="#a13">Вывод текста в графическое окно</a></li>
+  <li><a href="#a14">Заполнение геометрических фигур</a></li>
+  <li><a href="#a15">Создание нескольких черепашек</a></li>
+  <li><a href="#a16">Отслеживание нажатия клавиш</a></li>
+  <li><a href="#a17">Отслеживание нажатия мыши</a></li>
+  <li><a href="#a26">Примечание</a></li>
+
+
+      <h2 id="a0">Модуль turtle&nbsp;&nbsp;&nbsp;&nbsp;<a href="#a">Up</a></h2>
+    <pre>
+            Модуль turtle
+    Система черепашьей графики не встроена в интерпретатор Python и хранится в модуле turtle. В начале программы с
+использованием черепашьей графики пишут инструкцию импорта этого модуля:
+<span style="color: #0000ff;">
+    import turtle</span></pre>
+
+    <h2 id="a1">Рисование отрезков прямой&nbsp;&nbsp;&nbsp;&nbsp;<a href="#a">Up</a></h2>
+
+    <pre>В результате команды turtle.showturtle() появляется графическое окно с черепашкой. Черепашка первоначально расположена
+в центре графического окна, "холста". Выглядит она как стрелка с острием на месте головы. Если дать черепашке команду
+двигаться вперед, она переместится в направлении, указываемом стрелкой.
+        По умолчанию на старте черепашка смотрит на восток.
+
+Для перемещения черепашки вперед на n пикселей применяется команда turtle.forward(n).
+Например, команда turtle.forward(100) переместит черепашку вперед на 100 пикселей.
+
+Для перемещения черепашки назад на n пикселей применяется команда turtle.backward(n).
+Например, команда turtle.backward(250) переместит черепашку назад на 250 пикселей.
+<span style="color: #0000ff;">
+    import turtle
+
+    turtle.showturtle()
+    turtle.forward(100)
+    turtle.backward(250)</span></pre>
+
+<h2 id="a2">Поворот черепашки&nbsp;&nbsp;&nbsp;&nbsp;<a href="#a">Up</a></h2>
+
+<pre>   Когда черепашка появляется, она по умолчанию направлена на восток, то есть вправо, или под углом 0
+При помощи команд turtle.right() и turtle.left() можно повернуть черепашку:
+
+-команда turtle.right(angle) поворачивает черепашку вправо на angle градусов;
+-команда turtle.left(angle) поворачивает черепашку влево на angle градусов.
+Рассмотрим программный код:
+<span style="color: #0000ff;">
+    import turtle
+
+    turtle.forward(100)
+    turtle.right(90)
+    turtle.forward(100)</span>
+
+Такой код перемещает черепашку на 100 пикселей вперед. Далее он поворачивает черепашку на 90   вправо (черепашка
+будет смотреть вниз). Затем он перемещает черепашку на 100 пикселей вперед.
+Команды turtle.right() и turtle.left() поворачивают черепашку на указанный угол от ее направления в этот момент,
+а не от исходного. К примеру, текущее угловое направление составляет 90, строго на север. Если ввести команду
+turtle.left(20), то черепашка повернется влево на 20. Ее новое угловое направление составит 110, по отношению к
+начальному положению, когда угол равен 0.
+
+В качестве еще одного примера рассмотрим код:
+<span style="color: #0000ff;">
+    import turtle
+    turtle.forward(50)
+    turtle.left(45)
+    turtle.forward(50)
+    turtle.left(45)
+    turtle.forward(50)
+    turtle.left(45)
+    turtle.forward(50)</span>
+
+В начале направление черепашки составляет 0. Далее черепашка перемещается на 50 пикселей вперед и поворачивается на 45
+влево. Затем еще дважды повторяет перемещение вперед на 50 пикселей и поворот на 45 влево. После всех этих поворотов
+угловое направление черепашки составит 135.</pre>
+
+<h2 id="a3">Установка углового направления черепашки&nbsp;&nbsp;&nbsp;&nbsp;<a href="#a">Up</a></h2>
+<pre>
+    Команда turtle.setheading() применяется для установки углового направления черепашки с заданным углом.
+В качестве аргумента нужно указать желаемый угол.
+
+Рассмотрим код:
+<span style="color: #0000ff;">
+    import turtle
+    turtle.forward(100)
+    turtle.setheading(90)
+    turtle.forward(100)
+    turtle.setheading(180)
+    turtle.forward(100)
+    turtle.setheading(270)
+    turtle.forward(100)</span>
+
+Первоначальное угловое направление черепашки составляет 0. Далее установлено направление черепашки 90 (на север).
+Затем установлено направление черепашки 180 (на запад). Потом установлено направление черепашки 270 (на юг).
+
+    </pre>
+   <h2 id="a4">Получение текущего углового направления черепашки&nbsp;&nbsp;&nbsp;&nbsp;<a href="#a">Up</a></h2>
+    <pre>
+Чтобы получить текущее угловое направление черепашки используется команда turtle.heading().
+
+Приведенный ниже код:
+<span style="color: #0000ff;">
+    import turtle
+    print(turtle.heading())
+    turtle.setheading(180)
+    print(turtle.heading())</span>
+
+поворачивает черепашку на запад и выводит:
+<span style="color: #0000ff;">
+    0.0
+    180.0</span>
+
+
+    </pre>
+
+   <h2 id="a5">Изменение внешнего вида черепашки&nbsp;&nbsp;&nbsp;&nbsp;<a href="#a">Up</a></h2>
+    <pre>
+По умолчанию черепашка выглядит как стрелочка, но возможен и другой внешний вид. Для его изменения используют команду
+shape(). Команда принимает в качестве аргумента строковое название фигуры, определяющей форму черепашки. Доступные фигуры:
+
+-square (квадрат);
+-arrow (стрелка);
+-circle (круг);
+-turtle (черепашка);
+-triangle (треугольник);
+-classic (классическая стрелка).
+<span style="color: #0000ff;">
+    import turtle
+    turtle.shape('square')
+    turtle.forward(100)
+    turtle.setheading(90)
+    turtle.shape('arrow')
+    turtle.forward(100)
+    turtle.setheading(180)
+    turtle.shape('turtle')
+    turtle.forward(100)
+    turtle.setheading(270)
+    turtle.shape('circle')
+    turtle.forward(100)</span>
+
+        При необходимости можно использовать собственные рисунки для создания внешнего вида черепашки.
+<span style="color: #0000ff;">
+    import turtle
+    turtle.Screen().addshape('rocketship.gif')  # регистрируем изображение
+    turtle.shape('rocketship.gif')              # устанавливаем изображение
+    for _ in range(4):
+        turtle.forward(150)
+        turtle.left(90)</span>
+    </pre>
+    <h2 id="a6">Поднятие и опускание пера&nbsp;&nbsp;&nbsp;&nbsp;<a href="#a">Up</a></h2>
+
+<pre>Исходная роботизированная черепашка, использованная преподавателем Сеймуром Пейпертом, лежала на большом листе бумаги и имела перо, которое можно было поднимать и опускать. Когда перо было опущено на бумагу, оно чертило линию во время перемещения черепашки. Когда перо поднималось, оно не касалось бумаги, и черепашка во время движения не оставляла за собой линии.
+
+Команда turtle.penup() поднимает перо, а команда turtle.pendown() – опускает. Когда перо поднято, черепашка перемещается не оставляя линии. Когда перо опущено, черепашка во время перемещения чертит линию. По умолчанию перо опущено.
+
+Приведенный ниже код:
+<span style="color: #0000ff;">
+    import turtle
+    turtle.forward(50)
+    turtle.penup()
+    turtle.forward(25)
+    turtle.pendown()
+    turtle.forward(50)
+    turtle.penup()
+    turtle.forward(25)
+    turtle.pendown()
+    turtle.forward(50)
+</span>
+выводит пунктирную линию.
+
+
+</pre>
+  <h2 id="a7">Рисование кругов и точек&nbsp;&nbsp;&nbsp;&nbsp;<a href="#a">Up</a></h2>
+<pre>
+    Чтобы черепашка нарисовала круг, можно применить команду turtle.circle(). Такая команда рисует круг заданного в
+виде аргумента в пикселях радиуса.
+
+Например, команда turtle.circle(80) побуждает черепашку нарисовать круг с радиусом 80 пикселей.
+
+Приведенный ниже код:
+<span style="color: #0000ff;">
+    import turtle
+    turtle.circle(80)
+</span>
+изображает круг радиусом в 80 пикселей.
+
+Команда turtle.dot() применяется, чтобы черепашка нарисовала точку.
+
+Приведенный ниже код:
+<span style="color: #0000ff;">
+    import turtle
+    turtle.dot()
+    turtle.forward(50)
+    turtle.dot()
+    turtle.forward(50)
+    turtle.dot()
+    turtle.forward(50)
+</span>
+рисует три точки на одной прямой с расстоянием в 50 пикселей между ними.
+
+
+</pre>
+<h2 id="a8">Изменение размера пера&nbsp;&nbsp;&nbsp;&nbsp;<a href="#a">Up</a></h2>
+<pre>
+    Для изменения ширины пера черепашки в пикселях можно применить команду turtle.pensize(). Аргумент команды – целое
+число, задает ширину пера.
+
+Приведенный ниже код устанавливает ширину пера в 5 пикселей и затем рисует круг:
+<span style="color: #0000ff;">
+    import turtle
+    turtle.pensize(5)
+    turtle.circle(80)
+</span>
+</pre>
+<h2 id="a9">Изменение цвета рисунка&nbsp;&nbsp;&nbsp;&nbsp;<a href="#a">Up</a></h2>
+    <pre>
+    Для изменения цвета рисунка можно применить команду turtle.pencolor(). Аргумент команды – строковое представление
+названия цвета.
+
+Приведенный ниже код меняет цвет рисунка на красный и затем рисует круг:
+<span style="color: #0000ff;">
+    import turtle
+    turtle.pencolor('red')
+    turtle.circle(80)
+</span>
+С командой turtle.pencolor() можно использовать многочисленные предопределенные названия цветов. Наиболее широко
+используемые названия цветов:
+
+    red (красный);
+    green (зеленый);
+    bluе (синий);
+    yellow (желтый);
+    cyan (сине-зелёный).
+
+Команда turtle.pencolor() позволяет работать не только с предопределенными названиями цветов, но и с цветами, заданными
+в формате RGB (Red Green Blue). В качестве аргумента команды turtle.pencolor() можно использовать либо кортеж из 3 чисел
+(r, g, b), либо просто три числа r, g, b.
+<span style="color: #0000ff;">
+    import turtle
+    turtle.pencolor('red')           #  строковое представление цвета
+    turtle.circle(90)
+    color = (13, 56, 240)            #  кортеж (r, g, b)
+    turtle.pencolor(color)           #  кортеж в качестве аргумента
+    turtle.circle(80)
+    turtle.pencolor(130, 240, 200)   #  значения r, g, b в качестве аргументов
+    turtle.circle(50)
+</span>
+В Python 3 для того, чтобы использовать цвет в формате RGB, нужно предварительно установить значение colormode в
+255, для этого нужно использовать команду turtle.Screen().colormode(255). Подробнее об этом можно почитать в документации.
+
+
+    </pre>
+
+<h2 id="a10">Изменение цвета фона&nbsp;&nbsp;&nbsp;&nbsp;<a href="#a">Up</a></h2>
+    <pre>Для изменения фонового цвета графического окна можно применить команду turtle.Screen().bgcolor(). В этом случае
+тоже можно использовать цвета с предопределенными названиями или задать цвет в RGB формате.
+
+Приведенный ниже код меняет цвет фона на серый, цвет рисунка на зеленый и затем рисует круг:
+<span style="color: #0000ff;">
+    import turtle
+    turtle.Screen().bgcolor('gray')
+    turtle.pencolor('green')
+    turtle.circle(80)
+</span>
+Мы также можем установить фоновое изображение с помощью команды turtle.Screen().bgpic().
+<span style="color: #0000ff;">
+    import turtle
+    turtle.Screen().setup(400, 400)               # устанавливаем размер граф. окна
+    turtle.Screen().addshape('rocketship.png')    # добавляем форму черепашки
+    turtle.Screen().bgpic('space.jpg')            # устанавливаем фоновое изображение
+    turtle.shape('rocketship.png')                # устанавливаем форму черепашки
+    turtle.pencolor('green')
+    turtle.pensize(5)
+    for _ in range(4):
+        turtle.forward(150)
+        turtle.left(90)
+</span>
+
+    </pre>
+<h2 id="a11">Создание штампа&nbsp;&nbsp;&nbsp;&nbsp;<a href="#a">Up</a></h2>
+    <pre>С помощью команды turtle.stamp() можно оставить штамп черепашки. Использование команды turtle.stamp() производит тот же эффект, что и команда turtle.dot(), но оставляет отметку в форме черепашки.
+
+Приведенный ниже код:
+<span style="color: #0000ff;">
+    import turtle
+    turtle.shape('turtle')
+    for i in range(3):
+        turtle.forward(50)
+        turtle.stamp()
+</span>
+При использовании команды turtle.stamp() цветом штампа будет цвет заливки или по умолчанию черный.
+
+
+
+</pre>
+
+<h2 id="a12">Возвращение экрана в исходное состояние&nbsp;&nbsp;&nbsp;&nbsp;<a href="#a">Up</a></h2>
+    <pre>
+        Для возвращения графического окна черепашки в исходное состояние существуют три команды:
+<span style="color: #0000ff;">
+-turtle.clear();
+-turtle.reset();
+-turtle.clearscreen().</span>
+Команда turtle.clear() стирает все рисунки в графическом окне. Но не меняет положение черепашки, цвет рисунка и цвет фона графического окна.
+
+Команда turtle.reset() стирает все рисунки, имеющиеся в графическом окне, задает черный цвет рисунка и возвращает черепашку в исходное положение в центре экрана. Эта команда не переустанавливает цвет фона графического окна.
+
+Команда turtle.clearscreen() стирает все рисунки в графическом окне, меняет цвет рисунка на черный, а цвет фона на белый, и возвращает черепашку в исходное положение в центре графического окна.
+
+
+    </pre>
+
+    <h2 id="a13">Вывод текста в графическое окно&nbsp;&nbsp;&nbsp;&nbsp;<a href="#a">Up</a></h2>
+
+    <pre>Для вывода текста в графическое окно применяется команда write(). Аргумент этой команды — строка текста,
+которую требуется вывести на экран. Левый нижний угол первого символа выведенного текста будет расположен в точке с
+координатами черепашки.
+
+Приведенный ниже код:
+<span style="color: #0000ff;">
+    import turtle
+    turtle.write('Пpивeт, мир!')
+</span>
+выводит текст Привет, мир! на экран.
+Приведенный ниже код показывает, как черепаха перемещается в соответствующие позиции для вывода текста:
+<span style="color: #0000ff;">
+    import turtle
+    turtle.Screen().setup(400, 300)
+    turtle.hideturtle()
+    turtle.goto(-120, 120)
+    turtle.write('Сверху')
+    turtle.goto(50, -120)
+    turtle.write('Снизу')
+    turtle.goto(100, 20)
+    turtle.write('Справа')
+</span>
+  Мы можем настроить вывод текста, задавая размер и тип шрифта, начертание, выравнивание и т.д.
+
+Аргументы команды write():
+
+    arg – текст, который нужно вывести;
+    move – указывает будет ли двигаться черепашка по мере рисования надписи (по умолчанию значение False);
+    align – служит для выравнивания надписи относительно черепашки, может принимать три строковых значения right,
+        center, left (по умолчанию значению right);
+    font – кортеж из трех значений: (название шрифта, размер шрифта, тип начертания). В качестве начертания
+        можно использовать строковые значения: normal — обычный, bold — полужирный, italic — курсив, или объединить
+        два последних, тогда текст будет напечатан полужирным курсивом.
+
+    </pre>
+
+    <h2 id="a14">Заполнение геометрических фигур&nbsp;&nbsp;&nbsp;&nbsp;<a href="#a">Up</a></h2>
+    <pre>
+Для заполнения геометрической фигуры цветом используется команда turtle.begin_fill(), причем она применяется до
+начертания фигуры, а после завершения начертания используется команда turtle.end_fill() и геометрическая фигура
+заполняется текущим цветом заливки.
+
+Приведенный ниже код:
+<span style="color: #0000ff;">
+    import turtle
+    turtle.hideturtle()
+    turtle.begin_fill()     # включаем заливку
+    turtle.circle(80)
+    turtle.end_fill()       # выключаем заливку
+</span>
+рисует круг, заполненный цветом по умолчанию — черным.
+Приведенный ниже код:
+<span style="color: #0000ff;">
+    import turtle
+    turtle.hideturtle()
+    turtle.fillcolor('green')
+    turtle.begin_fill()
+    for i in range(4):
+        turtle.forward(100)
+        turtle.left(90)
+
+    turtle.end_fill()
+</span>
+рисует квадрат, заполненный зеленым цветом.
+Если заполнить незамкнутую фигуру, она будет закрашена, будто был начерчен отрезок, соединяющий начальную и конечную точки.
+
+Приведенный ниже код:
+<span style="color: #0000ff;">
+    import turtle
+    turtle.hideturtle()
+    turtle.fillcolor('green')
+    turtle.begin_fill()
+    turtle.goto(-50, 120)
+    turtle.goto(120, 120)
+    turtle.goto(150, -80)
+    turtle.end_fill()
+</span>
+рисует зеленый четырехугольник.
+
+
+    </pre>
+     <h2 id="a15">Создание нескольких черепашек&nbsp;&nbsp;&nbsp;&nbsp;<a href="#a">Up</a></h2>
+    <pre>
+Можно работать сразу с несколькими черепашками. Для этого надо создать несколько переменных, содержащих экземпляры
+класса Turtle.
+<span style="color: #0000ff;">
+    import turtle
+    turtle.Screen().bgcolor('yellow')  #  устанавливаем цвет фона
+
+    tim = turtle.Turtle()    # создаем первую черепашку и устанавливаем ее свойства
+    tim.color('red')
+    tim.pensize(3)
+    tim.forward(80)
+    tim.left(120)
+    tim.forward(80)
+    tim.left(120)
+    tim.forward(80)
+    tim.left(120)
+    tim.right(180)
+    tim.forward(80)
+
+    alex = turtle.Turtle()    # создаем вторую черепашку и устанавливаем ее свойства
+    alex.forward(50)
+    alex.left(90)
+    alex.forward(50)
+    alex.left(90)
+    alex.forward(50)
+    alex.left(90)
+    alex.forward(50)
+    alex.left(90)
+</span>
+Черепашек можно сохранить в списке, а затем в цикле обрабатывать его.
+<span style="color: #0000ff;">
+    import turtle
+    from random import randrange
+
+    def move_turtles(turtles, dist, angle):
+        for turtle in turtles:    # все черепашки из списка делают одни и те же действия
+            turtle.forward(dist)
+            turtle.right(angle)
+
+
+    turtles = []                   # список черепашек
+    head = 0
+    num_turtles = 10               # количество череашек
+    for i in range(num_turtles):
+        turt = turtle.Turtle()     # создаем черепашку и устанавливаем ее свойства
+        turt.setheading(head)
+        turt.pensize(2)
+        turt.color(randrange(256), randrange(256), randrange(256))
+        turt.speed(5)
+        turt.tracer(25, 0)
+        turtles.append(turt)       # добавляем черепашку в список
+        head = head + 360/num_turtles
+
+    for i in range(70):
+        move_turtles(turtles, 10, i)
+</span>
+Команда turtle.tracer(n, delay) включает/выключает анимацию черепашки и устанавливает задержку для обновления рисунков.
+Может использоваться для ускорения рисования сложной графики.
+
+    </pre>
+     <h2 id="a16">Отслеживание нажатия клавиш&nbsp;&nbsp;&nbsp;&nbsp;<a href="#a">Up</a></h2>
+    <pre>
+    Черепашья графика позволяет отслеживать происходящие события, такие как нажатия клавиш клавиатуры, перемещение мышки
+или нажатие на мышку. Изначально программа никак не реагирует на эти события и чтобы это поведение изменить необходимо
+привязать функции обратного вызова к событиям. Для этого существуют специальные команды. Для отслеживания нажатия клавиш
+клавиатуры используется команда onkey(fun, key), которая связывает функцию обратного вызова fun с событием нажатия клавиши
+key.
+<span style="color: #0000ff;">
+    import turtle
+
+    def move_up():                            # функция обратного вызова
+      x, y = turtle.pos()
+      turtle.setposition(x, y + 5)
+
+    def move_down():                          # функция обратного вызова
+      x, y = turtle.pos()
+      turtle.setposition(x, y - 5)
+
+    def move_left():                          # функция обратного вызова
+      x, y = turtle.pos()
+      turtle.setposition(x - 5, y)
+
+    def move_right():                         # функция обратного вызова
+      x, y = turtle.pos()
+      turtle.setposition(x + 5, y)
+
+    turtle.showturtle()                        # отображаем черепашку
+    turtle.pensize(3)                          # устанавливаем размер пера
+    turtle.shape('turtle')
+    turtle.Screen().listen()                   # устанавливаем фокус на экран черепашки
+
+    turtle.Screen().onkey(move_up, 'Up')       # регистрируем функцию на нажатие клавиши наверх
+    turtle.Screen().onkey(move_down, 'Down')   # регистрируем функцию на нажатие клавиши вниз
+    turtle.Screen().onkey(move_left, 'Left')   # регистрируем функцию на нажатие клавиши налево
+    turtle.Screen().onkey(move_right, 'Right') # регистрируем функцию на нажатие клавиши направо
+</span>
+Для отслеживания событий также необходимо установить фокус на экран черепашки с помощью команды turtle.Screen().listen().
+
+Давайте теперь сделаем так, чтобы по нажатию на пробел черепашка скрывалась и переставала оставлять след. Также добавим
+возможность увеличивать скорость перемещения черепашки по нажатию на клавиши клавиатуры q и w.
+<span style="color: #0000ff;">
+    import turtle
+
+    speed = 5
+    def move_up():                             # функция обратного вызова
+      x, y = turtle.pos()
+      turtle.setposition(x, y + speed)
+
+    def move_down():                           # функция обратного вызова
+      x, y = turtle.pos()
+      turtle.setposition(x, y - speed)
+
+    def move_left():                           # функция обратного вызова
+      x, y = turtle.pos()
+      turtle.setposition(x - speed, y)
+
+    def move_right():                          # функция обратного вызова
+      x, y = turtle.pos()
+      turtle.setposition(x + speed, y)
+
+    def change():                              # функция обратного вызова
+      if turtle.isvisible():
+        turtle.up()
+        turtle.hideturtle()
+      else:
+        turtle.down()
+        turtle.showturtle()
+
+    def speed_increase():                      # функция обратного вызова
+      global speed
+      speed += 1
+
+    def speed_decrease():                      # функция обратного вызова
+      global speed
+      speed -= 1
+        if speed<=0:
+            speed = 1
+
+    turtle.showturtle()                        # отображаем черепашку
+    turtle.pensize(3)                          # устанавливаем размер пера
+    turtle.Screen().listen()                   # устанавливаем фокус на экран черепашки
+    turtle.Screen().onkey(move_up, 'Up')       # регистрируем функцию на нажатие клавиши наверх
+    turtle.Screen().onkey(move_down, 'Down')   # регистрируем функцию на нажатие клавиши вниз
+    turtle.Screen().onkey(move_left, 'Left')   # регистрируем функцию на нажатие клавиши налево
+    turtle.Screen().onkey(move_right, 'Right') # регистрируем функцию на нажатие клавиши направо
+    turtle.Screen().onkey(change, 'space')
+    turtle.Screen().onkey(speed_increase, 'q')
+    turtle.Screen().onkey(speed_decrease, 'w')
+
+</span>
+    </pre>
+     <h2 id="a17">Отслеживание нажатия мыши&nbsp;&nbsp;&nbsp;&nbsp;<a href="#a">Up</a></h2>
+    <pre>
+Аналогичным образом можно отслеживать нажатие на мышку. Для отслеживания нажатия мыши используется команда onclick(fun),
+которая связывает функцию обратного вызова fun с событием нажатия левой кнопки мыши.
+
+Приведенный ниже код рисует круг по нажатию на левую кнопку мыши.
+<span style="color: #0000ff;">
+    import turtle
+    from random import randrange
+
+    def random_color():
+      return randrange(256), randrange(256), randrange(256)
+
+    def draw_circle(x, y, r):
+        turtle.penup()
+        turtle.goto(x, y - r)
+        turtle.pendown()
+        color = random_color()
+        # color выдает кортеж вида (r, g, b) ниже идет превод в систему  #RRGGBB
+        rr = hex(int(color[0]/256*16))[2:]
+        g = hex(int(color[1]/256*16))[2:]
+        b = hex(int(color[2]/256*16))[2:]
+        color = f'#{rr}{rr}{g}{g}{b}{b}'
+        turtle.pencolor(color)
+        turtle.fillcolor(color)
+        turtle.begin_fill()
+        turtle.circle(r)
+        turtle.end_fill()
+        turtle.speed(0)
+
+    def left_mouse_click(x, y):
+        draw_circle(x, y, 10)
+
+    turtle.hideturtle()
+
+    turtle.Screen().onclick(left_mouse_click)
+    turtle.Screen().listen()
+
+</span>
+    </pre>
+     <h2 id="a18">Фиксация окна отображения&nbsp;&nbsp;&nbsp;&nbsp;<a href="#a">Up</a></h2>
+    <pre>
+<span style="color: #0000ff;">
+    turtle.done()
+</span>
+    </pre>
+
+<h2 id="a26">Примечания&nbsp;&nbsp;&nbsp;&nbsp;<a href="#a">Up</a></h2>
+
+<pre>Примечание 1. Полная документация по черепашьей графике находится тут(https://docs.python.org/3/library/turtle.html).
+    Рекомендуем с ней ознакомиться.
+Примечание 2. Все рассмотренные команды являются методами класса Turtle (ООП).
+Примечание 3. Для установления размера графического окна можно применить команду turtle.Screen().setup(). Аргументы команды
+    – ширина и высота (в пикселях).
+
+Приведенный ниже код создает графическое окно шириной 640×480 пикселей:
+<span style="color: #0000ff;">
+    import turtle
+    turtle.Screen().setup(640, 480)
+</span></pre>
+</span></span>

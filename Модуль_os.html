@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="UTF-8">
+    <style>
+    table,
+    table * {border: 1px solid #000;}
+    </style>
+    <title>Название</title>
+</head>
+<body>
+<span style="font-size:26px;"><span style="font-family:arial,helvetica,sans-serif;">
+        <a href="./0_Помощь_Python.html">Помощь_Python.html</a></span></span>
+  <hr>
+    <hr id="a">
+        <span style="font-size:26px;"><span style="font-family:arial,helvetica,sans-serif;">
+
+            &nbsp&nbsp&nbsp&nbsp
+            </span></span></span>
+            <h2>Модуль os</h2>
+            <span style="font-size:20px;"><span style="font-family:arial,helvetica,sans-serif;">
+           
+        <p>&nbsp&nbsp&nbsp&nbspМодуль os предоставляет множество функций для работы с операционной системой, причём их поведение, как правило, не зависит от ОС, поэтому программы остаются переносимыми. Здесь будут приведены наиболее часто используемые из них.</p>
+
+        <p>&nbsp&nbsp&nbsp&nbspБудьте внимательны: некоторые функции из этого модуля поддерживаются не всеми ОС.</p>
+
+        <p>&nbsp&nbsp&nbsp&nbsp<b>os.name</b> - имя операционной системы. Доступные варианты: 'posix', 'nt', 'mac', 'os2', 'ce', 'java'.</p>
+
+        <p>&nbsp&nbsp&nbsp&nbsp<b>os.environ</b> - словарь переменных окружения. Изменяемый (можно добавлять и удалять переменные окружения).</p>
+
+        <p>&nbsp&nbsp&nbsp&nbsp<b>os.getlogin()</b> - имя пользователя, вошедшего в терминал (Unix).</p>
+
+        <p>&nbsp&nbsp&nbsp&nbsp<b>os.getpid()</b> - текущий id процесса.</p>
+
+        <p>&nbsp&nbsp&nbsp&nbsp<b>os.uname()</b> - информация об ОС. Возвращает объект с атрибутами: sysname</b> - имя операционной системы, nodename</b> - имя машины в сети (определяется реализацией), release - релиз, version</b> - версия, machine</b> - идентификатор машины.</p>
+
+        <p>&nbsp&nbsp&nbsp&nbsp<b>os.access(path, mode, *, dir_fd=None, effective_ids=False, follow_symlinks=True)</b> - проверка доступа к объекту у текущего пользователя. Флаги: os.F_OK - объект существует, os.R_OK</b> - доступен на чтение, os.W_OK</b> - доступен на запись, os.X_OK</b> - доступен на исполнение.</p>
+
+        <p>&nbsp&nbsp&nbsp&nbsp<b>os.chdir(path)</b> - смена текущей директории.</p>
+
+        <p>&nbsp&nbsp&nbsp&nbsp<b>os.chmod(path, mode, *, dir_fd=None, follow_symlinks=True)</b> - смена прав доступа к объекту (mode</b> - восьмеричное число).</p>
+
+        <p>&nbsp&nbsp&nbsp&nbsp<b>os.chown(path, uid, gid, *, dir_fd=None, follow_symlinks=True)</b> - меняет id владельца и группы (Unix).</p>
+
+        <p>&nbsp&nbsp&nbsp&nbsp<b>os.getcwd()</b> - текущая рабочая директория.</p>
+
+        <p>&nbsp&nbsp&nbsp&nbsp<b>os.link(src, dst, *, src_dir_fd=None, dst_dir_fd=None, follow_symlinks=True)</b> - создаёт жёсткую ссылку.</p>
+
+        <p>&nbsp&nbsp&nbsp&nbsp<b>os.listdir(path=".")</b> - список файлов и директорий в папке.</p>
+
+        <p>&nbsp&nbsp&nbsp&nbsp<b>os.mkdir(path, mode=0o777, *, dir_fd=None)</b> - создаёт директорию. OSError, если директория существует.</p>
+
+        <p>&nbsp&nbsp&nbsp&nbsp<b>os.makedirs(path, mode=0o777, exist_ok=False)</b> - создаёт директорию, создавая при этом промежуточные директории.</p>
+
+        <p>&nbsp&nbsp&nbsp&nbsp<b>os.remove(path, *, dir_fd=None)</b> - удаляет путь к файлу.</p>
+
+        <p>&nbsp&nbsp&nbsp&nbsp<b>os.rename(src, dst, *, src_dir_fd=None, dst_dir_fd=None)</b> - переименовывает файл или директорию из src в dst.</p>
+
+        <p>&nbsp&nbsp&nbsp&nbsp<b>os.renames(old, new)</b> - переименовывает old в new, создавая промежуточные директории.</p>
+
+        <p>&nbsp&nbsp&nbsp&nbsp<b>os.replace(src, dst, *, src_dir_fd=None, dst_dir_fd=None)</b> - переименовывает из src в dst с принудительной заменой.</p>
+
+        <p>&nbsp&nbsp&nbsp&nbsp<b>os.rmdir(path, *, dir_fd=None)</b> - удаляет пустую директорию.</p>
+
+        <p>&nbsp&nbsp&nbsp&nbsp<b>os.removedirs(path)</b> - удаляет директорию, затем пытается удалить родительские директории, и удаляет их рекурсивно, пока они пусты.</p>
+
+        <p>&nbsp&nbsp&nbsp&nbsp<b>os.symlink(source, link_name, target_is_directory=False, *, dir_fd=None)</b> - создаёт символическую ссылку на объект.</p>
+
+        <p>&nbsp&nbsp&nbsp&nbsp<b>os.sync()</b> - записывает все данные на диск (Unix).</p>
+
+        <p>&nbsp&nbsp&nbsp&nbsp<b>os.truncate(path, length)</b> - обрезает файл до длины length.</p>
+
+        <p>&nbsp&nbsp&nbsp&nbsp<b>os.utime(path, times=None, *, ns=None, dir_fd=None, follow_symlinks=True)</b> - модификация времени последнего доступа и изменения файла. Либо times - кортеж (время доступа в секундах, время изменения в секундах), либо ns - кортеж (время доступа в наносекундах, время изменения в наносекундах).</p>
+
+        <p>&nbsp&nbsp&nbsp&nbsp<b>os.walk(top, topdown=True, onerror=None, followlinks=False)</b> - генерация имён файлов в дереве каталогов, сверху вниз (если topdown равен True), либо снизу вверх (если False). Для каждого каталога функция walk возвращает кортеж (путь к каталогу, список каталогов, список файлов).</p>
+        <p>&nbsp&nbsp&nbsp&nbsp<b>os.system(command)</b> - исполняет системную команду, возвращает код её завершения (в случае успеха 0).</p>
+
+        <p>&nbsp&nbsp&nbsp&nbsp<b>os.urandom(n)</b> - n случайных байт. Возможно использование этой функции в криптографических целях.</p>
+
+        <p>&nbsp&nbsp&nbsp&nbsp<b>os.path</b> - модуль, реализующий некоторые полезные функции на работы с путями.</p>
+
+
+                    <h2 id="a1">Модуль os.path<a href="#a">&nbsp&nbsp&nbsp&nbspUp</a></h2>
+                <span style="font-size:20px;"><span style="font-family:arial,helvetica,sans-serif;">
+        <p>&nbsp&nbsp&nbsp&nbspos.path является вложенным модулем в модуль os, и реализует некоторые полезные функции для работы с путями.</p>
+
+        <p>&nbsp&nbsp&nbsp&nbsp<b>os.path.abspath(path)</b> - возвращает нормализованный абсолютный путь.</p>
+
+        <p>&nbsp&nbsp&nbsp&nbsp<b>os.path.basename(path)</b> - базовое имя пути (эквивалентно os.path.split(path)[1]).</p>
+
+        <p>&nbsp&nbsp&nbsp&nbsp<b>os.path.commonprefix(list)</b> - возвращает самый длинный префикс всех путей в списке.</p>
+
+        <p>&nbsp&nbsp&nbsp&nbsp<b>os.path.dirname(path)</b> - возвращает имя директории пути path.</p>
+
+        <p>&nbsp&nbsp&nbsp&nbsp<b>os.path.exists(path)</b> - возвращает True, если path указывает на существующий путь или дескриптор открытого файла.</p>
+
+        <p>&nbsp&nbsp&nbsp&nbsp<b>os.path.expanduser(path)</b> - заменяет ~ или ~user на домашнюю директорию пользователя.</p>
+
+        <p>&nbsp&nbsp&nbsp&nbsp<b>os.path.expandvars(path)</b> - возвращает аргумент с подставленными переменными окружения ($name или ${name} заменяются переменной окружения name). Несуществующие имена не заменяет. На Windows также заменяет %name%.</p>
+
+        <p>&nbsp&nbsp&nbsp&nbsp<b>os.path.getatime(path)</b> - время последнего доступа к файлу, в секундах.</p>
+
+        <p>&nbsp&nbsp&nbsp&nbsp<b>os.path.getmtime(path)</b> - время последнего изменения файла, в секундах.</p>
+
+        <p>&nbsp&nbsp&nbsp&nbsp<b>os.path.getctime(path)</b> - время создания файла (Windows), время последнего изменения файла (Unix).</p>
+
+        <p>&nbsp&nbsp&nbsp&nbsp<b>os.path.getsize(path)</b> - размер файла в байтах.</p>
+
+        <p>&nbsp&nbsp&nbsp&nbsp<b>os.path.isabs(path)</b> - является ли путь абсолютным.</p>
+
+        <p>&nbsp&nbsp&nbsp&nbsp<b>os.path.isfile(path)</b> - является ли путь файлом.</p>
+
+        <p>&nbsp&nbsp&nbsp&nbsp<b>os.path.isdir(path)</b> - является ли путь директорией.</p>
+
+        <p>&nbsp&nbsp&nbsp&nbsp<b>os.path.islink(path)</b> - является ли путь символической ссылкой.</p>
+
+        <p>&nbsp&nbsp&nbsp&nbsp<b>os.path.ismount(path)</b> - является ли путь точкой монтирования.</p>
+
+        <p>&nbsp&nbsp&nbsp&nbsp<b>os.path.join(path1[, path2[, ...]])</b> - соединяет пути с учётом особенностей операционной системы.</p>
+
+        <p>&nbsp&nbsp&nbsp&nbsp<b>os.path.normcase(path)</b> - нормализует регистр пути (на файловых системах, не учитывающих регистр, приводит путь к нижнему регистру).</p>
+
+        <p>&nbsp&nbsp&nbsp&nbsp<b>os.path.normpath(path)</b> - нормализует путь, убирая избыточные разделители и ссылки на предыдущие директории. На Windows преобразует прямые слеши в обратные.</p>
+
+        <p>&nbsp&nbsp&nbsp&nbsp<b>os.path.realpath(path)</b> - возвращает канонический путь, убирая все символические ссылки (если они поддерживаются).</p>
+
+        <p>&nbsp&nbsp&nbsp&nbsp<b>os.path.relpath(path, start=None)</b> - вычисляет путь относительно директории start (по умолчанию - относительно текущей директории).</p>
+
+        <p>&nbsp&nbsp&nbsp&nbsp<b>os.path.samefile(path1, path2)</b> - указывают ли path1 и path2 на один и тот же файл или директорию.</p>
+
+        <p>&nbsp&nbsp&nbsp&nbsp<b>os.path.sameopenfile(fp1, fp2)</b> - указывают ли дескрипторы fp1 и fp2 на один и тот же открытый файл.</p>
+
+        <p>&nbsp&nbsp&nbsp&nbsp<b>os.path.split(path)</b> - разбивает путь на кортеж (голова, хвост), где хвост - последний компонент пути, а голова - всё остальное. Хвост никогда не начинается со слеша (если путь заканчивается слешем, то хвост пустой). Если слешей в пути нет, то пустой будет голова.</p>
+
+        <p>&nbsp&nbsp&nbsp&nbsp<b>os.path.splitdrive(path)</b> - разбивает путь на пару (привод, хвост).</p>
+
+        <p>&nbsp&nbsp&nbsp&nbsp<b>os.path.splitext(path)</b> - разбивает путь на пару (root, ext), где ext начинается с точки и содержит не более одной точки.</p>
+
+        <p>&nbsp&nbsp&nbsp&nbsp<b>os.path.supports_unicode_filenames</b> - поддерживает ли файловая система Unicode.</p>
+         
+
+        <a href="#a">&nbsp&nbsp&nbsp&nbspUp</a></h2></span></span>
+
+</body>
+</html>

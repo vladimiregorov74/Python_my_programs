@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>f-строки</title>
+</head>
+<span style="font-size:26px;"><span style="font-family:arial,helvetica,sans-serif;">
+<a href="./0_Помощь_Python.html">Помощь_Python.html</a></span></span>
+  <hr>
+<h2 id="a">Рассмотрим основные методы строк, которые мы можем применить в приложениях:</h2>
+<body>
+<span style="font-size:26px;"><span style="font-family:arial,helvetica,sans-serif;">
+"F-строки" обеспечивают краткий, читаемый способ включения значения выражений Python внутри строк. В исходном коде Python форматированная строка</a> или по другому f-string</a> - это буквальная строка с префиксом <code>'f'</code> или <code>'F'</code>, которая содержит выражения внутри фигурных скобок <code>{}</code>. Выражения заменяются их значениями.</p><p>Escape-последовательности</a> декодируются как в обычных строковых литералах, за исключением случаев, когда литерал также помечается как необработанная строка <code>r'string'</code></a>.</p><p>Части строки вне фигурных скобок обрабатываются буквально, за исключением того, что любые двойные фигурные скобки <code>{{</code> или <code>}}</code> заменяются соответствующей одиночной фигурной скобкой. Одна открывающая фигурная скобка <code>{</code> обозначает поле замены, которое начинается с выражения Python. После выражения может быть поле преобразования, введенное восклицательным знаком <code>!</code>. Спецификатор формата также может быть добавлен, введенный двоеточием <code>:</code>. Поле замены заканчивается закрывающей фигурной скобкой <code>}</code>.</p><p>Выражения в форматированных строках рассматриваются как обычные выражения Python, окруженные круглыми скобками, за некоторыми исключениями: </p><ul><li>Пустое выражение недопустимо. </li><li>Как лямбда-выражения</a>, так и выражения присваивания <code>:=</code></a> должны быть заключены в явные круглые скобки.</li><li>Выражения замены могут содержать разрывы строк, например в строках с тройными кавычками, но они не могут содержать комментарии.</li><li>Каждое выражение вычисляется в контексте, где отображается форматированный строковый литерал, в порядке слева направо.</li></ul><p>Если указаны преобразования (<code>!o</code> или <code>!a</code> или <code>!r</code>) , то перед форматированием вычисляется результат преобразования. Затем результат форматируется с помощью протокола <code>str.format()</code></a>. Спецификатор формата передается в метод <code>__format__()</code> выражения или результата преобразования. Отформатированный результат затем включается в конечное значение всей строки.</p><p>Спецификация формата Mini-Language</a> совпадает с языком, используемым во встроенной функции format()</code></a>.</p><p>Форматированные строки могут быть разделены, но при этом поля замены не могут быть разделены между литералами.</p><h3><u>Содержание</u>:</h3><ul><li><a href="#sample">Простое форматирование вывода f-строкой</a>;</li><li><a href="#nested">Вложенные поля в f-строках</a>;</li><li><a href="#quote">Кавычки и f-строки</a>;</li><li><a href="#slash">Обратные косые черты и f-строки</a>;</li><li><a href="#hooks">Фигурные скобки и f-строки</a>;</li><li><a href="#multiline">Многострочные f-строки</a>;</li><li><a href="#equals">Спецификатор <code>'='</code> в f-строках</a>;</li><li><a href="#if-else">Использование однострочного <code>if</code>/<code>else</code> в f-строке</a>;</li><li><a href="#date">Использование спецификатора формата даты</a>;</li><li><a href="#docs-line">Cтроки документации и f-строки</a>;</li><li><a href="#Mini-Language">Поддержка спецификации формата Mini-Language</a>:<ul><li><a href="#alignment">Отступы/выравнивание в f-строках</a>;</li><li><a href="#decimal-separator">Форматирование числа с помощью запятых в качестве десятичного разделителя</a>;</li><li><a href="#exp-representation">Форматирование числа в экспоненциальном представлении</a>;</li><li><a href="#integer-format">Использование спецификатора целочисленного формата</a>.</li></ul></li></ul><hr><p><a id="sample"></a></p><h2>Простое форматирование вывода f-строкой.&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<a href="#a">Up</a></h2><div class="mt-3"><pre class="highlight"><span></span><span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&gt;&gt;&gt;</span> <span class="n">name</span> <span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp=</span> <span class="s1">'Fred'</span>
+<span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&gt;&gt;&gt;</span> <span class="sa">f</span><span class="s1">'He said his name is </span><span class="si">{</span><span class="n">name</span><span class="si">!r}</span><span class="s1">.'</span>
+<span class="c1">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp# 'He said his name is 'Fred'.'</span>
+
+<span class="c1">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp# repr() является эквивалентом '!r'</span>
+<span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&gt;&gt;&gt;</span> <span class="sa">f</span><span class="s1">'He said his name is </span><span class="si">{</span><span class="nb">repr</span><span class="p">(</span><span class="n">name</span><span class="p">)</span><span class="si">}</span><span class="s1">.'</span>
+<span class="c1">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp# He said his name is 'Fred'.</span>
+</pre></div><p><a id="nested"></a></p><h2>Вложенные поля в f-строках.&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<a href="#a">Up</a></h2><div class="mt-3"><pre class="highlight"><span></span><span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&gt;&gt;&gt;</span> <span class="n">width</span> <span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp=</span> <span class="mi">10</span>
+<span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&gt;&gt;&gt;</span> <span class="n">precision</span> <span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp=</span> <span class="mi">4</span>
+<span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&gt;&gt;&gt;</span> <span class="n">value</span> <span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp=</span> <span class="n">decimal</span><span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp.</span><span class="n">Decimal</span><span class="p">(</span><span class="s2">"12.34567"</span><span class="p">)</span>
+<span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&gt;&gt;&gt;</span> <span class="sa">f</span><span class="s1">'result: </span><span class="si">{</span><span class="n">value</span><span class="si">:{</span><span class="n">width</span><span class="si">}</span><span class="s1">.</span><span class="si">{</span><span class="n">precision</span><span class="si">}}</span><span class="s1">'</span>
+<span class="s1">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp'result:      12.35'</span>
+</pre></div><p><a id="quote"></a></p><h2>Кавычки и f-строки.&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<a href="#a">Up</a></h2><p>Символы в полях замены не должны конфликтовать с кавычками, используемыми во внешнем форматированном строковом литерале:</p><div class="mt-3"><pre class="highlight"><span></span><span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&gt;&gt;&gt;</span> <span class="n">a</span> <span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp=</span> <span class="p">{</span><span class="s1">'x'</span><span class="p">:</span> <span class="mi">120</span><span class="p">}</span>
+<span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&gt;&gt;&gt;</span> <span class="sa">f</span><span class="s1">'abc </span><span class="si">{</span><span class="n">a</span><span class="p">[</span><span class="s1">'x'</span><span class="p">]</span><span class="si">}</span><span class="s1"> def'</span>
+<span class="c1">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp#   File "&lt;stdin&gt;", line 1</span>
+<span class="c1">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp#     f'abc {a['x']} def'</span>
+<span class="c1">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp#               ^</span>
+<span class="c1">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp# SyntaxError: invalid syntax</span>
+
+<span class="c1">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp# Используйте различные кавычки</span>
+<span class="sa">f</span><span class="s2">"abc </span><span class="si">{</span><span class="n">a</span><span class="p">[</span><span class="s1">'x'</span><span class="p">]</span><span class="si">}</span><span class="s2"> def"</span>
+<span class="c1">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp# 'abc 120 def'</span>
+</pre></div><p><a id="slash"></a></p><h2>Обратные косые черты и f-строки.&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<a href="#a">Up</a></h2><p>Обратные косые черты не допускаются в выражениях формата и вызовут ошибку:</p><div class="mt-3"><pre class="highlight"><span></span><span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&gt;&gt;&gt;</span> <span class="sa">f</span><span class="s1">'newline: </span><span class="si">{</span><span class="nb">ord</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="p">)</span><span class="si">}</span><span class="s1">'</span>
+<span class="c1">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp#   File "&lt;stdin&gt;", line 1</span>
+<span class="c1">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp# SyntaxError: f-string expression part cannot include a backslash</span>
+</pre></div><p>Чтобы включить значение, в котором требуется экранирование обратной косой черты, создайте временную переменную.</p><div class="mt-3"><pre class="highlight"><span></span><span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&gt;&gt;&gt;</span> <span class="n">newline</span> <span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp=</span> <span class="nb">ord</span><span class="p">(</span><span class="s1">'</span><span class="se">\n</span><span class="s1">'</span><span class="p">)</span>
+<span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&gt;&gt;&gt;</span> <span class="sa">f</span><span class="s1">'newline: </span><span class="si">{</span><span class="n">newline</span><span class="si">}</span><span class="s1">'</span>
+<span class="c1">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp# 'newline: 10'</span>
+</pre></div><p><a id="hooks"></a></p><h2>Фигурные скобки и f-строки.&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<a href="#a">Up</a></h2><p>F-строки используют одинарные фигурные скобки <code>{}</code> для вывода выражений Python. Но как быть, если в итоговой строки необходим вывод самой фигурной скобки?  Чтобы в итоговой строке появились фигурные скобки, необходимо использовать двойные скобки, при этом выражение Python вычисляться не будет:</p><div class="mt-3"><pre class="highlight"><span></span><span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&gt;&gt;&gt;</span> <span class="n">num</span> <span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp=</span> <span class="mi">53</span>
+<span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&gt;&gt;&gt;</span> <span class="sa">f</span><span class="s2">"</span><span class="se">{{</span><span class="s2">num</span><span class="se">}}</span><span class="s2">"</span>
+<span class="c1">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp# {num}</span>
+</pre></div><p><u>Обратите внимание</u>, что если нужно вычислить выражение Python и при этом вывести скобки, то нужно использовать тройные скобки:</p><div class="mt-3"><pre class="highlight"><span></span><span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&gt;&gt;&gt;</span> <span class="n">num</span> <span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp=</span> <span class="mi">53</span>
+<span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&gt;&gt;&gt;</span> <span class="sa">f</span><span class="s2">"</span><span class="se">{{</span><span class="si">{</span><span class="n">num</span><span class="si">}</span><span class="se">}}</span><span class="s2">"</span>
+<span class="c1">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp# {53}</span>
+</pre></div><p>Другими словами для итогового вывода одной скобки в f-строке, необходимо использовать две скобки + одна, если нужно вычислить выражение. Для вывода 2-х скобок, в f-строке используйте 4 + 1 для вычисления выражения Python, и так далее (в общем четное количество + одна, если нужно вычислить выражение ):</p><div class="mt-3"><pre class="highlight"><span></span><span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&gt;&gt;&gt;</span> <span class="n">num</span> <span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp=</span> <span class="mi">53</span>
+<span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&gt;&gt;&gt;</span> <span class="sa">f</span><span class="s2">"</span><span class="se">{{{{</span><span class="si">{</span><span class="n">num</span><span class="si">}</span><span class="se">}}}}</span><span class="s2">"</span>
+<span class="c1">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp# {{53}}</span>
+</pre></div><p><a id="multiline"></a></p><h2>Многострочные f-строки.&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<a href="#a">Up</a></h2><p>Многострочные f-строки (строки, которые можно переносить для удобства) обычно размещаются в скобках (согласно <a href="/tutorial/pep-rukovodstvo-stilju-koda-python/" title="Руководство по стилю кода PEP 8 в Python.">PEP-8</a>: все что в скобках можно переносить). </p><div class="mt-3"><pre class="highlight"><span></span><span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&gt;&gt;&gt;</span> <span class="n">name</span> <span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp=</span> <span class="s2">"Юра"</span>
+<span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&gt;&gt;&gt;</span> <span class="n">profession</span> <span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp=</span> <span class="s2">"автор комедий"</span>
+<span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&gt;&gt;&gt;</span> <span class="n">affiliation</span> <span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp=</span> <span class="s1">'шоу "Stand Up"'</span>
+<span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&gt;&gt;&gt;</span> <span class="n">message</span> <span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp=</span> <span class="p">(</span>
+<span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp...</span>     <span class="sa">f</span><span class="s2">"Меня зовут </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">. "</span>
+<span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp...</span>     <span class="sa">f</span><span class="s2">"Я </span><span class="si">{</span><span class="n">profession</span><span class="si">}</span><span class="s2"> "</span>
+<span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp...</span>     <span class="sa">f</span><span class="s2">"в </span><span class="si">{</span><span class="n">affiliation</span><span class="si">}</span><span class="s2">."</span>
+<span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp...</span> <span class="p">)</span>
+<span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&gt;&gt;&gt;</span> <span class="n">message</span>
+<span class="c1">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp# 'Меня зовут Юра. Я автор комедий в шоу "Stand Up".'</span>
+</pre></div><p>Также для переноса f-строк можно использовать обратные слеши (согласно PEP-8 "<em>бакслеш</em>" используется для переноса длинных строк кода):</p><div class="mt-3"><pre class="highlight"><span></span><span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&gt;&gt;&gt;</span> <span class="n">name</span> <span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp=</span> <span class="s2">"Юра"</span>
+<span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&gt;&gt;&gt;</span> <span class="n">profession</span> <span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp=</span> <span class="s2">"автор комедий"</span>
+<span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&gt;&gt;&gt;</span> <span class="n">affiliation</span> <span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp=</span> <span class="s1">'шоу "Stand Up"'</span>
+<span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&gt;&gt;&gt;</span> <span class="n">message</span> <span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp=</span> <span class="sa">f</span><span class="s2">"Меня зовут </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">. "</span>\
+<span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp...</span>      <span class="s2">"Я </span><span class="si">{profession}</span><span class="s2"> "</span>\
+<span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp...</span>      <span class="s2">"в </span><span class="si">{affiliation}</span><span class="s2">."</span>\
+<span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&gt;&gt;&gt;</span> <span class="n">message</span>
+<span class="c1">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp# 'Меня зовут Юра. Я автор комедий в шоу "Stand Up".'</span>
+</pre></div><p><u>Обратите внимание</u> как используется спецификатор <code>f''</code> в разных приемах переноса строки.</p><p><a id="equals"></a></p><h2>Спецификатор <code>'='</code> в f-строках:&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<a href="#a">Up</a></h2><p>Для самостоятельного документирования выражений и отладки в <u>Python-3.8.1</u> добавлен спецификатор <code>'='</code> к f-строкам. F-строка, такая как <code>f'{expr=}'</code>, расширится до текста выражения и знака равенства, а затем представления вычисляемого выражения. Например:</p><div class="mt-3"><pre class="highlight"><span></span><span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&gt;&gt;&gt;</span> <span class="n">user</span> <span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp=</span> <span class="s1">'eric_idle'</span>
+<span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&gt;&gt;&gt;</span> <span class="n">member_since</span> <span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp=</span> <span class="n">date</span><span class="p">(</span><span class="mi">1975</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">31</span><span class="p">)</span>
+<span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&gt;&gt;&gt;</span> <span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">user</span><span class="si">=}</span><span class="s1"> </span><span class="si">{</span><span class="n">member_since</span><span class="si">=}</span><span class="s1">'</span>
+<span class="c1">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp# "user='eric_idle' member_since=datetime.date(1975, 7, 31)"</span>
+</pre></div><p>Обычные спецификаторы формата <code>f-string</code> позволяют более точно контролировать способ отображения результата выражения:</p><div class="mt-3"><pre class="highlight"><span></span><span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&gt;&gt;&gt;</span> <span class="n">delta</span> <span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp=</span> <span class="n">date</span><span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp.</span><span class="n">today</span><span class="p">()</span> <span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp-</span> <span class="n">member_since</span>
+<span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&gt;&gt;&gt;</span> <span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">user</span><span class="si">=!s}</span><span class="s1">  </span><span class="si">{</span><span class="n">delta</span><span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp.</span><span class="n">days</span><span class="si">=:</span><span class="s1">,d</span><span class="si">}</span><span class="s1">'</span>
+<span class="c1">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp# 'user=eric_idle  delta.days=16,075'</span>
+</pre></div><p>Спецификатор <code>=</code> будет отображать все выражение, чтобы можно было показать вычисления:</p><div class="mt-3"><pre class="highlight"><span></span><span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">theta</span><span class="si">=}</span><span class="s1">  </span><span class="si">{</span><span class="n">cos</span><span class="p">(</span><span class="n">radians</span><span class="p">(</span><span class="n">theta</span><span class="p">))</span><span class="si">=:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">'</span><span class="p">)</span>
+<span class="n">theta</span><span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp=</span><span class="mi">30</span>  <span class="n">cos</span><span class="p">(</span><span class="n">radians</span><span class="p">(</span><span class="n">theta</span><span class="p">))</span><span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp=</span><span class="mf">0.866</span>
+</pre></div><p><a id="if-else"></a></p><h2>Использование однострочного <code>if</code>/<code>else</code> в f-строке.&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<a href="#a">Up</a></h2><div class="mt-3"><pre class="highlight"><span></span><span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&gt;&gt;&gt;</span> <span class="n">a</span> <span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp=</span> <span class="mi">10</span>
+<span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&gt;&gt;&gt;</span> <span class="n">b</span> <span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp=</span> <span class="mi">5</span>
+<span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&gt;&gt;&gt;</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">a</span> <span class="k">if</span> <span class="n">a</span> <span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&gt;</span> <span class="n">b</span> <span class="k">else</span> <span class="n">b</span><span class="si">}</span><span class="s2">"</span>
+<span class="c1">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp# `10`</span>
+<span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&gt;&gt;&gt;</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">a</span> <span class="k">if</span> <span class="n">a</span> <span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&lt;</span> <span class="n">b</span> <span class="k">else</span> <span class="n">b</span><span class="si">}</span><span class="s2">"</span>
+<span class="c1">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp# `5`</span>
+</pre></div><p><a id="date"></a></p><h2>Использование спецификатора формата даты.&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<a href="#a">Up</a></h2><div class="mt-3"><pre class="highlight"><span></span><span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&gt;&gt;&gt;</span> <span class="kn">import</span> <span class="nn">datetime</span>
+<span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&gt;&gt;&gt;</span> <span class="n">today</span> <span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp=</span> <span class="n">datetime</span><span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp.</span><span class="n">datetime</span><span class="p">(</span><span class="n">year</span><span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp=</span><span class="mi">2021</span><span class="p">,</span> <span class="n">month</span><span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp=</span><span class="mi">1</span><span class="p">,</span> <span class="n">day</span><span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp=</span><span class="mi">27</span><span class="p">)</span>
+<span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&gt;&gt;&gt;</span> <span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">today</span><span class="si">:</span><span class="s1">%B %d, %Y</span><span class="si">}</span><span class="s1">'</span>
+<span class="s1">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp'January 27, 2021'</span>
+
+<span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&gt;&gt;&gt;</span> <span class="n">now</span> <span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp=</span> <span class="n">datetime</span><span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp.</span><span class="n">datetime</span><span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp.</span><span class="n">now</span><span class="p">()</span>
+<span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&gt;&gt;&gt;</span> <span class="n">ten_days_ago</span> <span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp=</span> <span class="n">now</span> <span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp-</span> <span class="n">datetime</span><span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp=</span><span class="mi">10</span><span class="p">)</span>
+<span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&gt;&gt;&gt;</span> <span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">ten_days_ago</span><span class="si">:</span><span class="s1">%Y-%m-%d %H:%M:%S</span><span class="si">}</span><span class="s1">'</span>
+<span class="c1">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp# '2020-10-13 20:24:17'</span>
+<span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&gt;&gt;&gt;</span> <span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">now</span><span class="si">:</span><span class="s1">%Y-%m-%d %H:%M:%S</span><span class="si">}</span><span class="s1">'</span>
+<span class="c1">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp# '2020-10-23 20:24:17'</span>
+</pre></div><p><a id="docs-line"></a></p><h2>Строки документации и f-строки.&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<a href="#a">Up</a></h2><p>Форматированные строковые литералы нельзя использовать в качестве строк документации</a>, даже если они не содержат выражений.</p><div class="mt-3"><pre class="highlight"><span></span><span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&gt;&gt;&gt;</span> <span class="k">def</span> <span class="nf">foo</span><span class="p">():</span>
+<span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp...</span>     <span class="sa">f</span><span class="s1">'Not a docstring'</span>
+<span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp...</span>
+<span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&gt;&gt;&gt;</span> <span class="n">foo</span><span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp.</span><span class="vm">__doc__</span> <span class="ow">is</span> <span class="kc">None</span>
+<span class="kc">True</span>
+</pre></div><p><a id="format"></a></p><h2>F-строки не могут использоваться как шаблоны строк <code>str.format()</code>.&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<a href="#a">Up</a></h2><div class="mt-3"><pre class="highlight"><span></span><span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&gt;&gt;&gt;</span> <span class="n">tmp</span> <span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp=</span> <span class="s2">"R: </span><span class="si">{r}</span><span class="se">\n</span><span class="s2">G: </span><span class="si">{g}</span><span class="se">\n</span><span class="s2">B: </span><span class="si">{b}</span><span class="s2">"</span>
+<span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&gt;&gt;&gt;</span> <span class="n">rgb</span> <span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp=</span> <span class="p">{</span><span class="s1">'r'</span><span class="p">:</span> <span class="mi">123</span><span class="p">,</span> <span class="s1">'g'</span><span class="p">:</span> <span class="mi">145</span><span class="p">,</span> <span class="s1">'b'</span><span class="p">:</span> <span class="mi">255</span><span class="p">}</span>
+<span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="n">tmp</span><span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp.</span><span class="n">format</span><span class="p">(</span><span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp**</span><span class="n">d</span><span class="p">))</span>
+<span class="c1">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp# R: 123</span>
+<span class="c1">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp# G: 145</span>
+<span class="c1">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp# B: 255</span>
+
+<span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&gt;&gt;&gt;</span> <span class="n">tmp</span> <span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp=</span> <span class="s2">"Шаблон строки: </span><span class="si">{}</span><span class="s2">"</span>
+<span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&gt;&gt;&gt;</span> <span class="n">line</span> <span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp=</span> <span class="s2">"Привет"</span>
+<span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&gt;&gt;&gt;</span> <span class="n">tmp</span><span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp.</span><span class="n">format</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
+<span class="c1">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp# 'Шаблон строки: Привет'</span>
+</pre></div><p><a id="Mini-Language"></a></p><h2>Поддержка спецификации формата Mini-Language.&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<a href="#a">Up</a></h2><div class="mt-3"><pre class="highlight"><span></span><span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&gt;&gt;&gt;</span> <span class="n">b</span> <span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp=</span> <span class="mi">2999</span>
+    <pre>
+                Спецификация формата Mini-Language:
+
+            Общая форма спецификатора стандартного формата:
+
+            format_spec     ::=  [[fill]align][sign][z][#][0][width][grouping_option][.precision][type]
+            fill            ::=  <any character>
+            align           ::=  "<" | ">" | "=" | "^"
+            sign            ::=  "+" | "-" | " "
+            width           ::=  digit+
+            grouping_option ::=  "_" | ","
+            precision       ::=  digit+
+            type            ::=  "b" | "c" | "d" | "e" | "E" | "f" | "F" | "g" | "G" | "n" | "o" | "s" | "x" | "X" | "%"
+
+<p>Изменено в Python 3.10: установка '0' перед полем width больше не влияет на выравнивание строк по умолчанию.
+Изменено в Python 3.11: добавлена опция 'z'.
+Если указано допустимое значение выравнивания align, то ему может предшествовать символ заполнения fill, который
+может быть любым символом и по умолчанию равен пробелу, если он опущен. Невозможно использовать литеральную фигурную
+скобку ('{' или '}') в качестве символа заполнения в форматированном строковом литерале или при использовании метода
+str.format(). Однако можно вставить фигурную скобку с вложенным замещающим полем. Это ограничение не влияет на
+функцию format().
+Опция # приводит к использованию "альтернативной формы" для преобразования. Альтернативная форма определяется
+по-разному для разных типов. Этот параметр действителен только для целых, плавающих и сложных типов. Для целых
+чисел, когда используется двоичный, восьмеричный или шестнадцатеричный вывод, эта опция добавляет к выходному
+значению соответствующий префикс '0b', '0o', '0x' или '0X'. Для чисел с плавающей запятой и сложных альтернативная
+форма приводит к тому, что результат преобразования всегда содержит символ десятичной точки, даже если за ним не
+следуют цифры. Обычно символ десятичной точки появляется в результате этих преобразований только в том случае, если
+за ним следует цифра. Кроме того, для преобразований 'g' и 'G' конечные нули не удаляются из результата.
+Опция width - десятичное целое число, определяющее минимальную общую ширину поля, включая все префиксы, разделители
+и другие символы форматирования. Если не указано, то ширина поля будет определяться содержимым.
+Если явное выравнивание не задано, то перед полем ширины width ставится нулевой ('0') символ, что позволяет
+использовать знаковое заполнение нулями для числовых типов. Это эквивалентно символу заполнения fill='0' с типом
+        выравнивания align='='.</p>
+
+            Выравнивание:
+                < - Левое выравнивание результата (в пределах доступного пространства);
+                > - Выравнивает результат по правому краю (в пределах доступного пространства);
+                ^ - Выравнивает результат по центру (в пределах доступного пространства);
+                = - Помещает результат в крайнее левое положение;
+
+            Знаки, только для чисел:
+                + - знак плюс;
+                - - знак минус только для отрицательных значений;
+                пробел ' ' - указывает, что перед положительными числами следует использовать начальный пробел, а перед
+                отрицательными - знак минус.
+
+            Опция 'z' (добавлена в Python 3.11) преобразует отрицательные нулевые значения с плавающей запятой в положительные
+            нули после округления до точности формата. Этот параметр действителен только для типов представления с плавающей
+            запятой.
+
+            Разделители десятков, только для чисел:
+                , - Использовать запятую в качестве разделителя тысяч;
+                _ - Использовать символ подчеркивания в качестве разделителя тысяч;
+
+            Точность:
+
+                .число - количество цифр выводимых после фиксированной точки или количество символов в строке;
+
+                >>>format(1, 'f')
+                '1.000000'
+                >>>format(10, '.2f')
+                '10.00'
+                >>>format('format', '.2')
+                'fo'
+
+            Тип форматируемого объекта:
+                s - строка, можно не указывать, используется по умолчанию;
+                b - двоичный формат;
+                с - преобразует целое число в символ Unicode;
+                d - десятичный формат;
+                e - научный формат, со строчной буквой e;
+                E - научный формат, с E верхним регистром;
+                f - формат чисел с плавающей запятой;
+                F - формат чисел с плавающей запятой, верхний регистр;
+                g - общий формат, нижний регистр;
+                G - общий формат, верхний регистр;
+                o - Восьмеричный формат;
+                x - шестнадцатеричный формат, нижний регистр;
+                X - шестнадцатеричный формат, верхний регистр;
+                n - формат целых чисел;
+                %- Процентный формат. Умножает число на 100 и использует f для вывода. В конце ставится %;
+
+        Общий вид инструкции format_spec:
+        заполнитель|выравнивание|знак|#|размер строки|разделитель десятков|.точность|тип
+
+        Пример: format(1000.5368, '~>+15,.2f'), где '~>+15,.2f' - формат Mini-Language.
+
+            ~ - заполнитель
+            > - выравнивание
+            + - знак
+            15 - размер итоговой строки в символах
+            , - разделитель десятков
+            .2 - точность, количество выводимых цифр после запятой
+            f - тип,
+
+        Пример выведет отформатированную строку: '~~~~~~+1,000.54'
+        Примеры форматирования значений переменных.
+
+        >>> format(5)
+        '5'
+        >>> format(5, '.1f')
+        '5.0'
+        >>> format(5, '*^10.2f')
+        '***5.00***'
+        >>> format(1000, '10,d')
+        '     1,000'
+        >>> format('Привет', '>10.3')
+        '       При'
+        >>> format(1000, '#>+10,.2f')
+        ' +1,000.00'
+        >>>format(1000.5368, '~>+15,.2f')
+        '~~~~~~+1,000.54'
+
+
+</pre>
+<span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&gt;&gt;&gt;</span> <span class="n">pi</span> <span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp=</span> <span class="mf">3.1415926</span>
+<span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&gt;&gt;&gt;</span> <span class="sa">f</span><span class="s1">'Pi=</span><span class="si">{</span><span class="n">pi</span><span class="si">:</span><span class="s1">.3f</span><span class="si">}</span><span class="s1">, b=</span><span class="si">{</span><span class="n">b</span><span class="si">:</span><span class="s1">*^11.2f</span><span class="si">}</span><span class="s1">'</span>
+<span class="c1">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp# 'Pi=3.142, b=**2999.00**'</span>
+
+<span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp.</span><span class="n">join</span><span class="p">(</span><span class="sa">f</span><span class="s1">'</span><span class="si">{</span><span class="n">a</span><span class="si">:{</span><span class="n">a</span><span class="si">}</span><span class="s1">&lt;</span><span class="si">{</span><span class="n">a</span><span class="si">}}</span><span class="s1">'</span> <span class="k">for</span> <span class="n">a</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">6</span><span class="p">)))</span>
+<span class="c1">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp# 1</span>
+<span class="c1">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp# 22</span>
+<span class="c1">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp# 333</span>
+<span class="c1">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp# 4444</span>
+<span class="c1">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp# 55555</span>
+
+<span class="c1">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp# форматирование процентов</span>
+<span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&gt;&gt;&gt;</span> <span class="n">perc</span> <span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp=</span> <span class="mi">34</span> <span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp/</span> <span class="mi">87</span>
+<span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&gt;&gt;&gt;</span> <span class="n">perc</span>
+<span class="c1">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp# 0.39080459770114945</span>
+<span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&gt;&gt;&gt;</span> <span class="sa">f</span><span class="s2">"Процентное отношение: </span><span class="si">{</span><span class="n">perc</span><span class="si">:</span><span class="s2">%</span><span class="si">}</span><span class="s2">"</span>
+<span class="c1">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp# 'Процентное отношение: 39.080460%'</span>
+<span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&gt;&gt;&gt;</span> <span class="sa">f</span><span class="s2">"Процентное отношение: </span><span class="si">{</span><span class="n">perc</span><span class="si">:</span><span class="s2">.2%</span><span class="si">}</span><span class="s2">"</span>
+<span class="c1">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp# 'Процентное отношение: 39.08%'</span>
+</pre></div><p><a id="alignment"></a></p><h3>Отступы/выравнивание в f-строках.&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<a href="#a">Up</a></h3><div class="mt-3"><pre class="highlight"><span></span><span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&gt;&gt;&gt;</span> <span class="n">greetings</span> <span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp=</span> <span class="s2">"hello"</span>
+<span class="c1">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp# отступы справа и слева</span>
+<span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&gt;&gt;&gt;</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">greetings</span><span class="si">:</span><span class="s2">&gt;10</span><span class="si">}</span><span class="s2">"</span>
+<span class="c1">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp# '     hello'</span>
+<span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&gt;&gt;&gt;</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">greetings</span><span class="si">:</span><span class="s2">&lt;10</span><span class="si">}</span><span class="s2">"</span>
+<span class="c1">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp# 'hello     '</span>
+
+<span class="c1">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp# выравнивание чисел&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<a href="#a">Up</a></span>
+<span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&gt;&gt;&gt;</span> <span class="n">a</span> <span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp=</span> <span class="s2">"1"</span>
+<span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&gt;&gt;&gt;</span> <span class="n">b</span> <span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp=</span> <span class="s2">"21"</span>
+<span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&gt;&gt;&gt;</span> <span class="n">c</span> <span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp=</span> <span class="s2">"321"</span>
+<span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&gt;&gt;&gt;</span> <span class="n">d</span> <span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp=</span> <span class="s2">"4321"</span>
+<span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&gt;&gt;&gt;</span> <span class="nb">print</span><span class="p">(</span><span class="s2">"</span><span class="se">\n</span><span class="s2">"</span><span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp.</span><span class="n">join</span><span class="p">((</span><span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">a</span><span class="si">:</span><span class="s2">&gt;10</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">b</span><span class="si">:</span><span class="s2">&gt;10</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">c</span><span class="si">:</span><span class="s2">&gt;10</span><span class="si">}</span><span class="s2">"</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">d</span><span class="si">:</span><span class="s2">&gt;10</span><span class="si">}</span><span class="s2">"</span><span class="p">)))</span>
+<span class="c1">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp#          1</span>
+<span class="c1">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp#         21</span>
+<span class="c1">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp#        321</span>
+<span class="c1">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp#       4321</span>
+
+<span class="c1">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp# выравнивание посередине&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<a href="#a">Up</a></span>
+<span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&gt;&gt;&gt;</span> <span class="n">hello</span> <span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp=</span> <span class="s2">"world"</span>
+<span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&gt;&gt;&gt;</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">hello</span><span class="si">:</span><span class="s2">^11</span><span class="si">}</span><span class="s2">"</span>
+<span class="c1">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp# '   world   '</span>
+<span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&gt;&gt;&gt;</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">hello</span><span class="si">:</span><span class="s2">*^11</span><span class="si">}</span><span class="s2">"</span>
+<span class="c1">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp# '***world***'</span>
+</pre></div><p><a id="decimal-separator"></a></p><h3>Форматирование числа с помощью запятых в качестве десятичного разделителя.&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<a href="#a">Up</a></h3><div class="mt-3"><pre class="highlight"><span></span><span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&gt;&gt;&gt;</span> <span class="n">big_num</span> <span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp=</span> <span class="mi">1234567890</span>
+<span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&gt;&gt;&gt;</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">big_num</span><span class="si">:</span><span class="s2">,</span><span class="si">}</span><span class="s2">"</span>
+<span class="c1">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp# '1,234,567,890'</span>
+
+<span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&gt;&gt;&gt;</span> <span class="n">num</span> <span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp=</span> <span class="mf">2343552.6516251625</span>
+<span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&gt;&gt;&gt;</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">num</span><span class="si">:</span><span class="s2">,.3f</span><span class="si">}</span><span class="s2">"</span>
+<span class="c1">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp# '2,343,552.652'</span>
+</pre></div><p><a id="exp-representation"></a></p><h3>Форматирование числа в экспоненциальном представлении.&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<a href="#a">Up</a></h3><div class="mt-3"><pre class="highlight"><span></span><span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&gt;&gt;&gt;</span> <span class="n">num</span> <span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp=</span> <span class="mf">2343552.6516251625</span>
+<span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&gt;&gt;&gt;</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">num</span><span class="si">:</span><span class="s2">e</span><span class="si">}</span><span class="s2">"</span>
+<span class="c1">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp# '2.343553e+06'</span>
+<span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&gt;&gt;&gt;</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">num</span><span class="si">:</span><span class="s2">E</span><span class="si">}</span><span class="s2">"</span>
+<span class="c1">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp# '2.343553E+06'</span>
+<span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&gt;&gt;&gt;</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">num</span><span class="si">:</span><span class="s2">.2e</span><span class="si">}</span><span class="s2">"</span>
+<span class="c1">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp# '2.34e+06'</span>
+<span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&gt;&gt;&gt;</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">num</span><span class="si">:</span><span class="s2">.4E</span><span class="si">}</span><span class="s2">"</span>
+<span class="c1">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp# '2.3436E+06'</span>
+</pre></div><p><a id="integer-format"></a></p><h3>Использование спецификатора целочисленного формата.&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<a href="#a">Up</a></h3><div class="mt-3"><pre class="highlight"><span></span><span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&gt;&gt;&gt;</span> <span class="n">number</span> <span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp=</span> <span class="mi">1024</span>
+<span class="o">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&gt;&gt;&gt;</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">number</span><span class="si">:</span><span class="s2">#0x</span><span class="si">}</span><span class="s2">"</span>
+<span class="s1">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp'0x400'</span>
+</pre></div></div>
+</body>
+</html>

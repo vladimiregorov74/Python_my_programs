@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="UTF-8">
+    <style>
+    table,
+    table * {border: 1px solid #000;}
+    </style>
+    <title>Название</title>
+</head>
+<body>
+<span style="font-size:26px;"><span style="font-family:arial,helvetica,sans-serif;">
+        <a href="./0_Помощь_Python.html">Помощь_Python.html</a></span></span>
+  <hr>
+    <hr id="a">
+        <span style="font-size:26px;"><span style="font-family:arial,helvetica,sans-serif;">
+
+            &nbsp&nbsp&nbsp&nbsp<a href="#a1">permutations()</a>,&nbsp&nbsp&nbsp<a href="#a2">combinations()</a>,&nbsp&nbsp&nbsp<a href="#a3">product()</a>,
+            &nbsp&nbsp&nbsp<a href="#a5">chain()</a>,&nbsp&nbsp&nbsp<a href="#a6">count()</a>,&nbsp&nbsp&nbsp<a href="#a4">groupby()</a>,
+            &nbsp&nbsp&nbsp<a href="#a7">cycle()</a>,&nbsp&nbsp&nbsp<a href="#a8">dropwhile()</a></hr>,&nbsp&nbsp&nbsp<a href="#a9">takewhile()</a></hr>,
+            &nbsp&nbsp&nbsp<a href="#a10"></a></hr>
+
+            <span style="font-size:20px;"><span style="font-family:arial,helvetica,sans-serif;">
+        <li><p><a href="#a0">Что такое itertools?</a> </p></li>
+        <li><p><a href="#a1"><b>permutations()</b></a></p></li>
+        <li><p><a href="#a2"><b>combinations()</b></a></p></li>
+        <li><p><a href="#a3"><b>product()</b></a></p></li>
+        <li><p><a href="#a4"><b>groupby()</b></a></p></li>
+        <li><p><a href="#a5"><b>chain()</b></a></p></li>
+        <li><p><a href="#a6"><b>count()</b></a></p></li>
+        <li><p><a href="#a7"><b>cycle()</b></a></p></li>
+        <li><p><a href="#a8"><b>dropwhile()</b></a></p></li>
+        <li><p><a href="#a9"><b>takewhile()</b></a></p></li>
+        <li><p><a href="#a10"><b></b></a></p></li>
+            </span></span></span>
+            <h2>Что такое itertools?</h2>
+            <span style="font-size:20px;"><span style="font-family:arial,helvetica,sans-serif;">
+
+            <p>Itertools это Python-модуль, который предоставляет набор функций для работы с итерируемыми объектами.
+                Итерируемый объект это любой объект, предоставляющий возможность пройти по своим элементам, например
+                список, кортеж и словарь. Itertools позволяет выполнять стандартные операции с итерируемыми объектами,
+                такие как фильтрация, группировка и объединение.</p>
+
+            <p>Модуль Itertools предоставляет несколько функций, позволяющих манипулировать итерируемыми объектами.
+                Рассмотрим подробнее наиболее полезные функции itertools.</p></span></span>
+
+                <h2 id="a1">  1. permutations()<a href="#a">Up</a></h2>
+        <span style="font-size:20px;"><span style="font-family:arial,helvetica,sans-serif;">
+            <p>Эта функция возвращает все возможные перестановки итерируемого объекта с уникальным расположением
+                элементов в итераторе.</p>
+            <pre>
+        Ввод:
+
+        import itertools
+
+        letters = ['a', 'b', 'c']
+        perms = itertools.permutations(letters)
+
+        for perm in perms:
+            print(perm)
+
+            </pre>
+
+
+
+        <pre>
+        Вывод:
+
+        ('a', 'b', 'c')
+        ('a', 'c', 'b')
+        ('b', 'a', 'c')
+        ('b', 'c', 'a')
+        ('c', 'a', 'b')
+        ('c', 'b', 'a')
+
+        </pre></span></span>
+        <h2 id="a2">  2. combinations()<a href="#a">Up</a></h2>
+
+       <p>Эта функция возвращает все возможные комбинации элементов в итерируемом объекте, не повторяя в итераторе
+       ни одной из комбинаций. Если указан опциональный аргумент r, будут возвращены только комбинации длины r.</p>
+        <pre>
+            Ввод:
+
+            import itertools
+
+            numbers = [1, 2, 3, 4]
+            combs = itertools.combinations(numbers, 2)
+
+            for comb in combs:
+                print(comb)
+
+        </pre>
+
+        <pre>
+            Вывод:
+
+            (1, 2)
+            (1, 3)
+            (1, 4)
+            (2, 3)
+            (2, 4)
+            (3, 4)
+        </pre>
+        <h2 id="a3">  3. product()<a href="#a">Up</a></h2>
+            <p>Эта функция возвращает декартово произведение итерируемых объектов. Получаемый итератор содержит кортежи,
+        каждый из которых формируется путем отбора по одному элементу из каждого итерируемого объекта. Если указан
+        опциональный аргумент repeat, то входные итерируемые объекты повторяются указанное количество раз.</p>
+        <pre>
+            Ввод:
+
+            import itertools
+
+            colors = ['red', 'green', 'blue']
+            sizes = ['small', 'medium', 'large']
+            combos = itertools.product(colors, sizes)
+
+            for combo in combos:
+                print(combo)
+        </pre>
+
+        <pre>
+           Вывод:
+
+        ('red', 'small')
+        ('red', 'medium')
+        ('red', 'large')
+        ('green', 'small')
+        ('green', 'medium')
+        ('green', 'large')
+        ('blue', 'small')
+        ('blue', 'medium')
+        ('blue', 'large')
+        </pre>
+
+
+        <h2 id="a4">  4. groupby()<a href="#a">Up</a></h2>
+        <p> Эта функция группирует элементы в конкретном итерируемом объекте на основе значения, возвращаемого функцией
+            key. Получаемый в результате итератор содержит кортежи, в каждом из которых первый элемент ключ группировки,
+            а второй итератор по элементам в группе.</p>
+        <pre>
+            Ввод:
+
+            import itertools
+
+            fruits = [{'name': 'apple', 'color': 'red'},
+                      {'name': 'banana', 'color': 'yellow'},
+                      {'name': 'orange', 'color': 'orange'},
+                      {'name': 'pear', 'color': 'green'},
+                      {'name': 'strawberry', 'color': 'red'}]
+
+            fruits.sort(key=lambda x: x['color'])
+
+            for color, group in itertools.groupby(fruits, lambda x: x['color']):
+                print(color)
+                for fruit in group:
+                    print(fruit['name'])
+        </pre>
+
+        <pre>
+           Вывод:
+
+        green
+        pear
+        orange
+        orange
+        red
+        apple
+        strawberry
+        yellow
+        banana
+        </pre>
+
+
+        <h2 id="a5">  5. chain()<a href="#a">Up</a></h2>
+      <p>Эта функция объединяет указанные итерируемые объекты в один итерируемый объект. Она возвращает итератор, в
+          котором последовательно выполняется перебор элементов каждого итерируемого объекта.</p>
+        <pre>
+            Ввод:
+
+            import itertools
+
+            colors = ['red', 'green', 'blue']
+            sizes = ['small', 'medium', 'large']
+
+            for item in itertools.chain(colors, sizes):
+                print(item)
+
+        </pre>
+            <pre>
+                Вывод:
+
+                red
+                green
+                blue
+                small
+                medium
+                large
+
+            </pre>
+
+
+        <h2 id="a6">  6. count()<a href="#a">Up</a></h2>
+            <p>Эта функция возвращает итератор, который производит бесконечную последовательность чисел, начиная с
+                заданного начального значения и увеличивая на заданное значение шага.</p>
+            <pre>
+                Ввод:
+
+                import itertools
+
+                for i in itertools.count(5, 2):
+                    print(i)
+                    if i > 15:
+                        break
+
+            </pre>
+            <pre>
+                Вывод:
+
+                5
+                7
+                9
+                11
+                13
+                15
+                17
+            </pre>
+
+
+    <h2 id="a7">  7. cycle()<a href="#a">Up</a></h2>
+    <p>Эта функция возвращает итератор, который производит элементы конкретного итерируемого объекта многократно и
+        бесконечно.</p>
+    <pre>
+        Ввод:
+
+        import itertools
+
+        colors = ['red', 'green', 'blue']
+
+        for color in itertools.cycle(colors):
+            print(color)
+
+    </pre>
+    <pre>
+        Вывод:
+
+        red
+        green
+        blue
+        red
+        green
+        blue
+        red
+        ...
+    </pre>
+
+
+    <h2 id="a8">  8. dropwhile()<a href="#a">Up</a></h2>
+   <p>Эта функция возвращает итератор, который производит элементы конкретного итерируемого объекта после того, как
+       функция-предикат в первый раз вернет False.</p>
+    <pre>
+        Ввод:
+
+        import itertools
+
+        numbers = [1, 3, 5, 7, 2, 4, 6, 8]
+
+        for num in itertools.dropwhile(lambda x: x % 2 != 0, numbers):
+            print(num)
+
+    </pre>
+    <pre>
+        Вывод:
+
+        2
+        4
+        6
+        8
+    </pre>
+
+
+
+    <h2 id="a9">  9. takewhile()<a href="#a">Up</a></h2>
+     <p>Эта функция возвращает итератор, который производит элементы в заданном итераторе до тех пор, пока
+         функция-предикат не вернет False в первый раз.</p>
+    <pre>
+        Ввод:
+
+        import itertools
+
+        numbers = [1, 3, 5, 2, 4, 6]
+
+        for num in itertools.takewhile(lambda x: x % 2 != 0, numbers):
+            print(num)
+
+    </pre>
+    <pre>
+       Вывод:
+
+        1
+        3
+        5
+    </pre>
+
+
+        <h2 id="a10">  10. tee()<a href="#a">Up</a></h2>
+        <p>эта функция возвращает n независимых итераторов конкретного итерируемого объекта. Каждый итератор выдает те
+            же элементы, что и исходный итерируемый объект.</p>
+    <pre>
+        Ввод:
+
+        import itertools
+
+        numbers = [1, 2, 3, 4, 5]
+        iters = itertools.tee(numbers, 3)
+
+        for it in iters:
+            for num in it:
+                print(num)
+
+    </pre>
+    <pre>
+        Вывод:
+
+        1
+        2
+        3
+        4
+        5
+        1
+        2
+        3
+        4
+        5
+        1
+        2
+        3
+        4
+        5
+    </pre>
+
+
+    <h2>Заключение</h2>
+
+    <p>Python-модуль itertools это мощный инструмент для работы с итерациями. Использование функций, предоставляемых
+        itertools, позволяет легко выполнять сложные операции с итерируемыми объектами, не прибегая к написанию длинного
+        и сложного кода. Функции itertools оптимизированы для повышения производительности, что делает их идеальными
+        при работе с большими наборами данных.</p>
+
+
+
+
+   </body>
+</html>

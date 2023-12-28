@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Декораторы</title>
+      <span style="font-size:26px;"><span style="font-family:arial,helvetica,sans-serif;">
+        <a href="./0_Помощь_Python.html">Помощь_Python.html</a></span></span>
+    <hr>
+    <span style="font-size:26px;"><span style="font-family:arial,helvetica,sans-serif;">
+    <hr id="a">
+    <h2 id="a1"> Простой декоратор&nbsp;&nbsp;&nbsp;&nbsp;<a href="#a">Up</a></h2>
+        <div>Декоратор — это функция, которая позволяет обернуть другую функцию для расширения её функциональности
+            без непосредственного изменения её кода.
+            <a href="https://tproger.ru/translations/demystifying-decorators-in-python/" target="_blank">Декораторы в
+                Python: понять и полюбить</a></div>
+        <div>Вот самый простой пример декоратора:</div><br><br>
+        <pre><span style="color: #8010ff;">
+        def decorator_function(func):
+            def wrapper():
+                print('Функция-обёртка!')
+                print('Оборачиваемая функция: {}'.format(func))
+                print('Выполняем обёрнутую функцию...')
+                func()
+                print('Выходим из обёртки')
+            return wrapper
+
+            @decorator_function
+            def hello_world():
+                print('Hello world!')
+            hello_world()
+
+        </span></pre>
+        <div>Здесь decorator_function() является функцией-декоратором. Как вы могли заметить, она является функцией
+            высшего порядка, так как принимает функцию в качестве аргумента, а также возвращает функцию. Внутри
+            decorator_function() мы определили другую функцию, обёртку, так сказать, которая обёртывает
+            функцию-аргумент и затем изменяет её поведение. Декоратор возвращает эту обёртку.<br> Теперь посмотрим на
+            декоратор в действии:</div>
+        <pre><span style="color: #8010ff;">
+        Функция-обёртка!
+        Оборачиваемая функция: function hello_world at 0x7fe36e86b370
+        Выполняем обёрнутую функцию...
+        Hello world!
+        Выходим из обёртки
+        </span></pre>
+        <div>Магия, не иначе! Просто добавив @decorator_function перед определением функции hello_world(), мы
+            модифицировали её поведение. Однако как вы уже могли догадаться, выражение с @ является всего лишь
+            синтаксическим сахаром для hello_world = decorator_function(hello_world).<br>Иными словами, выражение
+            @decorator_function вызывает decorator_function() с hello_world в качестве аргумента
+            и присваивает имени hello_world возвращаемую функцию.<br>И хотя этот декоратор мог вызвать вау-эффект,
+            он не очень полезный. Давайте взглянем на другие, более полезные (наверное):</div>
+        <pre><span style="color: #8010ff;">
+        def benchmark(func):
+            import time
+
+            def wrapper():
+                start = time.time()
+                func()
+                end = time.time()
+                print('[*] Время выполнения: {} секунд.'.format(end-start))
+            return wrapper
+
+        @benchmark
+        def fetch_webpage():
+            import requests
+            webpage = requests.get('https://google.com')
+
+        fetch_webpage()
+        </span></pre>
+        <div>Здесь мы создаём декоратор, замеряющий время выполнения функции. Далее мы используем его на функции,
+            которая делает GET-запрос к главной странице Google. Чтобы измерить скорость, мы сначала сохраняем время
+            перед выполнением обёрнутой функции, выполняем её, снова сохраняем текущее время и вычитаем из него
+            начальное.<br>После выполнения кода получаем примерно такой результат:</div>
+        <pre><span style="color: #8010ff;">
+        [*] Время выполнения: 0.9735112190246582 секунд.
+        </span></pre>
+        <h2 id="a2"> Используем аргументы и возвращаем значения&nbsp;&nbsp;&nbsp;&nbsp;<a href="#a">Up</a></h2>
+        <div>В приведённых выше примерах декораторы ничего не принимали и не возвращали. Модифицируем наш декоратор для
+            измерения времени выполнения:</div>
+        <pre><span style="color: #8010ff;">
+        def benchmark(func):
+            import time
+
+            def wrapper(*args, **kwargs):
+                start = time.time()
+                return_value = func(*args, **kwargs)
+                end = time.time()
+                print('[*] Время выполнения: {} секунд.'.format(end-start))
+                return return_value
+            return wrapper
+
+        @benchmark
+        def fetch_webpage(url):
+            import requests
+            webpage = requests.get(url)
+            return webpage.text
+
+        webpage = fetch_webpage('https://google.com')
+        print(webpage)
+        </span></pre>
+        <div>Вывод:</div>
+        <pre><span style="color: #8010ff;">
+        [*] Время выполнения: 1.4475083351135254 секунд.
+		!doctype html html itemscope="" itemtype="http://schema.org/WebPage"........
+		</span></pre>
+		<div>Как вы видите, аргументы декорируемой функции передаются функции-обёртке, после чего с ними можно делать что угодно. Можно изменять аргументы и затем передавать их декорируемой функции, а можно оставить их как есть или вовсе забыть про них и передать что-нибудь совсем другое. То же касается возвращаемого из декорируемой функции значения, с ним тоже можно делать что угодно.</div>
+		<div>Вот еще пример декоратора:</div>
+		<pre><span style="color: #8010ff;">
+		# определение функции декоратора
+		def check(input_func):    
+		    def output_func(*args):      # через *args получаем значения параметров оригинальной функции
+		        input_func(*args)                # вызов оригинальной функции
+		    return output_func     # возвращаем новую функцию
+		 
+		# определение оригинальной функции
+		@check
+		def print_person(name, age):
+		    print(f"Name: {name}  Age: {age}")
+		 
+		# вызов оригинальной функции
+		print_person("Tom", 38)
+
+		</span></pre>
+		<div>В итоге в данном получим следующий вывод</div>
+		<pre><span style="color: #8010ff;">
+		Name: Tom  Age: 38
+		</span></pre>
+		<div>Но что, если в функцию print_person будет передано какое-то недопустимое значение, например, отрицательный возраст? Одним из преимуществ декораторов как раз является то, что мы можем проверить и при необходимости модифицировать значения параметров. Например:</div>
+		<pre><span style="color: #8010ff;">
+		# определение функции декоратора
+		def check(input_func):    
+		    def output_func(*args):
+		        name = args[0]
+		        age = args[1]           # получаем значение второго параметра
+		        if age < 0: age = 1     # если возраст отрицательный, изменяем его значение на 1
+		        input_func(name, age)   # передаем функции значения для параметров
+		    return output_func
+		 
+		# определение оригинальной функции
+		@check
+		def print_person(name, age):
+		    print(f"Name: {name}  Age: {age}")
+		 
+		# вызов оригинальной функции
+		print_person("Tom", 38)
+		print_person("Bob", -5)
+		</span></pre>
+		<div>args фактически представляет набор значений, и, используя индексы, мы можем получить значения параметров по позиции и что-то с ними сделать. Так, здесь, если значение возраста меньше 0, то устанавливаем 1. Затем передаем эти значения в вызов функции. В итоге здесь получим следующий вывод:</div>
+		<pre><span style="color: #8010ff;">
+		Name: Tom  Age: 38
+		Name: Bob  Age: 1
+		</span></pre>
+		<div>Подобным образом можно получить результат функции и при необходимости изменить его:</div>
+		<pre><span style="color: #8010ff;">
+		# определение функции декоратора
+		def check(input_func):    
+		    def output_func(*args):
+		        result = input_func(*args)   # передаем функции значения для параметров
+		        if result < 0: result = 0   # если результат функции меньше нуля, то возвращаем 0
+		        return result
+		    return output_func
+		 
+		# определение оригинальной функции
+		@check
+		def sum(a, b):
+		    return a + b
+		 
+		# вызов оригинальной функции
+		result1 = sum(10, 20)
+		print(result1)          # 30
+		 
+		result2 = sum(10, -20)
+		print(result2)          # 0
+
+		</span></pre>
+		<div>Здесь определена функция sum(), которая возвращает сумму чисел. В декораторе check проверяем результат функции и для простоты, если он меньше нуля, то возвращаем 0.</div>
+		<div>Bывод программы:</div>
+		<pre><span style="color: #8010ff;">
+		30
+		0
+		</span></pre>
+
+
+		<h2 id="a3"> Декораторы с аргументами&nbsp;&nbsp;&nbsp;&nbsp;<a href="#a">Up</a></h2>
+		<div>Мы также можем создавать декораторы, которые принимают аргументы. Посмотрим на пример:</div>
+		<pre><span style="color: #8010ff;">
+		def benchmark(iters):
+		    def actual_decorator(func):
+		        import time
+		        
+		        def wrapper(*args, **kwargs):
+		            total = 0
+		            for i in range(iters):
+		                start = time.time()
+		                return_value = func(*args, **kwargs)
+		                end = time.time()
+		                total = total + (end-start)
+		            print('[*] Среднее время выполнения: {} секунд.'.format(total/iters))
+		            return return_value
+
+		        return wrapper
+		    return actual_decorator
+
+
+		@benchmark(iters=10)
+		def fetch_webpage(url):
+		    import requests
+		    webpage = requests.get(url)
+		    return webpage.text
+
+		webpage = fetch_webpage('https://google.com')
+		print(webpage)
+
+		</span></pre>
+		<div>Здесь мы модифицировали наш старый декоратор таким образом, чтобы он выполнял декорируемую функцию iters раз, а затем выводил среднее время выполнения. Однако чтобы добиться этого, пришлось воспользоваться природой функций в Python.
+
+		Функция benchmark() на первый взгляд может показаться декоратором, но на самом деле таковым не является. Это обычная функция, которая принимает аргумент iters, а затем возвращает декоратор. В свою очередь, он декорирует функцию fetch_webpage(). Поэтому мы использовали не выражение @benchmark, а @benchmark(iters=10) — это означает, что тут вызывается функция benchmark() (функция со скобками после неё обозначает вызов функции), после чего она возвращает сам декоратор.
+
+		Да, это может быть действительно сложно уместить в голове, поэтому держите правило:
+
+		    Декоратор принимает функцию в качестве аргумента и возвращает функцию.
+
+		В нашем примере benchmark() не удовлетворяет этому условию, так как она не принимает функцию в качестве аргумента. В то время как функция actual_decorator(), которая возвращается benchmark(), является декоратором.</div>
+
+		<div></div>
+
+		<h2 id="a4"> И на последок&nbsp;&nbsp;&nbsp;&nbsp;<a href="#a">Up</a></h2>
+		<div>Напоследок стоит упомянуть, что не только функции, а любые вызываемые объекты могут быть декоратором. Экземпляры классов/объекты с методом __call__() тоже можно вызывать, поэтому их можно использовать в качестве декораторов. Эту функциональность можно использовать для создания декораторов, хранящих какое-то состояние.</div>
+		<div>А еще:<br><br>Декораторы не обязательно должны быть функциями, это может быть любой вызываемый объект.<br><br>
+		Декораторы не обязаны возвращать функции, они могут возвращать что угодно. Но обычно мы хотим, чтобы декоратор вернул объект того же типа, что и декорируетируетруемый объект. Пример: </div>
+
+		<pre><span style="color: #8010ff;">
+		def decorator(func):
+	    	return 'sumit'
+		
+		@decorator
+		def hello_world():
+			print('hello world')
+		
+		print(hello_world)
+
+		</span></pre>
+		<div>Выведет:</div>
+		<pre><span style="color: #8010ff;">
+		sumit
+		</span></pre>
+
+	<pre><span style="color: #8010ff;">
+	def my_decorator(x):
+    def wrapper(func):
+        def cool(*args, **kwargs):
+            nonlocal x  # если не объявить nonlocal будет ошибка
+            x = x + 2
+            print("Здесь выполнен какой-то код перед декарируемой функцией", x)
+            result = func(*args, **kwargs)
+            print("Еще какой-то код")
+            return result
+        return cool
+    return wrapper
+
+	a, b, c = 15, 8, -3
+	@my_decorator(a)
+	def my_function(x, y):
+		return x + y
+	print(my_function(b, c))
+	</span></pre>
+</head>
+<body>
+
+</body>
+</html>
+<div></div>

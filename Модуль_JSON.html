@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>JSON</title>
+</head>
+<body><hr id="a">
+    <span style="font-size:26px;"><span style="font-family:arial,helvetica,sans-serif;">
+        <a href="./0_Помощь_Python.html">Помощь_Python.html</a></span></span>
+    <hr>
+
+<span style="font-size:26px;"><span style="font-family:arial,helvetica,sans-serif;">
+    &nbsp;&nbsp;&nbsp;&nbsp;<li><a href="#a1">Функция <span style="color: #0000ff;">dumps()</span>.  Преобразование объекта Python в JSON</a></li><br>
+    &nbsp;&nbsp;&nbsp;&nbsp;<li><a href="#a2">Функция <span style="color: #0000ff;">loads()</span>.Преобразование JSON в объект Python</a></li><br>
+    &nbsp;&nbsp;&nbsp;&nbsp;<li><a href="#a3">Функции <span style="color: #0000ff;">dump()</span> и <span style="color: #0000ff;">load()</span>. Запись JSON в файл и чтение из файла</a></li><br>
+    &nbsp;&nbsp;&nbsp;&nbsp;<li><a href="#a4">Некоторые важные ключи (аргументы) модуля json</a></li>
+    &nbsp;&nbsp;&nbsp;&nbsp;<li><a href="#a5">Как конвертировать кириллицу</a></li>
+</span></span><br><br>
+    <div>Модуль json в Python предоставляет функции для работы с данными в формате JSON (JavaScript Object Notation).
+        JSON является популярным форматом обмена данными, особенно в веб-приложениях. Вот некоторые примеры
+        использования модуля json:<br><br>
+    </div>
+
+
+    <h2 id="a1">Функция <span style="color: #0000ff;">dumps()</span>. Преобразование объекта Python в JSON:&nbsp;&nbsp;&nbsp;&nbsp;<a href="#a">Up</a></h2>
+    <pre><span style="color: #0000ff;"><span style="font-size:18px;"><span style="font-family:arial,helvetica,sans-serif;">
+    import json
+
+    data = {
+        "name": "John",
+        "age": 30,
+        "city": "New York"
+    }
+
+    json_data = json.dumps(data)
+    print(json_data)</span></span></span>
+
+        <span style="font-size:18px;"><span style="font-family:arial,helvetica,sans-serif;">В этом примере мы создаем словарь <span style="color: #0000ff;">data</span>, содержащий информацию о человеке, а затем с помощью
+        функции <span style="color: #0000ff;">dumps()</span> преобразуем его в формат JSON.
+    <span style="color: #0000ff;">
+    {"name": "John", "age": 30, "city": "New York"}
+    </span>
+        Вы можете преобразовать следующие типов объекты Python в строки JSON:
+    <span style="color: #0000ff;">
+        dict
+        list
+        tuple
+        string
+        int
+        float
+        True
+        False
+        None
+    </span>
+    Конвертируем объекты Python в строки JSON и выведите значения:
+    <span style="color: #0000ff;">
+    import json
+
+    print(json.dumps({"name": "Viktor", "age":  30}))
+    print(json.dumps(["Porsche", "BMW"]))
+    print(json.dumps(("Porsche", "BMW")))
+    print(json.dumps("hello"))
+    print(json.dumps(42))
+    print(json.dumps(31.76))
+    print(json.dumps(True))
+    print(json.dumps(False))
+    print(json.dumps(None))
+    </span>
+    Вывод:
+    <span style="color: #0000ff;">
+    {"name": "Viktor", "age": 30}
+    ["Porsche", "BMW"]
+    ["Porsche", "BMW"]
+    "hello"
+    42
+    31.76
+    true
+    false
+    null
+    </span>
+    Когда вы конвертируете из Python в JSON, объекты Python преобразуются в эквивалент JSON:
+            <table>
+                <thead><tr><th>&nbsp;&nbsp;&nbsp;&nbsp;Python</th><th>&nbsp;&nbsp;&nbsp;&nbsp;JSON</th></tr></thead>
+                <tbody>
+                    <tr><td>&nbsp;&nbsp;&nbsp;&nbsp;dict</td><td>&nbsp;&nbsp;&nbsp;&nbsp;Object</td></tr>
+                    <tr><td>&nbsp;&nbsp;&nbsp;&nbsp;list</td><td>&nbsp;&nbsp;&nbsp;&nbsp;Array</td></tr>
+                    <tr><td>&nbsp;&nbsp;&nbsp;&nbsp;tuple</td><td>&nbsp;&nbsp;&nbsp;&nbsp;Array</td></tr>
+                    <tr><td>&nbsp;&nbsp;&nbsp;&nbsp;str</td><td>&nbsp;&nbsp;&nbsp;&nbsp;String</td></tr>
+                    <tr><td>&nbsp;&nbsp;&nbsp;&nbsp;int</td><td>&nbsp;&nbsp;&nbsp;&nbsp;Number</td></tr>
+                    <tr><td>&nbsp;&nbsp;&nbsp;&nbsp;float</td><td>&nbsp;&nbsp;&nbsp;&nbsp;Number</td></tr>
+                    <tr><td>&nbsp;&nbsp;&nbsp;&nbsp;True</td><td>&nbsp;&nbsp;&nbsp;&nbsp;true</td></tr>
+                    <tr><td>&nbsp;&nbsp;&nbsp;&nbsp;False</td><td>&nbsp;&nbsp;&nbsp;&nbsp;false</td></tr>
+                    <tr><td>&nbsp;&nbsp;&nbsp;&nbsp;None</td><td>&nbsp;&nbsp;&nbsp;&nbsp;null</td></tr>
+                </tbody>
+            </table>
+
+    Конвертируйте объект Python, содержащий все типы конвертируемых данных:
+    <span style="color: #0000ff;">
+    import json
+
+    x = {
+    "name": "Viktor",
+    "age": 30,
+    "married": True,
+    "divorced": False,
+    "children": ("Anna","Bogdan"),
+    "pets": None,
+    "cars": [
+    {"model": "BMW 230", "mpg":  27.5},
+    {"model": "Ford Edge", "mpg": 24.1}
+    ]
+    }
+    print(json.dumps(x))
+    </span>
+    Вывод:
+    <span style="color: #0000ff;">
+    {"name": "Viktor", "age": 30, "married": true, "divorced": false, "children": ["Anna", "Bogdan"],
+    "pets": null, "cars": [{"model": "BMW 230", "mpg": 27.5}, {"model": "Ford Edge", "mpg": 24.1}]}
+    </span>
+
+
+        </span></span></pre>
+
+
+    <h2 id="a2">Функция <span style="color: #0000ff;">loads()</span>.Преобразование JSON в объект Python:&nbsp;&nbsp;&nbsp;&nbsp;<a href="#a">Up</a></h2>
+    <pre><span style="color: #0000ff;"><span style="font-size:18px;"><span style="font-family:arial,helvetica,sans-serif;">
+    import json
+    json_data = '{"name": "John", "age": 30, "city": "New York"}'
+
+    data = json.loads(json_data)
+    print(data["name"])
+    print(data["age"])
+    print(data["city"])</span></span></span>
+    <span style="font-size:18px;"><span style="font-family:arial,helvetica,sans-serif;">
+        В этом примере у нас есть строка <span style="color: #0000ff;">json_data</span>, содержащая данные в формате JSON. С помощью
+    функции <span style="color: #0000ff;">loads()</span> мы преобразуем ее в объект Python. Затем мы можем получить доступ к отдельным
+    значениям, используя ключи, как в примере выше. Будет выведено:</span></span>
+
+    <span style="color: #0000ff;"><span style="font-size:18px;"><span style="font-family:arial,helvetica,sans-serif;">
+    John
+    30
+    New York
+    </span></span></span></pre>
+
+    <h2 id="a3">Функции <span style="color: #0000ff;">dump()</span> и <span style="color: #0000ff;">load()</span>. Запись JSON в файл и чтение из файла:&nbsp;&nbsp;&nbsp;&nbsp;<a href="#a">Up</a></h2>
+    <pre><span style="color: #0000ff;"><span style="font-size:18px;"><span style="font-family:arial,helvetica,sans-serif;">
+        import json
+
+    data = {
+        "name": "John",
+        "age": 30,
+        "city": "New York"
+    }
+
+    # Запись JSON в файл
+    with open("data.json", "w") as file:
+        json.dump(data, file)
+
+    # Чтение JSON из файла
+    with open("data.json", "r") as file:
+        loaded_data = json.load(file)
+
+    print(loaded_data)
+    </span></span></span><span style="font-size:18px;"><span style="font-family:arial,helvetica,sans-serif;">
+        В этом примере мы используем функцию <span style="color: #0000ff;">dump()</span> для записи данных в файл <span style="color: #0000ff;">data.json</span>. Затем с помощью
+    функции <span style="color: #0000ff;">load()</span> мы читаем данные из файла обратно в объект Python.</span></span>
+    </pre>
+
+    <h2 id="a4"> Некоторые важные ключи (аргументы) модуля json&nbsp;&nbsp;&nbsp;&nbsp;<a href="#a">Up</a></h2>
+    <div><p>В функциях модуля <span style="color: #0000ff;">json</span> есть некоторые важные ключи (аргументы), которые можно использовать для настройки
+        поведения преобразования данных. <br>Вот некоторые из них:</p>
+
+        В функции <span style="color: #0000ff;">json.dumps()</span>:
+        <p><span style="color: #0000ff;">indent:</span> Устанавливает количество пробелов для отступов при форматировании JSON. Например,
+        <span style="color: #0000ff;">json.dumps(data, indent=4)</span> добавит отступ в 4 пробела для каждого уровня вложенности.
+        <br><span style="color: #0000ff;">separators</span>: Позволяет настроить разделители между элементами JSON. Например,
+        <span style="color: #0000ff;">json.dumps(data, separators=(",", ":"))</span> использует запятую в качестве разделителя между
+        элементами и двоеточие для разделения ключей и значений.</p>
+
+            В функции <span style="color: #0000ff;">json.loads()</span>:
+        <p><span style="color: #0000ff;">object_hook</span>: Позволяет указать функцию, которая будет вызвана для каждого словаря, преобразованного
+        из JSON. Функция может модифицировать словарь или вернуть другой объект. Например,
+        <span style="color: #0000ff;">json.loads(json_data, object_hook=my_hook)</span> вызывает функцию my_hook для каждого словаря в JSON.<br>
+        <span style="color: #0000ff;">parse_float</span>, <span style="color: #0000ff;">parse_int</span>, <span style="color: #0000ff;">parse_constant</span>: Позволяют указать функции для более гибкого преобразования
+        числовых значений в JSON. Например, <span style="color: #0000ff;">json.loads(json_data, parse_int=my_int_parser)</span> вызывает
+        функцию <span style="color: #0000ff;">my_int_parser</span> для каждого целочисленного значения в JSON.</p>
+
+        <p>В функции <span style="color: #0000ff;">json.dump()</span> и <span style="color: #0000ff;">json.load()</span> (для работы с файлами):
+        <span style="color: #0000ff;"><br><br>fp</span>: Указывает файловый объект, с которым производится работа. Например, <span style="color: #0000ff;">json.dump(data, fp=file)</span>
+        записывает данные в указанный файловый объект.</p></div>
+
+    <h2 id="a5"> Как конвертировать кириллицу&nbsp;&nbsp;&nbsp;&nbsp;<a href="#a">Up</a></h2>
+    <div><span style="font-size:18px;"><span style="font-family:arial,helvetica,sans-serif;">
+        Если в данных Python есть символы кириллицы, метод <span style="color: #0000ff;">json.dumps()</span> преобразует их с кодировкой по умолчанию.
+        Что бы сохранить кириллицу используйте параметр <span style="color: #0000ff;">ensure_ascii=False</span>
+    </span></span></div>
+    <pre><span style="font-size:18px;"><span style="font-family:arial,helvetica,sans-serif;">
+
+    <span style="color: #0000ff;">import json
+
+    x = {
+    "name": "Виктор"
+    }
+    y = {
+    "name": "Виктор"
+    }
+    print(json.dumps(x))
+    print(json.dumps(y, ensure_ascii=False))
+    </span>
+    Вывод:
+    <span style="color: #0000ff;">
+    {"name": "\u0412\u0438\u043a\u0442\u043e\u0440"}
+    {"name": "Виктор"}</span>
+
+
+
+    </span></span></pre>
+
+    <br><br>
+
+
+
+
+
+
+
+    <a href="#a">Up</a>
+</body>
+</html>

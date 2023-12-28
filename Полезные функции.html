@@ -1,0 +1,2530 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="UTF-8">
+    <title>Полезные функции</title>
+
+<body>
+<span style="font-size:26px;"><span style="font-family:arial,helvetica,sans-serif;">
+        <a href="./0_Помощь_Python.html">Помощь_Python.html</a></span></span>
+  <hr>
+<span style="font-size:26px;"><span style="font-family:arial,helvetica,sans-serif;">
+  <hr id="a">
+  &nbsp;&nbsp;&nbsp;&nbsp;<a href="#a0">функция zip()</a>,&nbsp;&nbsp;&nbsp;&nbsp;<a href="#a1">функция map()</a>,&nbsp;&nbsp;&nbsp;&nbsp;<a href="#a2">целочисленное деление</a>,
+    ,&nbsp;&nbsp;&nbsp;&nbsp;<a href="#a3">деление с остатком</a>,&nbsp;&nbsp;&nbsp;&nbsp;<a href="#a4">математика math()</a>,&nbsp;&nbsp;&nbsp;&nbsp;<a href="#a5">дата и время</a>,
+    &nbsp;&nbsp;&nbsp;&nbsp;<a href="#a6">лямбда функция</a>,&nbsp;&nbsp;&nbsp;&nbsp;<a href="#a7">функция reduce()</a>,&nbsp;&nbsp;&nbsp;&nbsp;<a href="#a8">функция filter()</a>,&nbsp;&nbsp;&nbsp;&nbsp;<a href="#a9">функция sum()</a>,
+    &nbsp;&nbsp;&nbsp;&nbsp;<a href="#a10">модуль random()</a>,&nbsp;&nbsp;&nbsp;&nbsp;<a href="#a11">модуль string</a>,&nbsp;&nbsp;&nbsp;&nbsp;<a href="#a12">модуль decimal</a>,&nbsp;&nbsp;&nbsp;&nbsp;<a href="#a13">дроби, модуль Fraction</a>,
+    &nbsp;&nbsp;&nbsp;&nbsp;<a href="#a14">комплексные числа</a>,&nbsp;&nbsp;&nbsp;&nbsp;<a href="#a15">enumerate()</a>,&nbsp;&nbsp;&nbsp;&nbsp;<a href="#a16">модул operator</a>
+  <li><p><a href="#a0">zip()</a> - функция zip()</p></li>
+  <li><p><a href="#a1">map()</a> - функция map()</p></li>
+  <li><p><a href="#a2">//</a> - целочисленное деление</p></li>
+  <li><p><a href="#a3">%</a> - деление с остатком</p></li>
+  <li><p><a href="#a4">math()</a> - математика</p></li>
+  <li><p><a href="#a6">lambda</a> - анонимная лямбда функция</p></li>
+  <li><p><a href="#a5">datetime()</a> - работа с датой и временем</p></li>
+  <li><p><a href="#a7">reduce()</a> - функция reduce()</p></li>
+  <li><p><a href="#a8">filter()</a> - функция filter()</p></li>
+  <li><p><a href="#a9">sum()</a> - функция sum()</p></li>
+  <li><p><a href="#a10">random()</a> - модуль random()</p></li>
+  <li><p><a href="#a11">string</a> - модуль string</p></li>
+  <li><p><a href="#a12">decimal</a> - модуль decimal</p></li>
+  <li><p><a href="#a13">Fraction</a> - модуль Fraction - дробь</p></li>
+  <li><p><a href="#a14">complex</a> - модуль комплексные числа</p></li>
+  <li><p><a href="#a15">enumerate()</a> - модуль enumerate()</p></li>
+  <li><p><a href="#a16">модул operator</a> - модул operator</p></li>
+
+
+  <h2 id="a0">Функция zip()&nbsp;&nbsp;&nbsp;&nbsp;<a href="#a">Up</a></h2>
+    <p>Для объединения элементов двух или более списков (или других итерируемых объектов) используется функции <b>zip()</b>. Функция <b>zip()</b>
+принимает один или более итерируемых объектов и возвращает итератор, 
+который в свою очередь возвращает кортежи. Первый кортеж включает в себя
+ первые элементы
+всех итерируемых объектов, второй кортеж - вторые элементы и т. д., 
+итерации прекращаются, как только содержимое любого из итерируемых 
+объектов будет исчерпано,
+проигнорировав оставшиеся элементы в более длинных последовательностях.
+
+Функция <b>zip()</b> часто используется в тех случаях, когда предполагается, что итерируемые объекты имеют одинаковую длину.
+В таких случаях рекомендуется использовать параметр <b>strict=True</b>, который проверят идентичность длин объектов, вызывая ошибку, если они не совпадают</p>
+
+    <pre>    <span style="color: #0000ff;">for t in zip(range(4), range(0, 10, 2), range(1, 10, 2)):
+        print(t)</span>
+
+выведет:
+
+    <span style="color: #0000ff;">(0, 0, 1)
+    (1, 2, 3)
+    (2, 4, 5)
+    (3, 6, 7)
+
+    for t in zip(range(4), range(0, 10, 2), range(1, 10, 2), strict=True):
+        print(t)</span>
+
+выведет еще и ошибку:
+
+    <span style="color: #0000ff;">(0, 0, 1)
+    (1, 2, 3)
+    (2, 4, 5)
+        (3, 6, 7)</span>
+
+    <span style="color: #820017;">Traceback (most recent call last):
+      File "/home/vladimir/PycharmProjects/proba/проба2.py", line 1, in module
+        for t in zip(range(4), range(0, 10, 2), range(1, 10, 2), strict=True):
+        ValueError: zip() argument 2 is longer than argument 1</span>
+    </pre>
+
+    <h2 id="a1">Функция map()&nbsp;&nbsp;&nbsp;&nbsp;<a href="#a">Up</a></h2>
+
+<p><br>■ Одним из наиболее часто встречающихся действий, выполняемых в программах со&nbsp;списками и другими
+последовательностями, является применение какой-то операции к&nbsp;каждому элементу и накопление
+результатов.
+    <br>■ В Python есть много инструментов, которые облегчают написание кода таких операций в&nbsp;масштабах
+целой коллекции. Например, обновление всех счетчиков в списке несложно&nbsp;обеспечить в цикле for:</p>
+
+<div><span style="color: #0000ff;">&nbsp;&nbsp;&nbsp;&nbsp; counters = [1, 2, 3, 4, 5]</span></div>
+<div><span style="color: #0000ff;">&nbsp;&nbsp;&nbsp;&nbsp; updated = []</span></div>
+<div><span style="color: #0000ff;">&nbsp;&nbsp;&nbsp;&nbsp; for x in counters:</span></div>
+<div><span style="color: #0000ff;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; updated.append(x + 10)</span></div>
+<div><span style="color: #0000ff;">&nbsp;&nbsp;&nbsp;&nbsp; print(updated)</span></div>
+<div><span style="color: #0000ff;">&nbsp;</span></div>
+<p><span style="color: #0000ff;">   &nbsp;&nbsp;&nbsp;&nbsp;[11, 12, 13, 14, 15]</span></p>
+<p>■ Встроенная функция <span style="color: #0000ff;">map</span> 
+применяет переданную функцию к каждому элементу в итерируемом объекте и 
+возвращает список, содержащий все результаты вызовов функции.<br>
+    <br><span style="color: #0000ff;">&nbsp;&nbsp;&nbsp;&nbsp;def inc(x):&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; #Функция, подлежащая выполнению<br>
+        &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return x + 10<br>&nbsp;&nbsp;&nbsp;&nbsp;counters = [1, 2, 3, 4, 5]<br>&nbsp;&nbsp;&nbsp;&nbsp;a=list(map(inc, counters))&nbsp; &nbsp; &nbsp;#Накапливание результатов
+        <br>&nbsp;&nbsp;&nbsp;&nbsp;print(a)</span></p>
+<p><span style="color: #0000ff;">&nbsp;&nbsp;&nbsp;&nbsp;[11, 12, 13, 14, 15]</span><br>
+    <br>■ Здесь функция <span style="color: #0000ff;">map</span> вызывает функцию<span style="color: #0000ff;"> inc</span> для каждого элемента списка и собирает все возвращаемые значения в новый список.<br>
+    ■ Функция <span style="color: #0000ff;">map() </span>возвращает объект, поддерживающий итерации, а не список. Чтобы получить из него список, необходимо результат передать в функцию <span style="color: #0000ff;">list()</span>. Поскольку встроенная функция<span style="color: #0000ff;"> map</span> ожидает передачи функции, применяемой к элементам, она также относится к тем местам, где обычно появляется выражение <span style="color: #0000ff;">lambda</span>:</p>
+<p><br><span style="color: #0000ff;">&nbsp;&nbsp;&nbsp;&nbsp;a=list(map(lambda x: x∗2, counters))<br>&nbsp;&nbsp;&nbsp;&nbsp;print(a)</span></p>
+<p><span style="color: #0000ff;">&nbsp;&nbsp;&nbsp;&nbsp;[2, 4, 6, 8, 10]</span><br><br>■ Подлежащая применению функция умножает на 2 каждый элемент в списке <span style="color: #0000ff;">counters</span>; так как эта небольшая функция далее нигде не нужна, она была записана как внутристрочная посредством выражения<span style="color: #0000ff;"> lambda.</span></p>
+<p>■ Функция <span style="color: #0000ff;">map</span> встроенная 
+функция, она всегда доступна, всегда работает одинаково и дает 
+преимущества в плане производительности (в некоторых режимах применения 
+она быстрее вручную написанного цикла<span style="color: #0000ff;"> for</span>).<br>■ Функцию<span style="color: #0000ff;"> map
+</span> можно использовать более развитыми способами. Например, получив в качестве аргументов несколько последовательностей,<span style="color: #0000ff;">map</span> передает извлеченные из последовательностей элементы как индивидуальные аргументы функции <span style="color: #0000ff;">pow:</span></p>
+<p><span style="color: #0000ff;"><br>&nbsp;&nbsp;&nbsp;&nbsp;print(pow(2,
+ 3))&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; #2 ** 3<br>&nbsp;&nbsp;&nbsp;&nbsp;8<br>&nbsp;&nbsp;&nbsp;&nbsp;a=list(map(pow,
+ [1, 2, 3], [4, 5, 6]))&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
+&nbsp;#1 ** 4, 2 ** 5, 3 ** 6<br>&nbsp;&nbsp;&nbsp;&nbsp;print(a)</span></p>
+<p><span style="color: #0000ff;">&nbsp;&nbsp;&nbsp;&nbsp;[1, 32, 729]</span><br><br>■ В случае множества последовательностей <span style="color: #0000ff;">map</span> ожидает функцию с n аргументами для n последовательностей. Функция <span style="color: #0000ff;">pow</span> принимает в каждом вызове два аргумента по одному из каждой последовательности, переданной<span style="color: #0000ff;"> map</span>. Если в последовательностях разное количество элементов, то последовательность с минимальным количеством элементов становится ограничителем.</p>
+<p>■ Вызов <span style="color: #0000ff;">map</span> похож на выражения генераторов списков:</p>
+<p><br><span style="color: #0000ff;">&nbsp;&nbsp;&nbsp;&nbsp;def inc(x):&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; #Функция, подлежащая выполнению<br>
+        &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return x + 10<br>&nbsp;&nbsp;&nbsp;&nbsp;a=list(map(inc, [10, 20, 30, 40]))<br>&nbsp;&nbsp;&nbsp;&nbsp;print(a)</span></p>
+<p><span style="color: #0000ff;">&nbsp;&nbsp;&nbsp;&nbsp;[20, 30, 40, 50]<br><br>&nbsp;&nbsp;&nbsp;&nbsp;def inc(x):&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; #Функция, подлежащая выполнению<br>
+        &nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;return x + 10<br>&nbsp;&nbsp;&nbsp;&nbsp;a=[inc(x) for x in [10, 20, 30, 40]]<br>&nbsp;&nbsp;&nbsp;&nbsp;print(a)</span></p>
+<p><span style="color: #0000ff;">&nbsp;&nbsp;&nbsp;&nbsp;[20, 30, 40, 50]</span><br><br>■ Поскольку <span style="color: #0000ff;">map</span> применяет к каждому элементу вызов функции, а не произвольное выражение, она является менее универсальным<br>инструментом и часто требует добавочных вспомогательных функций или <span style="color: #0000ff;">lambda-выражений</span>.</p>
+</span></span>
+<pre><span style="font-size:26px;">
+    Функцию <span style="color: #0000ff;">map</span> при вызове <span style="color: #0000ff;">print</span> можно не оборачивать в <span style="color: #0000ff;">list</span>:
+    <span style="color: #0000ff;">
+    print(*map(lambda x: x+10, [10, 20, 30, 40]))
+    </span>
+выводит
+    <span style="color: #0000ff;">
+        20 30 40 50</span>
+
+    Еще один пример функции <span style="color: #0000ff;">map </span> вместе с функциями <span style="color: #0000ff;">lambda</span> и<span style="color: #0000ff;"> filter</span>:
+    Необходимио преобразовать список следующим образом: отбросить все нечетные значения больше 47, а все четные поделить
+на нацело 2
+    <span style="color: #0000ff;">
+    numbers = [46, 61, 34, 17, 56, 26, 93, 1, 3, 82, 71, 37, 80, 27, 77, 94, 34, 100, 36, 81, 33, 81, 66, 83, 41, 80, 80,
+       93, 40, 34, 32, 16, 5, 16, 40, 93, 36, 65, 8, 19, 8, 75, 66, 21, 72, 32, 41, 59, 35, 64, 49, 78, 83, 27, 57,
+       53, 43, 35, 48, 17, 19, 40, 90, 57, 77, 56, 80, 95, 90, 27, 26, 6, 4, 23, 52, 39, 63, 74, 15, 66, 29, 88, 94,
+       37, 44, 2, 38, 36, 32, 49, 5, 33, 60, 94, 89, 8, 36, 94, 46, 33]
+    numbers = list(map(lambda x: x if x < 47 and x%2 == 1 else x//2, filter(lambda x: x<47 or x%2 == 0, numbers)))
+    print(*numbers)
+    </span>
+        получим
+<span style="color: #0000ff;">23 17 17 28 13 1 3 41 37 40 27 47 17 50 18 33 33 41 40 40 20 17 16 8 5 8 20 18 4 19 4 33 21 36 16 41 35 32 39 27 43 35 24 17 19 20 45 28 40
+    45 27 13 3 2 23 26 39 37 15 33 29 44 47 37 22 1 19 18 16 5 33 30 47 4 18 47 23 33</span>
+</span></pre>
+
+    <h2 id="a2">Целочисленное деление&nbsp;&nbsp;&nbsp;&nbsp;<a href="#a">Up</a></h2>
+<span style="font-size:26px;">
+<p>Для положительных чисел оператор целочисленного деления ведёт себя 
+как обычное деление, за исключением того, что он отбрасывает десятичную 
+часть результата. Рассмотрим работу данного оператора на примерах:</p>
+
+<p><strong>&nbsp;&nbsp;&nbsp;</strong><span style="color: rgb(0, 85, 255);"><strong>&nbsp;print(10 // 3)</strong><br>
+<strong>&nbsp;&nbsp;&nbsp;&nbsp;print(10 // 4)</strong><br>
+<strong>&nbsp;&nbsp;&nbsp;&nbsp;print(10 // 5)</strong><br>
+<strong>&nbsp;&nbsp;&nbsp;&nbsp;print(10 // 6)</strong><br>
+<strong>&nbsp;&nbsp;&nbsp;&nbsp;print(10 // 12)</strong></span></p>
+
+<p>Результатом выполнения такой программы будет:</p>
+
+<p><strong>&nbsp;&nbsp;</strong><span style="color: rgb(102, 0, 255);"><strong>&nbsp;&nbsp;3</strong><br>
+<strong>&nbsp;&nbsp;&nbsp;&nbsp;2</strong><br>
+<strong>&nbsp;&nbsp;&nbsp;&nbsp;2</strong><br>
+<strong>&nbsp;&nbsp;&nbsp;&nbsp;1</strong><br>
+<strong>&nbsp;&nbsp;&nbsp;&nbsp;0</strong></span><br>
+При делении отрицательных чисел необходимо помнить, что результат 
+целочисленного деления не превосходит частное. Другими словами, 
+округление берётся в меньшую сторону (число -4−4 меньше, чем число 
+-3−3).</p>
+
+<p>Результатом работы следующей программы:</p>
+
+<p><strong>&nbsp;&nbsp;&nbsp;&nbsp;</strong><span style="color: rgb(0, 85, 255);"><strong>print(10 // 3)</strong><br>
+<strong>&nbsp;&nbsp;&nbsp;&nbsp;print(-10 // 3)</strong></span></p>
+
+<p>будут числа:</p>
+
+<p><strong>&nbsp;&nbsp;&nbsp;&nbsp;</strong><span style="color: rgb(0, 85, 255);"><strong>3 # округление в меньшую сторону</strong><br>
+<strong>&nbsp;&nbsp;&nbsp;&nbsp;-4 # округление в меньшую сторону</strong></span></p>
+
+<p><strong>Примечания</strong></p>
+<p><em>Примечание 1</em>. Оператор нахождения остатка очень полезен при 
+решении многих задач. Например, число делится на nn нацело тогда и 
+только тогда, когда остаток от деления на n равен 0.</p>
+<p><em>Примечание 2</em>. Операторы // и % имеют такой же приоритет, как и операторы умножения и обычного деления.</p>
+
+    <p><em>Примечание 3.</em> Наивысший приоритет имеет оператор возведения в степень **.</p></span>
+<br>
+<br>
+
+
+
+
+
+<h2 id="a3">Деление с остатком&nbsp;&nbsp;&nbsp;&nbsp;<a href="#a">Up</a></h2>
+<span style="font-size:26px;">
+<div>Оператор деления с остатком возвращает остаток от деления двух целых чисел. Рассмотрим работу данного оператора на примерах:<br>
+</div>
+<div><br>
+</div>
+<div>&nbsp; &nbsp;<span style="color: rgb(0, 85, 255);"> print(10 % 3)</span><br>
+</div>
+<div><span style="color: rgb(0, 85, 255);">&nbsp; &nbsp; print(10 % 4)</span></div>
+<div><span style="color: rgb(0, 85, 255);">&nbsp; &nbsp; print(10 % 5)</span></div>
+<div><span style="color: rgb(0, 85, 255);">&nbsp; &nbsp; print(10 % 6)</span></div>
+<div><span style="color: rgb(0, 85, 255);">&nbsp; &nbsp; print(10 % 12)</span></div>
+<div><span style="color: rgb(0, 85, 255);">&nbsp; &nbsp; print(10 % 20)</span></div>
+<div><br>
+</div>
+<div>Результатом выполнения такой программы будет:</div>
+<div><br>
+</div>
+<div>&nbsp; <span style="color: rgb(0, 85, 255);">&nbsp; 1</span></div>
+<div><span style="color: rgb(0, 85, 255);">&nbsp; &nbsp; 2</span></div>
+<div><span style="color: rgb(0, 85, 255);">&nbsp; &nbsp; 0</span></div>
+<div><span style="color: rgb(0, 85, 255);">&nbsp; &nbsp; 4</span></div>
+<div><span style="color: rgb(0, 85, 255);">&nbsp; &nbsp; 10</span></div>
+<div><span style="color: rgb(0, 85, 255);">&nbsp; &nbsp; 10</span></div>
+<div><br>
+</div>
+<div>Запомни: при нахождении остатка от деления на целое число n может 
+получаться результат 0, 1, 2, ... n-1. Например, при делении на 2 
+возможны остатки 0, 1, при делении на 3 возможны остатки 0,1,2 и т.д.</div>
+<div><br>
+</div>
+<div>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Примечания</div>
+<br>
+<div>Примечание 1. Оператор нахождения остатка очень полезен при решении
+ многих задач. Например, число делится на nn нацело тогда и только 
+тогда, когда остаток от деления на n равен 0.</div>
+<div><br>
+</div>
+<div>Примечание 2. Операторы&nbsp;&nbsp;<span style="color: rgb(0, 85, 255);">//</span> и <span style="color: rgb(0, 85, 255);">%</span> имеют такой же приоритет, как и операторы умножения и обычного деления.</div>
+<div><br>
+</div>
+<div>Примечание 3. Наивысший приоритет имеет оператор возведения в степень<span style="color: rgb(0, 85, 255);"> **</span>.</div>
+<div><br>
+</div>
+<div>Примечание 4. Обратите внимание: результатом деления <span style="color: rgb(0, 85, 255);">n % m</span> при <span style="color: rgb(0, 85, 255);">n &lt; m</span> является число<span style="color: rgb(0, 85, 255);"> n</span>. Например, <span style="color: rgb(0, 85, 255);">5 % 9 = 5, 3 % 13 = 3 </span>и т.д.</div>
+</span>
+
+<h2 id="a4">Модуль math&nbsp;&nbsp;&nbsp;&nbsp;<a href="#a">Up</a></h2>
+
+<div><br>
+</div>
+<span style="font-size:26px;">
+<div>Модуль math – один из наиважнейших в Python. Этот модуль 
+предоставляет обширный функционал для проведения вычислений с 
+вещественными числами (числами с плавающей точкой).</div>
+
+<div>Для использования этих функций в начале программы необходимо подключить модуль, что делается командой import:<br>
+</div>
+
+<div><br>
+</div>
+
+<div><span style="white-space:pre">	</span><span style="color: rgb(0, 85, 255);"><strong>import math</strong></span></div>
+
+<div><span style="color: rgb(0, 85, 255);"><strong><span style="white-space: pre;">	</span># программный код</strong></span><br>
+</div>
+
+<div><br>
+</div>
+
+<div>Для того, чтобы не указывать название модуля и символ точки при вызове функций, мы пишем следующий код:</div>
+
+<div><br>
+</div>
+
+<div><span style="white-space:pre">	</span><strong><span style="color: rgb(0, 85, 255);">from math import *</span></strong></div>
+
+<div><strong><span style="color: rgb(0, 85, 255);"><span style="white-space: pre;">	</span>num1 = sqrt(2)&nbsp; &nbsp; &nbsp;# вычисление корня квадратного из двух<br>
+</span></strong></div>
+
+<div><strong><span style="color: rgb(0, 85, 255);"><span style="white-space: pre;">	</span>num2 = ceil(3.8)&nbsp; &nbsp;# округление числа вверх</span></strong></div>
+
+<div><strong><span style="color: rgb(0, 85, 255);"><span style="white-space: pre;">	</span>num3 = floor(3.8)&nbsp; # округление числа вниз</span></strong></div>
+
+<h4><span style="font-size: 1em; font-weight: 700; white-space: pre;">			</span><span style="font-weight: 700; color: rgb(102, 0, 255); font-size: 26px;">Список функций модуля math</span><br>
+</h4>
+
+<table>
+    <tbody>
+        <tr>
+            <td>
+                <div><span style="color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, sans-serif; font-size: 26px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">Функция</span><span style="box-sizing: border-box; -webkit-user-drag: none; overflow: visible; font-family: &quot;Helvetica Neue&quot;, sans-serif; font-size: 23px; color: rgb(51, 51, 51); display: inline; vertical-align: baseline; margin: 0px; padding: 0px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; white-space: pre;">	</span><span style="color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, sans-serif; font-size: 23px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">&nbsp; &nbsp;<span>&nbsp;</span></span><br>
+</div>
+            </td>
+            <td>
+                <div><span style="color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, sans-serif; font-size: 26px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">&nbsp; Описание</span><br>
+</div>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="1" rowspan="1">
+                <div style="text-align: center;"><span style="color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, sans-serif; font-size: 23px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">&nbsp; Округления</span><br>
+</div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div><span style="color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, sans-serif; font-size: 23px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">int()</span><span style="box-sizing: border-box; -webkit-user-drag: none; overflow: visible; font-family: &quot;Helvetica Neue&quot;, sans-serif; font-size: 23px; color: rgb(51, 51, 51); display: inline; vertical-align: baseline; margin: 0px; padding: 0px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; white-space: pre;">	</span><br>
+</div>
+            </td>
+            <td>
+                <div><span style="color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, sans-serif; font-size: 23px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">Округляет число в сторону нуля</span><br>
+</div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div><span style="color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, sans-serif; font-size: 23px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">round(x)</span><br>
+</div>
+            </td>
+            <td>
+                <div><span style="color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, sans-serif; font-size: 23px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">Округляет
+ число x до ближайшего целого. Если дробная&nbsp; часть числа равна 0.5,
+ то число округляется до ближайшего&nbsp; четного<span style="color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, sans-serif; font-size: 23px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;"><span>&nbsp;</span>числа</span></span><br>
+</div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div><span style="color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, sans-serif; font-size: 23px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">round(x, n)</span><br>
+</div>
+            </td>
+            <td>
+                <div><span style="color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, sans-serif; font-size: 23px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">Округляет число x до n знаков после точки</span><br>
+</div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div><span style="color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, sans-serif; font-size: 23px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">floor(x)</span><br>
+</div>
+            </td>
+            <td>
+                <div><span style="color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, sans-serif; font-size: 23px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">Округляет число x вниз («пол»)</span><br>
+</div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div><span style="color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, sans-serif; font-size: 23px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">ceil(x)</span><br>
+</div>
+            </td>
+            <td>
+                <div><span style="color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, sans-serif; font-size: 23px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">Округляет число x вверх («потолок»)</span><br>
+</div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div><span style="color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, sans-serif; font-size: 23px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">abs(x)</span><br>
+</div>
+            </td>
+            <td>
+                <div><span style="color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, sans-serif; font-size: 23px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">Модуль числа x (абсолютная величина)</span><br>
+</div>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="1" rowspan="1">
+                <div><span style="color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, sans-serif; font-size: 23px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">&nbsp;Корни, логарифмы, степени и факториал</span><br>
+</div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div><span style="color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, sans-serif; font-size: 23px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">sqrt(x)</span><br>
+</div>
+            </td>
+            <td>
+                <div><span style="color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, sans-serif; font-size: 23px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">Квадратный корень числа x</span><br>
+</div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div><span style="color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, sans-serif; font-size: 23px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">pow(x, n)&nbsp;</span><br>
+</div>
+            </td>
+            <td>
+                <div><span style="color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, sans-serif; font-size: 23px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">Возведение числа x в степень n</span><br>
+</div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div><span style="color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, sans-serif; font-size: 23px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">log(x)</span><br>
+</div>
+            </td>
+            <td>
+                <div><span style="color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, sans-serif; font-size: 23px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">Натуральный логарифм числа x. Основание натурального логарифма равно числу e</span><br>
+</div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div><span style="color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, sans-serif; font-size: 23px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">log10(x)</span><br>
+</div>
+            </td>
+            <td>
+                <div><span style="color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, sans-serif; font-size: 23px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">Десятичный логарифм числа x. Основание десятичного логарифма&nbsp; равно числу 10</span><br>
+</div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div><span style="color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, sans-serif; font-size: 23px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">log(x, b)</span><span style="box-sizing: border-box; -webkit-user-drag: none; overflow: visible; font-family: &quot;Helvetica Neue&quot;, sans-serif; font-size: 23px; color: rgb(51, 51, 51); display: inline; vertical-align: baseline; margin: 0px; padding: 0px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; white-space: pre;">	</span><br>
+</div>
+            </td>
+            <td>
+                <div><span style="color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, sans-serif; font-size: 23px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">Логарифм числа x по основанию b</span><br>
+</div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div><span style="color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, sans-serif; font-size: 23px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">factorial(n)&nbsp;</span><br>
+</div>
+            </td>
+            <td>
+                <div><span style="color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, sans-serif; font-size: 23px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">Факториал натурального числа n</span><br>
+</div>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="1" rowspan="1">
+                <div><span style="color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, sans-serif; font-size: 23px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">Тригонометрия</span><br>
+</div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div><span style="color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, sans-serif; font-size: 23px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">degrees(x)&nbsp;</span><br>
+</div>
+            </td>
+            <td>
+                <div><span style="color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, sans-serif; font-size: 23px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">Преобразует угол x, заданный в радианах, в градусы</span><br>
+</div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div><span style="color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, sans-serif; font-size: 23px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">radians(x)</span><br>
+</div>
+            </td>
+            <td>
+                <div><span style="color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, sans-serif; font-size: 23px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;"><span style="color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, sans-serif; font-size: 23px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">П</span>реобразует угол x, заданный в градусах, в радианы</span><br>
+</div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div><span style="color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, sans-serif; font-size: 23px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">cos(x)</span><br>
+</div>
+            </td>
+            <td>
+                <div><span style="color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, sans-serif; font-size: 23px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">Косинус угла x, задаваемого в радиана<span style="color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, sans-serif; font-size: 23px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">х</span></span><br>
+</div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div><span style="color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, sans-serif; font-size: 23px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">sin(x)</span><br>
+</div>
+            </td>
+            <td>
+                <div><span style="color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, sans-serif; font-size: 23px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">Синус угла x, задаваемого в радианах</span><br>
+</div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div><span style="color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, sans-serif; font-size: 23px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">tan(x)</span><br>
+</div>
+            </td>
+            <td>
+                <div><span style="color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, sans-serif; font-size: 23px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">Тангенс угла x, задаваемого в радианах</span><br>
+</div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div><span style="color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, sans-serif; font-size: 23px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">acos(x<span style="color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, sans-serif; font-size: 23px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">)</span></span><br>
+</div>
+            </td>
+            <td>
+                <div><span style="color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, sans-serif; font-size: 23px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">Возвращает угол в радианах от 0 до pi,&nbsp;</span><span style="color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, sans-serif; font-size: 23px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">cos которого равен x</span><br>
+</div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div><span style="color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, sans-serif; font-size: 23px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">asin(x)</span><br>
+</div>
+            </td>
+            <td>
+                <div><span style="color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, sans-serif; font-size: 23px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">Возвращает угол в радианах от -pi/2&nbsp; до&nbsp; pi/2&nbsp; &nbsp;sin которого равен&nbsp;<span style="color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, sans-serif; font-size: 23px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">x</span></span><br>
+</div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div><span style="color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, sans-serif; font-size: 23px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">atan(x)</span><br>
+</div>
+            </td>
+            <td>
+                <div><span style="color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, sans-serif; font-size: 23px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">Возвращает угол в радианах от -pi/2&nbsp; до&nbsp; pi/2, tan которого равен x</span><br>
+</div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div><span style="color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, sans-serif; font-size: 23px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">atan2(y, x)</span><br>
+</div>
+            </td>
+            <td>
+                <div><span style="color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, sans-serif; font-size: 23px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">Полярный угол (в радианах) точки с координатами (x, y)</span><br>
+</div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div><span style="color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, sans-serif; font-size: 23px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;"><span>&nbsp;</span>Список констант</span><br>
+</div>
+            </td>
+            <td>
+                <div><br>
+</div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div><span style="color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, sans-serif; font-size: 23px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">pi</span><br>
+</div>
+            </td>
+            <td>
+                <div><span style="color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, sans-serif; font-size: 23px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">Число pi = 3.141592653589793</span><br>
+</div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div><span style="color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, sans-serif; font-size: 23px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">е&nbsp;</span><br>
+</div>
+            </td>
+            <td>
+                <div><span style="color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, sans-serif; font-size: 23px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">Число e = 2.718281828459045e= 2.718281828459045</span><span style="font-size: 16px;">​</span><br>
+</div>
+            </tr>
+        <tr>
+            <td>
+                <div><span style="color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, sans-serif; font-size: 23px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">-math.inf +math.inf&nbsp;</span><br>
+</div>
+            </td>
+            <td>
+                <div><span style="color: rgb(51, 51, 51); font-family: &quot;Helvetica Neue&quot;, sans-serif; font-size: 23px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: none;">-бесконечность и +бесконечность (пригодится, когда нужно найти наибольшее или наименьшее число)</span><span style="font-size: 16px;">​</span><br>
+</div>
+            </td>
+        </tr>
+    </tbody>
+</table>
+<div>&nbsp;<span style="white-space: pre;">	</span>Примечания</div>
+<div><br>
+</div>
+<div>Примечание 1. Все функции модуля <span style="color: rgb(0, 85, 255);">math</span> возвращают значение, которое можно вывести на экран, присвоить другой переменной или использовать в математическом выражении.</div>
+<div><br>
+</div>
+<div>Примечание 2. Для использования функций<span style="color: rgb(0, 85, 255);"> int(), float(), abs(), min(), max(), round(), sum()</span> подключать модуль math нет необходимости. Это так называемые встроенные функции.</div>
+<div><br>
+</div>
+<div>Примечание 3. Вызов функций <span style="color: rgb(0, 85, 255);">pow(x, n)</span> можно заменить использованием оператора возведения в степень:<span style="color: rgb(0, 85, 255);"> x**n</span>.</div>
+<div><br>
+</div>
+<div><br>
+</div>
+</span>
+
+
+<span style="font-size:26px;">
+<h2 id="a5">Работа с датой и временем в модуле Python datetime&nbsp;&nbsp;&nbsp;&nbsp;<a href="#a">Up</a></h2>
+<div>&nbsp;Для работы с датой и временем в Python 2 и 3 есть отдельный 
+модуль datetime. В отличие от других языков, таких как SQL, в Python нет
+ встроенного типа данных для работы с датой и временем - это достигается
+ путем импорта модуля и созданием объекта. Модуль datetime входит в 
+пакет Python и его не нужно отдельно устанавливать.<br>
+</div>
+<div>Импорт модуля осуществляется следующим путем:<br>
+</div>
+<p><br>
+</p>
+<p><span style="color: rgb(0, 85, 255);"><strong>import datetime</strong></span></p>
+<h4 style="text-align: center;"><span style="color: rgb(102, 0, 255);">Получение текущей даты и времени</span><br>
+</h4>
+<p>Для вывода даты и времени нужно выполнить следующее:<br>
+</p>
+<div><span style="color: rgb(0, 85, 255);"><strong>import datetime<br>
+</strong></span></div>
+<div><span style="color: rgb(0, 85, 255);"><strong>day_time = datetime.datetime.now()</strong></span></div>
+<div><span style="color: rgb(0, 85, 255);"><strong>print(day_time)</strong></span></div>
+<p><br>
+</p>
+<h4 style="text-align: center;"><span style="color: rgb(102, 0, 255);">Получение текущей даты и времени в Python datetime</span></h4>
+<div>Как видно мы получаем для создания объекта даты и времени используется класс с тем же именем что и модуль datetime.<br>
+</div>
+<div>Когда нужно получить только дату используется класс date:<br>
+</div>
+<div><br>
+</div>
+<div><span style="color: rgb(0, 85, 255);"><strong>import datetime</strong></span></div>
+<div><span style="color: rgb(0, 85, 255);"><strong>day = datetime.date.today()</strong></span></div>
+<div><span style="color: rgb(0, 85, 255);"><strong>print(day)</strong></span></div>
+<div><br>
+</div>
+<h4 style="text-align: center;"><span style="color: rgb(102, 0, 255);">Получение текущей даты в Python datetime</span></h4>
+<div>Получение только времени выполняется через метод time():<br>
+</div>
+<div><br>
+</div>
+<div><span style="color: rgb(0, 85, 255);"><strong>import datetime</strong></span></div>
+<div><span style="color: rgb(0, 85, 255);"><strong>date_time = datetime.datetime.now().time()</strong></span></div>
+<div><span style="color: rgb(0, 85, 255);"><strong>print(date_time, type(date_time))</strong></span></div>
+<div><br>
+</div>
+<h4 style="text-align: center;"><span style="color: rgb(102, 0, 255);">Получение времени в Python datetime</span></h4>
+<div>Каждый из описываемых классов можно импортировать следующим способом:<br>
+</div>
+<div><br>
+</div>
+<div><strong><span style="color: rgb(0, 85, 255);">from datetime import date</span></strong></div>
+<div><strong><span style="color: rgb(0, 85, 255);">from datetime import datetime</span></strong></div>
+<div><strong><span style="color: rgb(0, 85, 255);">print(datetime.now())</span></strong></div>
+<div><strong><span style="color: rgb(0, 85, 255);">print(date.today())</span></strong></div>
+<div><br>
+</div>
+<h4 style="text-align: center;"><span style="color: rgb(102, 0, 255);">Импорт модуля datetime в Python</span></h4>
+<div><br>
+</div>
+<div>Форматирование и перевод в строку<br>
+</div>
+<div>Для получение части даты или времени можно использовать следующие атрибуты:<br>
+</div>
+<div><br>
+</div>
+<div>&nbsp; &nbsp; year</div>
+<div>&nbsp; &nbsp; month</div>
+<div>&nbsp; &nbsp; day</div>
+<div>&nbsp; &nbsp; weekday</div>
+<div>&nbsp; &nbsp; hour</div>
+<div>&nbsp; &nbsp; minute</div>
+<div>&nbsp; &nbsp; second</div>
+<div><br>
+</div>
+<div><strong><span style="color: rgb(0, 85, 255);">import datetime</span></strong></div>
+<div><strong><span style="color: rgb(0, 85, 255);"># Получение дня от даты</span></strong></div>
+<div><strong><span style="color: rgb(0, 85, 255);">date = datetime.date.today()</span></strong></div>
+<div><strong><span style="color: rgb(0, 85, 255);">print(date.day)</span></strong></div>
+<div><strong><span style="color: rgb(0, 85, 255);">date_time = datetime.datetime.now()</span></strong></div>
+<div><strong><span style="color: rgb(0, 85, 255);"># Получение часа суток от времени</span></strong></div>
+<div><strong><span style="color: rgb(0, 85, 255);">print(date_time.hour)</span></strong></div>
+<h4 style="text-align: center;"><span style="color: rgb(102, 0, 255);">Форматирование строки с датой в Python datetime</span></h4>
+<div>Так же есть метод strftime, который форматирует даты в нужном 
+формате в строку. Например так мы получим дату в формате, который 
+используется у нас:<br>
+</div>
+<div><br>
+</div>
+<div><strong><span style="color: rgb(0, 85, 255);">import datetime</span></strong></div>
+<div><strong><span style="color: rgb(0, 85, 255);">date = datetime.datetime.today()</span></strong></div>
+<div><strong><span style="color: rgb(0, 85, 255);">print(date.strftime('%d-%m-%Y %H:%M'))</span></strong></div>
+<div><br>
+</div>
+<div>Форматирование в datetime Python</div>
+<div><br>
+</div>
+<div>Где:</div>
+<div><br>
+</div>
+<div>&nbsp; <span style="color: rgb(0, 130, 153);">&nbsp; %d - день месяца с 1 по 31;</span></div>
+<div><span style="color: rgb(0, 130, 153);">&nbsp; &nbsp; %m - месяц с 1 по 12;</span></div>
+<div><span style="color: rgb(0, 130, 153);">&nbsp; &nbsp; %Y - год;</span></div>
+<div><span style="color: rgb(0, 130, 153);">&nbsp; &nbsp; %H - час в формате 0-24;</span></div>
+<div><span style="color: rgb(0, 130, 153);">&nbsp; &nbsp; %M - минуты;</span></div>
+<div><span style="color: rgb(0, 130, 153);">&nbsp; &nbsp; %S - секунды.</span></div>
+<div><br>
+</div>
+<div>Таким же способом можно получить время и дату:</div>
+<div><br>
+</div>
+<div>&nbsp; <span style="color: rgb(0, 130, 153);">&nbsp; %c - время и дата;</span></div>
+<div><span style="color: rgb(0, 130, 153);">&nbsp; &nbsp; %x - дата;</span></div>
+<div><span style="color: rgb(0, 130, 153);">&nbsp; &nbsp; %X - время.</span></div>
+<div><br>
+</div>
+<div>date = datetime.datetime.today()</div>
+<div>print(date.strftime('%x'))</div>
+
+<div><br>
+</div>
+<div>Форматирование в datetime Python</div>
+<div><br>
+</div>
+<div>Обратите внимание, что таким способом мы преобразуем объект класса 
+datetime в строку и мы больше не сможем использовать методы по работе с 
+датой (например сравнение):</div>
+<div><br>
+</div>
+<div><strong><span style="color: rgb(0, 85, 255);">import datetime</span></strong></div>
+<div><strong><span style="color: rgb(0, 85, 255);">date = datetime.datetime.today()</span></strong></div>
+<div><strong><span style="color: rgb(0, 85, 255);">local_date = date.strftime('%d-%m-%Y %H:%M')</span></strong></div>
+<div><strong><span style="color: rgb(0, 85, 255);">print('Объект класса datetime: ', type(date))</span></strong></div>
+<div><strong><span style="color: rgb(0, 85, 255);">print('Дата преобразованная в строку: ', type(local_date))</span></strong></div>
+<div><strong><span style="color: rgb(0, 85, 255);">print(local_date.day)</span></strong></div>
+<div><br>
+</div>
+<h4 style="text-align: center;"><span style="color: rgb(102, 0, 255);">Типы дат в datetime Python</span></h4>
+<div>Мы получим ошибку так как уже работаем со строкой:<br>
+</div>
+<div><br>
+</div>
+<div>&nbsp; &nbsp;<span style="color: rgb(0, 85, 255);"><strong> AttributeError: 'str' object has no attribute 'day'</strong></span></div>
+<div><br>
+</div>
+<div>Выше описаны основные возможности форматирования используя метод strftime(), но их, конечно, больше.</div>
+<div>Получения дня недели и название месяца</div>
+<div><br>
+</div>
+<div>Можно получить название дня недели или название. Численный вариант эквивалентен следующим значениям:</div>
+<div><br>
+</div>
+<div>&nbsp; &nbsp;<span style="color: rgb(0, 130, 153);"> 0 - Monday (Понедельник);</span></div>
+<div><span style="color: rgb(0, 130, 153);">&nbsp; &nbsp; 1 - Tuesday (Вторник);</span></div>
+<div><span style="color: rgb(0, 130, 153);">&nbsp; &nbsp; 2 - Wednesday (Среда);</span></div>
+<div><span style="color: rgb(0, 130, 153);">&nbsp; &nbsp; 3 - Thursday (Четверг);</span></div>
+<div><span style="color: rgb(0, 130, 153);">&nbsp; &nbsp; 4 - Friday (Пятница);</span></div>
+<div><span style="color: rgb(0, 130, 153);">&nbsp; &nbsp; 5 - Saturday (Суббота);</span></div>
+<div><span style="color: rgb(0, 130, 153);">&nbsp; &nbsp; 6 - Sunday (Воскресенье).</span></div>
+<div><br>
+</div>
+<div>Следующий пример вернет день недели в виде числа:</div>
+<div><br>
+</div>
+<div><strong><span style="color: rgb(0, 85, 255);">date = datetime.datetime.today()</span></strong></div>
+<div><strong><span style="color: rgb(0, 85, 255);">print(date.weekday())</span></strong></div>
+<h4 style="text-align: center;"><span style="color: rgb(102, 0, 255);">Получение дня недели в Python datetime</span></h4>
+<div>Или получить название:<br>
+</div>
+<div><br>
+</div>
+<div><strong><span style="color: rgb(0, 85, 255);">date = datetime.datetime.today()</span></strong></div>
+<div><strong><span style="color: rgb(0, 85, 255);">print(date.strftime('%A'))</span></strong></div>
+<div><strong><span style="color: rgb(0, 85, 255);">print(date.strftime('%a'))</span></strong></div>
+<div><br>
+</div>
+<h4 style="text-align: center;"><span style="color: rgb(102, 0, 255);">Получение имени дня недели в Python datetime</span></h4>
+<div><br>
+</div>
+<div>&nbsp;Где:<br>
+</div>
+<div><br>
+</div>
+<div>&nbsp; &nbsp;<span style="color: rgb(0, 130, 153);"> %A - полное название дня недели;</span></div>
+<div><span style="color: rgb(0, 130, 153);">&nbsp; &nbsp; %a - сокращенное название дня недели;</span></div>
+<div><span style="color: rgb(0, 130, 153);">&nbsp; &nbsp; %s - представление в виде числа.</span></div>
+<div><br>
+</div>
+<div>Такой же принцип по работе с месяцами, где:</div>
+<div><br>
+</div>
+<div>&nbsp; &nbsp;<span style="color: rgb(0, 130, 153);"> %B - полное название месяца;</span></div>
+<div><span style="color: rgb(0, 130, 153);">&nbsp; &nbsp; %b - сокращенное название месяца;</span></div>
+<div><span style="color: rgb(0, 130, 153);">&nbsp; &nbsp; %m - месяц в виде числа.</span></div>
+<div><br>
+</div>
+<h4 style="text-align: center;">&nbsp;<span style="color: rgb(102, 0, 255); font-weight: 700; text-align: center;">Создание объекта даты и времени</span></h4>
+<div><br>
+</div>
+<div>Для создания даты используется класс с аргументами date(год, месяц, число):</div>
+<div><br>
+</div>
+<div><span style="color: rgb(0, 85, 255);"><strong>date = datetime.date(2019, 1, 13)</strong></span></div>
+<div><span style="color: rgb(0, 85, 255);"><strong>print(date, type(date))</strong></span></div>
+<div><br>
+</div>
+<div>Создание объекта с даты в Python datetime</div>
+<div>Можно создать дату и время. В обоих случаях мы можем использовать именованные аргументы если так удобнее:<br>
+</div>
+<div><br>
+</div>
+<div><span style="color: rgb(0, 85, 255);"><strong>date_time = datetime.datetime(year = 2019, month = 2,&nbsp; day = 4, hour = 7, minute = 9,&nbsp; second = 13 )</strong></span></div>
+<div><span style="color: rgb(0, 85, 255);"><strong>print(date_time, type(date_time))</strong></span></div>
+<div><br>
+</div>
+<div>Создание объекта с датой и временем в Python datetime</div>
+<div><br>
+</div>
+<div><br>
+</div>
+<div>Каждый аргумент времени, по умолчанию, имеет значение 0. Мы так же 
+можем использовать подход выше для получения, например, только года или 
+времени:</div>
+<div><br>
+</div>
+<div><strong><span style="color: rgb(0, 85, 255);">date_time = datetime.datetime(year = 2019,&nbsp; month = 2,</span></strong></div>
+<div><strong><span style="color: rgb(0, 85, 255);">&nbsp; &nbsp; &nbsp; 
+&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;day
+ = 4, second = 13 )&nbsp; # Получаем только время</span></strong></div>
+<div><strong><span style="color: rgb(0, 85, 255);">time = date_time.strftime('%X')</span></strong></div>
+<div><strong><span style="color: rgb(0, 85, 255);">print(time, type(time))</span></strong></div>
+<div><br>
+</div>
+<div><strong><span style="color: rgb(0, 85, 255);">date = datetime.date( year = 2018, month = 5, day = 3)&nbsp; # Получаем только год</span></strong></div>
+<div><strong><span style="color: rgb(0, 85, 255);">year = date.year</span></strong></div>
+<div><strong><span style="color: rgb(0, 85, 255);">print(year, type(year))</span></strong></div>
+<div><br>
+</div>
+<h4 style="text-align: center;"><span style="color: rgb(102, 0, 255);">Именованные аргумента в datetime Python</span></h4>
+<div><br>
+</div>
+<div>Если вы не укажете год, месяц или день, то получите ошибку т.к. они по умолчанию равны None:<br>
+</div>
+<div><br>
+</div>
+<div>&nbsp;<strong><span style="color: rgb(0, 85, 255);"> &nbsp; TypeError: Required argument 'year' (pos 1) not found</span></strong></div>
+<div><br>
+</div>
+<div>Есть отдельный класс для создания времени time:</div>
+<div><br>
+</div>
+<div><strong><span style="color: rgb(0, 85, 255);">time = datetime.time(12, 33, second=33, microsecond=122)</span></strong></div>
+<div><strong><span style="color: rgb(0, 85, 255);">print(time, type(time))</span></strong></div>
+<div><strong><span style="color: rgb(0, 85, 255);">print(time.hour)</span></strong></div>
+<div><br>
+</div>
+<div>Создание объекта времени в datetime Python</div>
+<div><br>
+</div>
+<h4 style="text-align: center;"><span style="color: rgb(102, 0, 255);">Создание из строк</span><br>
+</h4>
+<div><br>
+</div>
+<div>Используя strptime() можно создавать объект datetime из строки:</div>
+<div><br>
+</div>
+<div><span style="color: rgb(0, 85, 255);">date_string = '21 September. 1999'</span></div>
+<div><span style="color: rgb(0, 85, 255);">date_object = datetime.strptime(date_string, '%d %B. %Y')</span></div>
+<div><span style="color: rgb(0, 85, 255);">print(date_object, type(date_object))</span></div>
+<div><br>
+</div>
+<div>Создание даты из строки с datetime strptime Python</div>
+<div><br>
+</div>
+<h4 style="text-align: center;"><span style="color: rgb(102, 0, 255);">Продолжительность времени с timedelta</span></h4>
+<div><br>
+</div>
+<div>timedelta - это класс с помощью которого можно установить не дату, 
+как в примерах выше, а продолжительность. Так мы создадим объект с 12 
+днями и 33 секундами:</div>
+<div><br>
+</div>
+<div><strong><span style="color: rgb(0, 85, 255);">duration_time = datetime.timedelta(days = 12, seconds = 33)</span></strong></div>
+<div><strong><span style="color: rgb(0, 85, 255);">print(duration_time, type(duration_time))</span></strong></div>
+
+<div><br>
+</div>
+<div>Продолжительность с timedelta в Python datetime</div>
+<div><br>
+</div>
+<div><br>
+</div>
+<div>Все атрибуты, которые мы можем указывать для этого класса:</div>
+<div><br>
+</div>
+<div>&nbsp; <span style="color: rgb(0, 130, 153);">&nbsp; days</span></div>
+<div><span style="color: rgb(0, 130, 153);">&nbsp; &nbsp; seconds</span></div>
+<div><span style="color: rgb(0, 130, 153);">&nbsp; &nbsp; microseconds</span></div>
+<div><span style="color: rgb(0, 130, 153);">&nbsp; &nbsp; milliseconds</span></div>
+<div><span style="color: rgb(0, 130, 153);">&nbsp; &nbsp; minutes</span></div>
+<div><span style="color: rgb(0, 130, 153);">&nbsp; &nbsp; hours</span></div>
+<div><br>
+</div>
+<div>Кроме этого мы можем преобразовывать эти объекты в секунды:</div>
+<div><br>
+</div>
+<div><span style="color: rgb(0, 130, 153);">duration_time = datetime.timedelta(minutes = 1, seconds = 10)</span></div>
+<div><span style="color: rgb(0, 130, 153);"># Преобразуем в секунды</span></div>
+<div><span style="color: rgb(0, 130, 153);">seconds = duration_time.total_seconds()</span></div>
+<div><span style="color: rgb(0, 130, 153);">print(seconds, type(seconds))</span></div>
+<div><br>
+</div>
+<div>Получение секунд в datetime Python</div>
+<div><br>
+</div>
+<div><br>
+</div>
+<h4 style="text-align: center;"><span style="color: rgb(102, 0, 255);">Разница между датами</span></h4>
+<div><br>
+</div>
+<div>Мы можем искать разницу между датами получая объект timedelta:</div>
+<div><br>
+</div>
+<div><strong><span style="color: rgb(0, 85, 255);">date_now = datetime.datetime.now()</span></strong></div>
+<div><strong><span style="color: rgb(0, 85, 255);">date_tomorrow = datetime.datetime(2019, 12, 29)</span></strong></div>
+<div><strong><span style="color: rgb(0, 85, 255);"># Вычисляем разницу между датами</span></strong></div>
+<div><strong><span style="color: rgb(0, 85, 255);">difference = date_tomorrow - date_now</span></strong></div>
+<div><strong><span style="color: rgb(0, 85, 255);">print(difference, type(difference))</span></strong></div>
+<div><strong><span style="color: rgb(0, 85, 255);">print('Разница только в днях: ', difference.days)</span></strong></div>
+<div><br>
+</div>
+<div>Разница между датами в Python datetime</div>
+<div>&nbsp;<br>
+</div>
+<h3 style="text-align: center;"><span style="color: rgb(102, 0, 255);">Изменение объектов</span></h3>
+<div><br>
+</div>
+<div>Каждый их объектов выше можно изменить. Так мы изменим объект timedelta прибавив часы к минутам:</div>
+<div><br>
+</div>
+<div><strong><span style="color: rgb(0, 85, 255);">duration_hours = datetime.timedelta(hours = 1)</span></strong></div>
+<div><strong><span style="color: rgb(0, 85, 255);">duration_minutes = datetime.timedelta(minutes = 10)</span></strong></div>
+<div><strong><span style="color: rgb(0, 85, 255);">result = duration_hours + duration_minutes</span></strong></div>
+<div><strong><span style="color: rgb(0, 85, 255);">print(result, type(result))</span></strong></div>
+<div><br>
+</div>
+<h4 style="text-align: center;"><span style="color: rgb(102, 0, 255);">Изменение времени в Python datetime</span></h4>
+<div><br>
+</div>
+<div>С помощью timedelta изменяется и дата. Пример ниже изменяет текущую дату прибавляя к ней 1 день и 1 час:</div>
+<div><br>
+</div>
+<div><span style="color: rgb(0, 85, 255);"><strong>date_now = datetime.datetime.now()</strong></span></div>
+<div><span style="color: rgb(0, 85, 255);"><strong>duration_minutes = datetime.timedelta(days=1, minutes=10)</strong></span></div>
+<div><span style="color: rgb(0, 85, 255);"><strong>result = date_now + duration_minutes</strong></span></div>
+<div><span style="color: rgb(0, 85, 255);"><strong>print(result, type(result))</strong></span></div>
+<div><br>
+</div>
+<div>Добавление дней в Python datetime</div>
+<div style="text-align: center;">&nbsp;<span style="color: rgb(102, 0, 255); font-weight: 700; text-align: center;">Сравнение и условия</span></div>
+<div><br>
+</div>
+<div>Каких либо хитростей в сравнении объектов нет. В следующем примере идет сравнение двух дат с разницей в день:</div>
+<div><br>
+</div>
+<div><span style="color: rgb(0, 85, 255);">date_one = datetime.datetime(2017,12,1)</span></div>
+<div><span style="color: rgb(0, 85, 255);">date_two = datetime.datetime(2017,12,2)</span></div>
+<div><span style="color: rgb(0, 85, 255);">if date_two &gt; date_one:</span></div>
+<div><span style="color: rgb(0, 85, 255);">&nbsp; &nbsp; print('{0} больше чем {1}'.format(date_two, date_one))</span></div>
+<div><br>
+</div>
+<div>Сравнение объектов datetime в Python</div>
+<div><br>
+</div>
+<div><br>
+</div>
+<div>При этом стоит проверять, что объекты относятся к классу datetime, а
+ не являются строками. В следующем примере мы сравниваем года, но они 
+уже относятся к численным:</div>
+<div><br>
+</div>
+<div><span style="color: rgb(0, 85, 255);">date_one = datetime.datetime(2017,12,1)</span></div>
+<div><span style="color: rgb(0, 85, 255);">date_two = datetime.datetime(2017,12,2)</span></div>
+<div><span style="color: rgb(0, 85, 255);">if date_two.year == date_one.year:</span></div>
+<div><span style="color: rgb(0, 85, 255);">&nbsp; &nbsp; print('Год одинаковый. Тип данных: ', type(date_two.year))</span></div>
+<div><br>
+</div>
+<div>Сравнение годов в Python datetime</div>
+<div>Объект timedelta тоже можно сравнивать:<br>
+</div>
+<div><span style="color: rgb(0, 85, 255);">​<br>
+</span></div>
+<div><span style="color: rgb(0, 85, 255);">time_one = datetime.timedelta(seconds=2)</span></div>
+<div><span style="color: rgb(0, 85, 255);">time_two = datetime.timedelta(minutes=1)</span></div>
+<div><span style="color: rgb(0, 85, 255);">if time_one &lt; time_two:</span></div>
+<div><span style="color: rgb(0, 85, 255);">&nbsp; &nbsp; print('Pass')</span></div>
+<div><br>
+</div>
+<div>Сравнение timedelta в Python datetime</div>
+<div><br>
+</div>
+
+<h4 style="text-align: center;"><span style="color: rgb(102, 0, 255);">Работа с метками (штампами) timestamp</span></h4>
+<div><br>
+</div>
+<div>При работе с API или в Unix системах мы можем увидеть отображение времени в таком формате:</div>
+<div><br>
+</div>
+<div><strong><span style="color: rgb(0, 85, 255);">1578238360</span></strong></div>
+<div><br>
+</div>
+<div>Данные числа обозначают количество секунд с 1 января 1970 года. Мы 
+можем конвертировать данное число в понятный формат используя datetime:</div>
+<div><br>
+</div>
+<div><strong><span style="color: rgb(0, 85, 255);">timestamp = date.fromtimestamp(1578238360)</span></strong></div>
+<div><strong><span style="color: rgb(0, 85, 255);">print(timestamp)</span></strong></div>
+<div><br>
+</div>
+<div>Работа с UNIX timestamp Python datetime</div>
+<div><br>
+</div>
+<div><br>
+</div>
+<div>Так же сработает если мы хотим получить и время:</div>
+<div><br>
+</div>
+<div><strong><span style="color: rgb(0, 85, 255);">timestamp = datetime.fromtimestamp(1578238360)</span></strong></div>
+<div><strong><span style="color: rgb(0, 85, 255);">print(timestamp)</span></strong></div>
+<div><br>
+</div>
+<div>Получение даты и времени из timestamp в Python datetime</div>
+<div><br>
+</div>
+<div><br>
+</div>
+<div>Для конвертирования в timestamp используется метод с аналогичным названием:</div>
+<div><br>
+</div>
+<div><span style="color: rgb(0, 85, 255);"><strong>from datetime import datetime</strong></span></div>
+<div><strong style="color: rgb(0, 85, 255);">date_now = datetime.now()</strong><br>
+</div>
+<div><span style="color: rgb(0, 85, 255);"><strong>print(date_now.timestamp)</strong></span></div>
+<div><br>
+</div>
+<div>Создание timestamp в Python datetime</div>
+<div><br>
+</div>
+<h4 style="text-align: center;"><span style="color: rgb(102, 0, 255);">Работа с часовыми поясами</span></h4>
+<div>К сожалению у меня нет большого опыта работы с часовыми поясами и примеры ниже не стоит рассматривать как лучшие практики.&nbsp;<br>
+</div>
+<div>Библиотека datetime не хранит часовые пояса, данные о переводах 
+часов (летнее и зимнее время) и високосных секундах. К тому же, 
+некоторые страны, могут изменить время опираясь на локальные ситуации. 
+Эти ситуации опасны, когда идет запись в базу данных. Для вывода в GUI, 
+можно использовать datetime.datetime.now() или высчитывать часовой пояс 
+из базы.<br>
+</div>
+<div><br>
+</div>
+<div>Для записи в базу данных мы можем использовать время UTC и отдельно считать часовой пояс:</div>
+<div><br>
+</div>
+<div><strong><span style="color: rgb(0, 85, 255);">utc = datetime.datetime.utcnow()</span></strong></div>
+<div><strong><span style="color: rgb(0, 85, 255);">print(utc)</span></strong></div>
+<div><br>
+</div>
+<div>Время UTC в Python Datetime</div>
+<div>Следующий пример вычислит разницу времени между UTC и локальным. 
+Насколько я знаю он может не сработать на версиях Python &lt; 3.3:<br>
+</div>
+<div><br>
+</div>
+<div><strong><span style="color: rgb(0, 85, 255);">gmt = datetime.today() - datetime.utcnow()</span></strong></div>
+<div><strong><span style="color: rgb(0, 85, 255);">print(gmt)</span></strong></div>
+<div><br>
+</div>
+<div>Разница во времени UTC Python datetime</div>
+<div>Для вычисления других часовых поясов можно использовать стороннюю библиотеку pytz, которая их хранит:<br>
+</div>
+<div><br>
+</div>
+<div><strong><span style="color: rgb(0, 85, 255);">pip install pytz</span></strong></div>
+<div><br>
+</div>
+<div>&nbsp;Вывести все часовые пояса мы можем так:</div>
+<div><br>
+</div>
+<div><strong><span style="color: rgb(0, 85, 255);">import pytz</span></strong></div>
+<div><strong><span style="color: rgb(0, 85, 255);">for tz in pytz.all_timezones:</span></strong></div>
+<div><strong><span style="color: rgb(0, 85, 255);">&nbsp; &nbsp; print(tz)</span></strong></div>
+<div><br>
+</div>
+    <div>Вывод всех часовых поясов в Python pytz</div></span>
+
+
+
+
+<span style="font-size:26px;">
+<h2 id="a6">Анонимная(lamda)функция&nbsp;&nbsp;&nbsp;&nbsp;<a href="#a">Up</a></h2>
+<pre>    Лямбда-функции являются одним из инструментов функционального программирования в Python. Они позволяют создавать
+функции,которые могут быть определены в одной строке, не требуя явного имени функции.
+Преимуществом лямбда-функций является то, что они могут быть использованы в качестве аргументов для других функций,
+включаяфункции map(), filter() и reduce(). Они могут также использоваться для создания анонимных функций, которые
+не требуют создания явного имени функции.
+Синтаксис лямбда-функции выглядит следующим образом:
+
+    <span style="color: rgb(0, 85, 255);">lambda</span> <span style="color: rgb(87,218,255);">arguments</span>: <span style="color: rgb(185,105,0,255);">expression</span>
+
+    где <span style="color: rgb(87,218,255);">arguments</span> - это список аргументов функции, а <span style="color: rgb(185,105,0,255);">expression</span> - это выражение, которое вычисляется при вызове функции.
+Давайте рассмотрим несколько примеров, чтобы увидеть, как работают лямбда-функции:
+
+Пример 1:
+
+    <span style="color: rgb(0, 85, 255);">double = lambda x: x * 2
+        print(double(5)) # 10</span>
+
+Здесь мы определяем лямбда-функцию, которая умножает свой аргумент на 2. Затем мы вызываем эту функцию,
+передавая ей аргумент 5, и получаем результат 10.
+
+Пример 2:
+
+    <span style="color: rgb(0, 85, 255);">my_list = [1, 2, 3, 4, 5]
+    filtered_list = list(filter(lambda x: x % 2 == 0, my_list))
+    print(filtered_list) # [2, 4]</span>
+
+Здесь мы используем лямбда-функцию в качестве аргумента для функции <span style="color: rgb(0, 85, 255);">filter()</span>. Лямбда-функция проверяет,
+является ли аргумент четным числом, и возвращает True или False в зависимости от результата. Функция <span style="color: rgb(0, 85, 255);">filter()</span>
+использует эту лямбда-функцию для фильтрации списка my_list, оставляя только четные числа.
+
+Пример 3:
+<span style="color: rgb(0, 85, 255);">
+    from functools import reduce
+    my_list = [1, 2, 3, 4, 5]
+    product = reduce(lambda x, y: x * y, my_list)
+    print(product) # 120
+</span>
+    Здесь мы используем лямбда-функцию в качестве аргумента для функции <span style="color: rgb(0, 85, 255);">reduce()</span>. Лямбда-функция принимает
+два аргумента и возвращает их произведение. Функция <span style="color: rgb(0, 85, 255);">reduce()</span> использует эту
+лямбда-функцию для последовательного умножения элементов списка <span style="color: rgb(0, 85, 255);">my_list</span>.
+Надеюсь, что эти примеры помогут вам понять, как работают лямбда-функции в Python. Если у вас есть дополнитель
+
+Как обеспечить проверку условия в лямбда-выражении? Пример
+Как известно, в лямбда-выражении невозможно применить оператор <span style="color: rgb(0, 85, 255);">if</span> в его
+обычной форме. Однако, лямбда-выражение может использовать оператор условия, который имеет следующую общую форму
+
+    <span style="color: rgb(0, 85, 255); font-size: 26px;">result1 </span><span style="color: rgb(0, 85, 255); border: 0px; font-family: inherit; font-style: inherit; font-weight: inherit; margin: 0px; outline: 0px; padding: 0px; vertical-align: baseline; font-size: 26px;">if</span><span style="color: rgb(0, 85, 255); font-size: 26px;"> condition </span><span style="color: rgb(0, 85, 255); border: 0px; font-family: inherit; font-style: inherit; font-weight: inherit; margin: 0px; outline: 0px; padding: 0px; vertical-align: baseline; font-size: 26px;">else</span><span style="color: rgb(0, 85, 255); font-size: 26px;"> result2</span>
+
+здесь
+
+    <span style="font-size: 26px;"><span style="border: 0px; font-family: inherit; font-style: inherit; font-weight: inherit; margin: 0px; outline: 0px; padding: 0px; vertical-align: baseline; color: rgb(0, 0, 255);">condition</span>&nbsp;– условное выражение;</span>
+    <span style="font-size: 26px;"><span style="border: 0px; font-family: inherit; font-style: inherit; font-weight: inherit; margin: 0px; outline: 0px; padding: 0px; vertical-align: baseline; color: rgb(0, 0, 255);">result1</span>&nbsp;– результат, который возвращается если значение&nbsp;<span style="border: 0px; font-family: inherit; font-style: inherit; font-weight: inherit; margin: 0px; outline: 0px; padding: 0px; vertical-align: baseline; color: rgb(0, 0, 255);">condition = true</span>;</span>
+    <span style="font-size: 26px;"><span style="border: 0px; font-family: inherit; font-style: inherit; font-weight: inherit; margin: 0px; outline: 0px; padding: 0px; vertical-align: baseline; color: rgb(0, 0, 255);">result2</span>&nbsp;– результат, который возвращается если&nbsp;<span style="border: 0px; font-family: inherit; font-style: inherit; font-weight: inherit; margin: 0px; outline: 0px; padding: 0px; vertical-align: baseline; color: rgb(0, 0, 255);">condition=false</span>.</span>
+
+Пример.&nbsp;Демонстрируется код лямбда-выражений, которые возвращают максимальные и минимальные значения между двумя
+входными объектами.
+
+# Вычисление максимального значения между двумя числами
+    <span style="color: rgb(0, 85, 255); font-size: 26px;">maximum = (<span style="font-weight: inherit; border: 0px; font-size: 26px; font-style: inherit; outline: 0px;">lambda</span> a, b: a <span style="font-weight: inherit; border: 0px; font-size: 26px; font-style: inherit; outline: 0px;">if</span> a&gt;b <span style="font-weight: inherit; border: 0px; font-size: 26px; font-style: inherit; outline: 0px;">else</span> b)</span>
+    <span style="color: rgb(0, 85, 255); font-size: 26px;"><span style="font-weight: inherit; border: 0px; font-size: 26px; font-style: inherit; outline: 0px;">print</span>(maximum(15, 13))</span>
+# Минимальное значение между тремя числами a, b, c
+    <span style="color: rgb(0, 85, 255); font-size: 26px;">min = (<span style="font-weight: inherit; border: 0px; font-size: 26px; font-style: inherit; outline: 0px;">lambda</span> a, b, c: a <span style="font-weight: inherit; border: 0px; font-size: 26px; font-style: inherit; outline: 0px;">if</span> (a&lt;=b)<span style="font-weight: inherit; border: 0px; font-size: 26px; font-style: inherit; outline: 0px;">and</span>(b&lt;=c) <span style="font-weight: inherit; border: 0px; font-size: 26px; font-style: inherit; outline: 0px;">else</span> (b <span style="font-weight: inherit; border: 0px; font-size: 26px; font-style: inherit; outline: 0px;">if</span> (b&lt;=a)<span style="font-weight: inherit; border: 0px; font-size: 26px; font-style: inherit; outline: 0px;">and</span>(b&lt;=c) <span style="font-weight: inherit; border: 0px; font-size: 26px; font-style: inherit; outline: 0px;">else</span> c))</span>
+    <span style="font-size: 26px;"><span style="color: rgb(0, 85, 255); font-weight: inherit; border: 0px; font-style: inherit; outline: 0px;">print</span><span style="color: rgb(0, 85, 255);">(</span><span style="color: rgb(0, 85, 255); font-weight: inherit; border: 0px; font-style: inherit; outline: 0px;">min</span><span style="color: rgb(0, 85, 255);">(9,8,5))</span><br>
+
+Результат выполнения программы
+
+    <span style="font-size: 26px; color: rgb(0, 85, 255);">15<br>
+    5</span>
+
+<span style="font-size: 26px;"><span style="font-weight: 700;">2. Применение лямбда-выражений к последовательностям. Функция&nbsp;</span><span style="font-weight: inherit; border: 0px; font-style: inherit; outline: 0px; color: rgb(0, 0, 255);">map()</span><span style="font-weight: 700;">. Примеры</span>
+</span>
+Если внутри лямбда-выражения нужно циклически обработать последовательность (список, кортеж), то для этого целесообразно
+использовать функцию&nbsp;<span style="border: 0px; font-family: inherit; font-style: inherit; font-weight: inherit; margin: 0px; outline: 0px; padding: 0px; vertical-align: baseline; color: rgb(0, 0, 255);">map()</span>
+
+    <span style="border: 0px; font-family: inherit; font-style: inherit; font-weight: inherit; margin: 0px; outline: 0px; padding: 0px; vertical-align: baseline; color: rgb(128, 0, 128);">map</span><span style="color: rgb(0, 85, 255);">(func, *iterables)</span></span>
+
+здесь
+
+    <span style="border: 0px; font-family: inherit; font-style: inherit; font-weight: inherit; margin: 0px; outline: 0px; padding: 0px; vertical-align: baseline; color: rgb(0, 0, 255);">func</span>&nbsp;— функция, которая должна быть применена к каждому элементу последовательности&nbsp;<span style="border: 0px; font-family: inherit; font-style: inherit; font-weight: inherit; margin: 0px; outline: 0px; padding: 0px; vertical-align: baseline; color: rgb(0, 0, 255);">iterables</span>
+    <span style="border: 0px; font-family: inherit; font-style: inherit; font-weight: inherit; margin: 0px; outline: 0px; padding: 0px; vertical-align: baseline; color: rgb(0, 0, 255);">iterables</span>&nbsp;– итерированный объект, являющийся последовательностью (например, список).
+
+Функция возвращает список, содержащий результаты всех вызовов функции&nbsp;<span style="border: 0px; font-family: inherit; font-style: inherit; font-weight: inherit; margin: 0px; outline: 0px; padding: 0px; vertical-align: baseline; color: rgb(0, 0, 255);">func()</span>.
+
+Пример 1.&nbsp;Использовать функцию&nbsp;<span style="color: rgb(0, 85, 255);">map()</span>&nbsp;для получения нового списка, в котором каждый элемент
+удваивается. Продемонстрировать работу функции для двух случаев:
+
+без использования лямбда-выражения;
+с использованием лямбда-выражения.
+
+Использование лямбда-выражений для обработки последовательностей
+
+Задача. Умножить каждый элемент последовательности на 2.
+Использовать лямбда-выражение и функцию map()
+
+    <span style="color: rgb(0, 85, 255);"><span style="border: 0px; font-family: inherit; font-style: inherit; font-weight: inherit; margin: 0px; outline: 0px; padding: 0px; vertical-align: baseline;"># 1. Объявить функцию, умножающую число на 2</span></span>
+    <span style="color: rgb(0, 85, 255);"><span style="border: 0px; font-family: inherit; font-style: inherit; font-weight: inherit; margin: 0px; outline: 0px; padding: 0px; vertical-align: baseline;">def Mult2</span>(t):&nbsp;</span>
+    <span style="color: rgb(0, 85, 255);"><span style="border: 0px; font-family: inherit; font-style: inherit; font-weight: inherit; margin: 0px; outline: 0px; padding: 0px; vertical-align: baseline;">return</span> t*2</span>
+    <span style="font-size: 26px;"><span style="color: rgb(0, 85, 255);"><span style="border: 0px; font-family: inherit; font-style: inherit; font-weight: inherit; margin: 0px; outline: 0px; padding: 0px; vertical-align: baseline;"># 2. Тестируемый список</span></span></span>
+    <span style="color: rgb(0, 85, 255);">L = [ 2, 8, 12, -5, -10 ]</span>
+    <span style="font-size: 26px;"><span style="border: 0px; font-family: inherit; font-style: inherit; font-weight: inherit; margin: 0px; outline: 0px; padding: 0px; vertical-align: baseline; color: rgb(0, 85, 255);"># 3. Применить функцию map() без лямбда-выражения на основании функции&nbsp;</span><span style="font-weight: inherit; color: rgb(0, 85, 255); border: 0px; font-style: inherit; outline: 0px;">Mult2()</span></span>
+    <span style="color: rgb(0, 85, 255);">L2 = </span><span style="font-weight: inherit; color: rgb(0, 85, 255); border: 0px; font-style: inherit; outline: 0px;">list</span><span style="color: rgb(0, 85, 255);">(</span><span style="font-weight: inherit; color: rgb(0, 85, 255); border: 0px; font-style: inherit; outline: 0px;">map</span><span style="color: rgb(0, 85, 255);">(Mult2, L))</span>
+    <span style="font-weight: inherit; color: rgb(0, 85, 255); border: 0px; font-style: inherit; outline: 0px;">print</span><span style="color: rgb(0, 85, 255);">(</span><span style="font-weight: inherit; color: rgb(0, 85, 255); border: 0px; font-style: inherit; outline: 0px;">"L2 = "</span><span style="color: rgb(0, 85, 255);">, L2)</span>
+    # 4. Применить функцию map() с лямбда-выражением
+    <span style="color: rgb(0, 85, 255);">L3 = list(map((lambda t: t*2), L))
+    print("L3 = ", L3)</span>
+
+Результат выполнения программы
+
+    <span style="color: rgb(0, 85, 255);">L2 = [4, 16, 24, -10, -20]
+    L3 = [4, 16, 24, -10, -20]</span>
+
+Пример 2. В примере демонстрируется применение функции map() и лямбда-выражения к кортежу. Каждый элемент кортежа
+конвертируется в целое число.
+
+Использование лямбда-выражений для обработки последовательностей
+Применение лямбда-выражения и функции map() для кортежа
+
+    <span style="color: rgb(0, 85, 255);"># 1. Объявить тестируемый кортеж
+    T = ( 2.88, -1.75, 100.55 )
+    # 2. Получить новый кортеж, в котором осуществляется приведение  элементов последовательности к целому типу
+    T2 = tuple(map((lambda x: int(x)), T))
+    # 3. Вывести результат
+    print("T2 = ", T2)    # T2 = (2, -1, 100)
+
+Результат выполнения программы
+
+    T2 = (2, -1, 100)</span>
+
+3. Выборка данных в последовательности. Функция filter(). Примеры
+
+Для выборки данных из последовательности используется функция filter(). Общая форма функции
+
+    <span style="color: rgb(0, 85, 255);">filter(func or None, iterable)</span>
+
+здесь
+
+    <span style="color: rgb(0, 85, 255);">func</span> – имя функции, которая применяется к объекту iterable;
+    <span style="color: rgb(0, 85, 255);">iterable</span> – итерированный объект (список, кортеж).
+
+Функция возвращает отфильтрованный объект.
+Пример 1. Для заданного кортежа строк формируется новый кортеж, который содержит строки длиной 3 символа.
+Использование лямбда выражений для обработки последовательности
+    Применение лямбда-выражения и функции <span style="color: rgb(0, 85, 255);">filter()</span> для кортежа
+
+    <span style="color: rgb(0, 85, 255);"># 1. Объявить тестируемый кортеж
+    T = ( 'abcd', 'abc', 'cdefg', 'def', 'ghi' )
+    # 2. Получить новый кортеж, в котором реализованы строки длиной 3 символа
+    T2 = tuple(filter((lambda s: len(s)==3), T))
+    # 3. Вывести результат
+    print("T2 = ", T2)  # T2 = ('abc', 'def', 'ghi')</span>
+
+Результат выполнения программы
+
+    <span style="color: rgb(0, 85, 255);">T2 = ('abc', 'def', 'ghi')</span>
+
+
+
+
+
+    <h2 id="a7">Функции reduce()&nbsp;&nbsp;&nbsp;&nbsp;<a href="#a">Up</a></h2>
+    <pre>        Функция reduce() является встроенной функцией Python из модуля functools. Она применяет указанную функцию к
+элементам итерируемого объекта (например, списку или кортежу) попарно, сворачивая их до единственного значения.
+<span style="color: rgb(0, 85, 255);">
+        reduce(function, iterable[, initializer])
+</span>
+Здесь:
+
+    <span style="color: rgb(0, 85, 255);">function</span> - это функция, которую нужно применить к элементам последовательности. Она должна принимать два аргумента
+        и возвращать результат.
+    <span style="color: rgb(0, 85, 255);">iterable</span> - это итерируемый объект (например, список или кортеж), элементы которого нужно обработать.
+    <span style="color: rgb(0, 85, 255);">initializer</span> (необязательный параметр) - это начальное значение, которое будет использоваться при сворачивании
+    элементов. Если этот параметр не задан, то начальным значением будет первый элемент последовательности.
+
+Пример1 использования функции <span style="color: rgb(0, 85, 255);">reduce():
+
+    from functools import reduce
+    # находим сумму всех элементов списка
+    numbers = [1, 2, 3, 4, 5]
+    result = reduce(lambda x, y: x + y, numbers)
+    print(result)  # выведет 15
+    # находим произведение всех элементов списка
+    numbers = [1, 2, 3, 4, 5]
+    result = reduce(lambda x, y: x * y, numbers)
+    print(result)  # выведет 120
+    </span>
+В первом примере функция <span style="color: rgb(0, 85, 255);">reduce()</span> применяет лямбда-функцию, которая складывает два числа, к списку чисел.
+Результатом является сумма всех элементов списка. Во втором примере функция <span style="color: rgb(0, 85, 255);">reduce()</span> применяет лямбда-функцию,
+которая перемножает два числа, к списку чисел. Результатом является произведение всех элементов списка.
+Таким образом, функция <span style="color: rgb(0, 85, 255);">reduce()</span> позволяет свернуть последовательность значений до единственного значения,
+используя указанную функцию сворачивания.
+
+
+
+
+    </pre>
+<h2 id="a8">Функция filter()&nbsp;&nbsp;&nbsp;&nbsp;<a href="#a">Up</a></h2>
+    <pre>    Функция <span style="color: rgb(0, 85, 255);">filter()</span> в Python является встроенной функцией и используется для фильтрации элементов итерируемого
+содержащий только элементы, для которых условие верно.
+Синтаксис функции <span style="color: rgb(0, 85, 255);">filter()</span> выглядит следующим образом:
+<span style="color: rgb(0, 85, 255);">
+        filter(function, iterable)
+</span>
+Здесь:
+<span style="color: rgb(0, 85, 255);">
+    function</span> - это функция, которая принимает один аргумент и возвращает <span style="color: rgb(0, 85, 255);">True</span> или <span style="color: rgb(0, 85, 255);">False</span>. Функция используется для
+        проверки каждого элемента итерируемого объекта на заданное условие.<span style="color: rgb(0, 85, 255);">
+    iterable</span> - это итерируемый объект (например, список или кортеж), элементы которого нужно проверить на заданное условие.
+
+        Встроенной функции <span style="color: rgb(0, 85, 255);">filter() </span>можно в качестве первого параметра func передать значение None. В таком случае каждый элемент
+последовательности будет проверен на соответствие значению <span style="color: rgb(0, 85, 255);">True</span>. Если элемент в логическом контексте возвращает значение
+<span style="color: rgb(0, 85, 255);">False</span>, то он не будет добавлен в возвращаемый результат.
+Примеры использования функции <span style="color: rgb(0, 85, 255);">filter():
+
+    # фильтруем список на четные числа
+    numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+    even_numbers = list(filter(lambda x: x % 2 == 0, numbers))
+    print(even_numbers)  # выведет [2, 4, 6, 8]
+    # фильтруем список строк на элементы, начинающиеся на букву "a"
+    fruits = ["apple", "banana", "apricot", "cherry", "avocado"]
+    a_fruits = list(filter(lambda x: x.startswith("a"), fruits))
+    print(a_fruits)  # выведет ['apple', 'apricot', 'avocado']
+    </span>
+        В первом примере функция <span style="color: rgb(0, 85, 255);">filter()</span> применяет лямбда-функцию, которая проверяет, является ли число четным.
+Результатом является новый список, содержащий только четные числа.
+Во втором примере функция <span style="color: rgb(0, 85, 255);">filter()</span> применяет лямбда-функцию, которая проверяет, начинается ли строка с буквы "a".
+Результатом является новый список, содержащий только элементы, начинающиеся на букву "a". Таким образом, функция
+<span style="color: rgb(0, 85, 255);">filter()</span> позволяет фильтровать элементы итерируемого объекта на основе заданного условия и создавать новый итерируемый
+объект, содержащий только отфильтрованные элементы.
+
+        Пример 2. Для заданного списка чисел формируются числа из диапазона [10; 20]. Продемонстрирована работа функции <span style="color: rgb(0, 85, 255);">filter()</span>
+для функции и лямбда-выражения.
+Обработка последовательностей в лямбда-выражениях
+Применение лямбда-выражения и функции filter() для списка
+
+    <span style="color: rgb(0, 85, 255);"># 1. Объявить тестируемый список
+    L = [ 8, 15, 7, 3, 11, 23, 187, -5, 20, 17 ]
+    # 2. Использовать лямбда-выражение для решения задачи
+    L2 = list(filter((lambda t: (t&gt;=10)and(t&lt;=20)), L))
+    print("L2 = ", L2) # L2 = [15, 11, 20, 17]
+    # 3. Использовать функцию для решения задачи
+    def Range_10_20(t):
+    return (t&gt;=10)and(t&lt;=20)
+    L3 = list(filter(Range_10_20, L))
+    print("L3 = ", L3)</span>
+Результат выполнения программы
+
+    <span style="color: rgb(0, 85, 255);">L2 = [15, 11, 20, 17]L3 = [15, 11, 20, 17]</span>
+
+    3. Обработка последовательностей. Применение лямбда-выражения в функции <span style="color: rgb(0, 85, 255);">reduce()</span>. Пример
+    Функция <span style="color: rgb(0, 85, 255);">reduce()</span> позволяет получить объект, который является результатом некоторой операции над
+последовательностью (например, сумма элементов последовательности). Функция reduce() может быть использована как для
+функций так и лямбда-выражений.
+Общая форма объявления функции следующая
+
+    <span style="color: rgb(0, 85, 255);">reduce(func, sequence)</span>
+
+здесь
+
+    <span style="color: rgb(0, 85, 255);">func</span> – функция или лямбда-выражение, задающие формулу вычисления двух соседних элементов;
+    <span style="color: rgb(0, 85, 255);">sequence</span> – обрабатываемая последовательность.
+
+    Функция <span style="color: rgb(0, 85, 255);">reduce()</span> возвращает объект, который есть результатом обработки.
+Пример. В примере демонстрируется применение функции <span style="color: rgb(0, 85, 255);">reduce()</span> для вычисления суммы элементов последовательности.
+Использование лямбда-выражений для обработки последовательностей
+Применение лямбда-выражения в функции <span style="color: rgb(0, 85, 255);">reduce()
+
+    import functools
+    # 1. Объявить тестируемый список
+    L = [ 1.88, 3, 2.4, 3.6, 4.8 ]
+    # 2. Вычислить сумму элементов списка с помощью лямбда-выражения
+    summ1 = functools.reduce((lambda a, b: a+b), L)
+    print("summ1 = ", summ1)
+    # 3. Объявить функцию и использовать ее в функции reduce()
+    def Add(x, y):
+        return x+ysumm2 = functools.reduce(Add, L)
+    print("summ2 = ", summ2)
+    </span>
+
+Результат выполнения программы
+
+    <span style="color: rgb(0, 85, 255);">summ1 = 15.68
+    summ2 = 15.68
+
+    summ1 = 15.68
+    summ2 = 15.68</span>
+
+
+
+</pre>
+
+
+    <h2 id="a9">Функции sum()&nbsp;&nbsp;&nbsp;&nbsp;<a href="#a">Up</a></h2>
+    <pre>    Функция sum() в Python является встроенной функцией и используется для вычисления суммы чисел или элементов
+итерируемого объекта.
+Синтаксис функции <span style="color: rgb(0, 85, 255);">sum()</span> выглядит следующим образом:
+<span style="color: rgb(0, 85, 255);">
+        sum(iterable[, start])
+</span>
+Здесь:
+<span style="color: rgb(0, 85, 255);">
+    iterable</span> - это итерируемый объект (например, список, кортеж или множество), числа или последовательность чисел, которые нужно сложить.
+    <span style="color: rgb(0, 85, 255);">start</span> - это необязательный параметр, который задает начальное значение суммы. По умолчанию start=0.
+
+Примеры использования функции<span style="color: rgb(0, 85, 255);"> sum():
+
+    # суммируем числа из списка
+    numbers = [1, 2, 3, 4, 5]
+    result = sum(numbers)
+    print(result)  # выведет 15
+
+    # суммируем элементы кортежа с начальным значением
+    t = (10, 20, 30)
+    result = sum(t, 5)
+    print(result)  # выведет 65
+
+    # суммируем числа из последовательности с использованием генератора
+    result = sum(x**2 for x in range(1, 6))
+    print(result)  # выведет 55
+    </span>
+В первом примере функция <span style="color: rgb(0, 85, 255);">sum()</span> применяется к списку чисел. Результатом является сумма всех чисел в списке.
+Во втором примере функция <span style="color: rgb(0, 85, 255);">sum()</span> применяется к кортежу с начальным значением 5. Результатом является сумма всех элементов
+кортежа, увеличенная на 5.
+В третьем примере функция <span style="color: rgb(0, 85, 255);">sum()</span> применяется к последовательности чисел, которая генерируется с помощью генератора.
+Результатом является сумма квадратов чисел от 1 до 5.
+Таким образом, функция <span style="color: rgb(0, 85, 255);">sum()</span> позволяет быстро и удобно вычислять сумму чисел или элементов итерируемого объекта.
+
+
+    </pre>
+<h2 id="a10">Модуль random&nbsp;&nbsp;&nbsp;&nbsp;<a href="#a">Up</a></h2>
+
+<p>Модуль random предоставляет функции для генерации случайных чисел, букв, случайного выбора элементов последовательности.</p>
+
+<p><span style="color: rgb(0, 85, 255);"><strong>random.seed</strong>([X], version=2)</span> - инициализация генератора случайных чисел.
+    Если X не указан, используется системное время.</p>
+
+<p><span style="color: rgb(0, 85, 255);"><strong>random.getstate</strong>()</span> - внутреннее состояние генератора.</p>
+
+<p><span style="color: rgb(0, 85, 255);"><strong>random.setstate</strong>(state)</span> - восстанавливает внутреннее состояние генератора.
+    Параметр state должен быть получен функцией getstate().</p>
+
+<p><span style="color: rgb(0, 85, 255);"><strong>random.getrandbits</strong>(N)</span> - возвращает N случайных бит.</p>
+
+<p><span style="color: rgb(0, 85, 255);"><strong>random.randrange</strong>(start, stop, step)</span> - функция генерирует случайное число
+    из последовательности, которая может быть создана с помощью range(). Если start не указан, то используется значение 0.
+    Возвращает случайное целое число из последовательности. Шаг генерации случайного числа также может быть указан.</p>
+
+<p><span style="color: rgb(0, 85, 255);"><strong>random.randint</strong>(A, B)</span> - случайное целое число N, A ≤ N ≤ B. Если A больше B,
+    то randint() автоматически переставляет их местами.</p>
+
+<p><span style="color: rgb(0, 85, 255);"><strong>random.choice</strong>(sequence)</span> - возвращает в списке случайный элемент из непустой
+    последовательности sequence. Если sequence пуст, вызывает IndexError. Последовательность может быть строкой, списком
+    или кортежем.</p>
+
+<p><span style="color: rgb(0, 85, 255);"><strong>random.shuffle</strong>(sequence, [rand])</span> - функция перемешивает элементы в списке
+    sequence. Если указан необязательный аргумент rand, то используется функция генерации случайных чисел из этого аргумента
+    вместо функции random(). Функция не возвращает значение, а изменяет порядок элементов в списке.</p>
+
+<p><span style="color: rgb(0, 85, 255);"><strong>random.sample</strong>(population, k)</span> - функция выбирает k уникальных элементов из
+    последовательности population и возвращает их в виде списка. Если k больше длины population, то возникает ошибка
+    Возвращает новый список, содержащий элементы из совокупности, оставляя исходную совокупность без изменений .</p>
+
+<p><span style="color: rgb(0, 85, 255);"><strong>random.random</strong>()</span> - случайное число от 0 до 1.</p>
+
+<p><span style="color: rgb(0, 85, 255);"><strong>random.uniform</strong>(A, B)</span> - случайное число с плавающей точкой, A ≤ N ≤ B (или B ≤ N ≤ A).</p>
+
+<p><span style="color: rgb(0, 85, 255);"><strong>random.triangular</strong>(low, high, mode)</span> - функция генерирует случайное число
+    согласно треугольному распределению с вершиной в mode и границами low и high (low ≤ N ≤ high).  Аргумент mode по
+    умолчанию равен средней точке между границами, что дает симметричное распределение.</p>
+
+<p><span style="color: rgb(0, 85, 255);"><strong>random.betavariate</strong>(alpha, beta)</span> - бета-распределение. alpha&gt;0, beta&gt;0. Возвращает от 0 до 1.</p>
+
+<p><span style="color: rgb(0, 85, 255);"><strong>random.expovariate</strong>(lambd)</span> - экспоненциальное распределение.
+    lambd равен 1/среднее желаемое. Lambd должен быть отличным от нуля. Возвращаемые значения от 0 до плюс бесконечности,
+    если lambd положительно, и от минус бесконечности до 0, если lambd отрицательный.</p>
+
+<p><span style="color: rgb(0, 85, 255);"><strong>random.gammavariate</strong>(alpha, beta)</span> - гамма-распределение.
+    Условия на параметры alpha&gt;0 и beta&gt;0.</p>
+
+<p><span style="color: rgb(0, 85, 255);"><strong>random.gauss</strong>(значение, стандартное отклонение)</span> - распределение Гаусса.</p>
+
+<p><span style="color: rgb(0, 85, 255);"><strong>random.lognormvariate</strong>(mu, sigma)</span> - логарифм нормального распределения.
+    Если взять натуральный логарифм этого распределения, то вы получите нормальное распределение со средним mu и
+    стандартным отклонением sigma. mu может иметь любое значение, и sigma должна быть больше нуля.</p>
+
+<p><span style="color: rgb(0, 85, 255);"><strong>random.normalvariate</strong>(mu, sigma)</span> - нормальное распределение. mu - среднее значение,
+    sigma - стандартное отклонение.</p>
+
+<p><span style="color: rgb(0, 85, 255);"><strong>random.vonmisesvariate</strong>(mu, kappa)</span> - mu - средний угол, выраженный
+    в радианах от 0 до 2π, и kappa - параметр концентрации, который должен быть больше или равен нулю. Если каппа равна
+    нулю, это распределение сводится к случайному углу в диапазоне от 0 до 2π.</p>
+
+<p><span style="color: rgb(0, 85, 255);"><strong>random.paretovariate</strong>(alpha)</span> - распределение Парето.</p>
+
+<p><span style="color: rgb(0, 85, 255);"><strong>random.weibullvariate</strong>(alpha, beta)</span> - распределение Вейбулла.</p>
+
+
+
+<h2 id="a11">Модуль string&nbsp;&nbsp;&nbsp;&nbsp;<a href="#a">Up</a></h2>
+
+<pre> Модуль string в языке Python предоставляет набор констант и функций, связанных со строками.
+
+ Полный список констант и функций, которые определены в модуле string:
+
+    <span style="color: rgb(87,100,255);">string.ascii_letters</span>: Содержит все буквы в верхнем и нижнем регистрах.
+    <span style="color: rgb(87,100,255);">string.ascii_lowercase</span>: Содержит все буквы в нижнем регистре.
+    <span style="color: rgb(87,100,255);">string.ascii_uppercase</span>: Содержит все буквы в верхнем регистре.
+    <span style="color: rgb(87,100,255);">string.digits</span>: Содержит все цифры.
+    <span style="color: rgb(87,100,255);">string.hexdigits</span>: Содержит все цифры и буквы от A до F.
+    <span style="color: rgb(87,100,255);">string.octdigits</span>: Содержит все цифры в восьмеричной системе счисления.
+    <span style="color: rgb(87,100,255);">string.punctuation</span>: Содержит все знаки препинания.
+    <span style="color: rgb(87,100,255);">string.printable</span>: Содержит все печатаемые символы.
+    <span style="color: rgb(87,100,255);">string.whitespace</span>: Содержит все пробельные символы.
+
+Пример:
+    <span style="color: rgb(87,100,255);">import string
+
+    print(string.ascii_letters)
+    print(string.ascii_uppercase)
+    print(string.ascii_lowercase)
+    print(string.digits)
+    print(string.hexdigits)
+    print(string.octdigits)
+    print(string.punctuation)
+    print(string.printable)
+</span>
+выводит:
+<span style="color: rgb(87,100,255);">
+    abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ
+    ABCDEFGHIJKLMNOPQRSTUVWXYZ
+    abcdefghijklmnopqrstuvwxyz
+    0123456789
+    0123456789abcdefABCDEF
+    01234567
+    !"#$%&amp;'()*+,-./:;&lt;=&gt;?@[\]^_`{|}~
+    0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!"#$%&amp;'()*+,-./:;&lt;=&gt;?@[\]^_`{|}~ \t\n\r\x0b\x0c</span>
+
+Функции:
+
+    <span style="color: rgb(87,100,255);">string.capwords(s[, sep])</span>: Разбивает строку на слова и приводит первую букву каждого слова в верхний регистр.
+    <span style="color: rgb(87,100,255);">string.Template(template)</span>: Класс, позволяющий создавать шаблоны строк и подставлять в них значения.
+    <span style="color: rgb(87,100,255);">string.Formatter()</span>: Класс, позволяющий форматировать строки, используя специальные маркеры для подстановки значений.
+    <span style="color: rgb(87,100,255);">string.Formatter.vformat(format_string, args, kwargs)</span>: Функция, аналогичная методу format(), но позволяет использовать словари в качестве аргументов.
+    <span style="color: rgb(87,100,255);">string.Formatter.format(format_string, *args, **kwargs)</span>: Метод для форматирования строки, используя специальные маркеры для подстановки значений.
+    <span style="color: rgb(87,100,255);">string.Formatter.parse(format_string)</span>: Функция для разбора строки формата и получения списка маркеров для подстановки значений.
+    <span style="color: rgb(87,100,255);">string.Formatter.check_unused_args(used_args, args, kwargs)</span>: Метод для проверки, что все аргументы были использованы при форматировании строки.
+
+Вот несколько примеров использования модуля <span style="color: rgb(87,100,255);">string</span>:
+
+Генерация случайной строки. Модуль <span style="color: rgb(87,100,255);">string</span> содержит набор символов, которые можно использовать для генерации
+    случайных строк. Например, следующий код создает случайную строку длиной 10 символов, используя буквы в верхнем регистре и цифры:
+
+<span style="color: rgb(87,100,255);">
+    import random
+    import string
+
+    random_string = ''.join(random.choices(string.ascii_uppercase + string.digits, k=10))
+    print(random_string)
+</span>
+Вывдет:
+<span style="color: rgb(87,100,255);">
+    LD4CLOX4GU
+</span>
+ Форматирование строк. Модуль <span style="color: rgb(87,100,255);">string</span> предоставляет класс <span style="color: rgb(87,100,255);">Template</span>, который позволяет создавать
+    шаблоны строк и подставлять в них значения. Например,следующий код создает шаблон строки и подставляет в него значения:
+
+<span style="color: rgb(87,100,255);">
+    from string import Template
+
+    name = "John"
+    age = 30
+
+    template = Template("$name is $age years old.")
+    formatted_string = template.substitute(name=name, age=age)
+
+    print(formatted_string)
+</span>
+Выведет:
+<span style="color: rgb(87,100,255);">
+    John is 30 years old.
+</span>
+    Проверка наличия определенных символов в строке. Модуль <span style="color: rgb(87,100,255);">string</span> содержит константы для определенных
+наборов символов, например, <span style="color: rgb(87,100,255);">string.ascii_lowercase</span> содержит все буквы в нижнем регистре.
+Можно использовать эти константы для проверки наличия символов в строке. Например, следующий код проверяет, содержит ли
+строка только буквы в нижнем регистре:
+<span style="color: rgb(87,100,255);">
+
+    import string
+
+    s = "hello world"
+    if all(c in string.ascii_lowercase for c in s):
+        print("String contains only lowercase letters")
+    else:
+        print("String contains other characters as well")
+</span>
+Выведет:
+<span style="color: rgb(87,100,255);">
+    String contains other characters as well
+</span>
+Создание таблицы символов для перевода символов в кодировке. Модуль <span style="color: rgb(87,100,255);">string</span> содержит константы для различных
+таблиц символов, например, <span style="color: rgb(87,100,255);">string.ascii_letters</span> содержит все буквы в верхнем и нижнем регистрах.
+Можно использовать эти константы для создания таблицы символов для перевода символов в кодировке. Например, следующий код
+создает таблицу символов для перевода букв в верхнем регистре в буквы в нижнем регистре:
+<span style="color: rgb(87,100,255);">
+    import string
+
+    table = str.maketrans(string.ascii_uppercase, string.ascii_lowercase)
+    s = "Hello World"
+    s_lower = s.translate(table)
+
+    print(s_lower)
+</span>
+Выведет:
+<span style="color: rgb(87,100,255);">
+    hello world
+</span>
+Пример для модуля <span style="color: rgb(87,100,255);">string.ascii_letters
+
+    import string
+    print(string.ascii_letters)
+</span>
+Вывдет:
+<span style="color: rgb(87,100,255);">
+    'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
+</span>
+Пример для модуля <span style="color: rgb(87,100,255);">string.digits
+
+    import string
+
+    print(string.digits)
+</span>
+Вывдет:
+<span style="color: rgb(87,100,255);">
+    '0123456789'
+</span>
+Пример для модуля <span style="color: rgb(87,100,255);">string.capwords
+
+    import string
+
+    text = 'the quick brown fox jumps over the lazy dog'
+
+    print(string.capwords(text))
+</span>
+Вывдет:
+<span style="color: rgb(87,100,255);">
+    'The Quick Brown Fox Jumps Over The Lazy Dog'
+</span>
+Пример для модуля <span style="color: rgb(87,100,255);">string.Formatter:
+
+    import string
+
+    template = '{greeting}, {name}! Your score is {score:.2f}.'
+
+    message = string.Formatter().format(template, greeting='Hello', name='Alice', score=9.12345)
+    print(message)
+</span>
+Выведет:
+<span style="color: rgb(87,100,255);">
+    'Hello, Alice! Your score is 9.12.'
+
+    values = {'greeting': 'Hi', 'name': 'Bob', 'score': 8.76543}
+    message = string.Formatter().vformat(template, args=(), kwargs=values)
+    print(message)
+</span>
+Вывдет:
+<span style="color: rgb(87,100,255);">
+    'Hi, Bob! Your score is 8.77.'
+</span>
+Пример для модуля <span style="color: rgb(87,100,255);">string.Formatter.check_unused_args:
+
+    import string
+
+    template = '{greeting}, {name}! Your score is {score:.2f}.'
+
+    values = {'greeting': 'Hello', 'name': 'Alice'}
+    used_args = set(['greeting', 'name', 'score'])
+
+    unused_args = string.Formatter().check_unused_args(used_args, args=(), kwargs=values)
+    print(unused_args)
+</span>
+Вывдет:
+<span style="color: rgb(87,100,255);">
+    ['score']
+</span>
+Пример для модуля  <span style="color: rgb(87,100,255);">string.whitespace:
+
+    import string
+
+    text = '  This is a string with leading and trailing whitespace.  '
+
+    print(text.strip(string.whitespace))
+</span>
+Вывдет:
+<span style="color: rgb(87,100,255);">
+    'This is a string with leading and trailing whitespace.'
+</span>
+Пример для модуля <span style="color: rgb(87,100,255);">string.punctuation
+
+    import string
+
+    text = "Hello, world! How are you doing today?"
+
+    # Remove all punctuation from the text
+    clean_text = text.translate(str.maketrans('', '', string.punctuation))
+
+    print(clean_text)
+</span>
+Вывдет:
+<span style="color: rgb(87,100,255);">
+    'Hello world How are you doing today'
+</span>
+Здесь мы использовали метод <span style="color: rgb(87,100,255);">translate()</span> для удаления всех знаков пунктуации из исходного текста. Метод <span style="color: rgb(87,100,255);">maketrans()</span>
+создает таблицу перевода, которую затем передаем в метод <span style="color: rgb(87,100,255);">translate()</span>, чтобы удалить все знаки пунктуации.
+
+    Пример для модуля <span style="color: rgb(87,100,255);">string.whitespace
+
+    import string
+
+    text = "    This is a string with leading and trailing whitespace.    "
+
+    # Split the text into words
+    words = text.strip(string.whitespace).split()
+
+    print(words)
+</span>
+Вывдет:
+<span style="color: rgb(87,100,255);">
+    ['This', 'is', 'a', 'string', 'with', 'leading', 'and', 'trailing', 'whitespace.']
+</span>
+Здесь мы использовали метод <span style="color: rgb(87,100,255);">strip()</span> для удаления ведущих и конечных пробелов из строки. Затем мы использовали метод
+<span style="color: rgb(87,100,255);">split()</span> для разбиения строки на слова, используя пробелы в качестве разделителей. Константа <span style="color: rgb(87,100,255);">string.whitespace</span> содержит все
+символы пробела, такие как пробелы, табуляции и переводы строк.
+
+
+
+</pre>
+<h2 id="a12">Модуль decimal&nbsp;&nbsp;&nbsp;&nbsp;<a href="#a">Up</a></h2>
+    <pre>Тип данных <span style="color: rgb(87,100,255);">Decimal</span> – это класс из стандартного модуля <span style="color: rgb(87,100,255);">decimal</span>. Он представляет собой число с плавающей точкой, как и <span style="color: rgb(87,100,255);">float</span>.
+Однако, <span style="color: rgb(87,100,255);">Decimal</span> имеет ряд существенных отличий от <span style="color: rgb(87,100,255);">float</span>.
+Тип <span style="color: rgb(87,100,255);">Decimal</span> создан, чтобы операции над вещественными числами в компьютере выполнялись как в математике, и равенство
+0.1+0.1+0.1==0.3 было верным.
+Тип данных <span style="color: rgb(87,100,255);">Decimal</span> оперирует числами с произвольной – задаваемой программистом, но конечной точностью. По умолчанию
+точность составляет 28 десятичных знаков.
+Для типа данных <span style="color: rgb(87,100,255);">Decimal</span> можно настроить:
+
+точность выполнения операций в количестве десятичных знаков;
+режимы округления;
+режимы обработки исключительных ситуаций (деление на ноль, переполнение и т. д)
+
+    <h3>Создание Decimal чисел</h3>
+Создать Decimal число можно из обычного целого числа (<span style="color: rgb(87,100,255);">int</span>), из числа с плавающей точкой (<span style="color: rgb(87,100,255);">float</span>) или из строки (<span style="color: rgb(87,100,255);">str</span>).
+Приведенный ниже программный код создает <span style="color: rgb(87,100,255);">Decimal</span> числа на основе целого числа и строки:
+
+    <span style="color: rgb(87,100,255);">from decimal import *
+
+    d1 = Decimal(1)
+    d2 = Decimal(567)
+    d3 = Decimal(-93)
+    d4 = Decimal('12345')
+    d5 = Decimal('52.198')
+
+    print(d1, d2, d3, d4, d5, sep='\n')</span>
+и выводит:
+<span style="color: rgb(87,100,255);">
+    1
+    567
+    -93
+    12345
+    52.198</span>
+При создании <span style="color: rgb(87,100,255);">Decimal</span> чисел из чисел с плавающей точкой (<span style="color: rgb(87,100,255);">float</span>) возникают проблемы, так как <span style="color: rgb(87,100,255);">float</span> числа округляются внутри
+до ближайшего возможного, а <span style="color: rgb(87,100,255);">Decimal</span> об этом ничего не знает и копирует содержимое <span style="color: rgb(87,100,255);">float</span>.
+
+Приведенный ниже программный код создает <span style="color: rgb(87,100,255);">Decimal</span> число на основе числа с плавающей точкой:
+<span style="color: rgb(87,100,255);">
+    from decimal import *
+
+    num = Decimal(0.1)
+
+    print(num)</span>
+и выводит:
+<span style="color: rgb(87,100,255);">
+    0.1000000000000000055511151231257827021181583404541015625</span>
+Не рекомендуется создавать <span style="color: rgb(87,100,255);">Decimal</span> числа из <span style="color: rgb(87,100,255);">float</span> чисел. В <span style="color: rgb(87,100,255);">Decimal</span> попадет уже неправильно округленное число.
+Создавать <span style="color: rgb(87,100,255);">Decimal</span> числа нужно из целых чисел, либо из строк!
+
+<h3> Арифметические операции над Decimal числами</h3>
+
+Тип данных <span style="color: rgb(87,100,255);">Decimal </span>отлично интегрирован в язык Python. С Decimal числами работают все привычные операции: сложение,
+вычитание, умножение, деление, возведение в степень.
+Можно совершать арифметические операции над <span style="color: rgb(87,100,255);">Decimal </span>и целыми числами (миксовать <span style="color: rgb(87,100,255);">Decimal</span> и <span style="color: rgb(87,100,255);">int</span>), но не рекомендуется
+смешивать их с <span style="color: rgb(87,100,255);">float</span>.
+
+<h3>Математические функции</h3>
+<span style="color: rgb(87,100,255);">Decimal</span> числа можно передавать как аргументы функциям, ожидающим <span style="color: rgb(87,100,255);">float</span>. Они будут преобразованы во <span style="color: rgb(87,100,255);">float</span>. К примеру, модуль <span style="color: rgb(87,100,255);">math</span>, оперирующий <span style="color: rgb(87,100,255);">float</span> числами, может работать и с <span style="color: rgb(87,100,255);">Decimal</span> числами.
+
+Приведенный ниже код:
+<span style="color: rgb(87,100,255);">
+    from decimal import *
+    from math import *
+
+    num1 = Decimal('1.44')
+    num2 = Decimal('0.523')
+
+    print(sqrt(num1))
+    print(sin(num2))
+    print(log(num1 + num2))</span>
+выводит:
+<span style="color: rgb(87,100,255);">
+    1.2
+    0.4994813555186418
+    0.6744739152943241</span>
+Важно понимать, что результатом работы функции модуля <span style="color: rgb(87,100,255);">math</span> являются <span style="color: rgb(87,100,255);">float</span> числа, а не <span style="color: rgb(87,100,255);">Decimal</span>.
+
+Тип данных <span style="color: rgb(87,100,255);">Decimal</span> содержит некоторые встроенные математические методы, возвращающие значения <span style="color: rgb(87,100,255);">Decimal</span>.
+ <table>
+      <thead>
+      <tr>
+        <td> Функция</td>
+        <td>Описание</td>
+      </tr>
+    </thead>
+    <tbody><tr>
+      <td>sqrt()</td>
+      <td>вычисляет квадратный корень из Decimal числ</td>
+    </tr>
+    <tr>
+      <td>exp()</td>
+      <td>возвращает e**x   для Decimal числа</td>
+    </tr>
+    <tr>
+      <td>ln()</td>
+      <td>вычисляет натуральный логарифм (по основанию e) Decimal числа</td>
+    </tr>
+    <tr>
+      <td>log10()</td>
+      <td>вычисляет десятичный логарифм (по основанию 10) Decimal числа</td>
+    </tr>
+  </tbody></table>
+
+    Тип данных<span style="color: rgb(87,100,255);"> Decimal</span> также содержит полезный метод <span style="color: rgb(87,100,255);">as_tuple()</span> который возвращает кортеж из 3 элементов:
+
+sign – знак числа (0 для положительного числа и 1 для отрицательного числа);
+digits – цифры числа;
+exponent – значение экспоненты (количество цифр после точки, умноженное на −1),
+Приведенный ниже код:
+<span style="color: rgb(87,100,255);">
+    from decimal import *
+
+    num1 = Decimal('-1.4568769017')
+    num2 = Decimal('0.523')
+
+    print(num1.as_tuple())
+    print(num2.as_tuple())</span>
+выводит:
+<span style="color: rgb(87,100,255);">
+    DecimalTuple(sign=1, digits=(1, 4, 5, 6, 8, 7, 6, 9, 0, 1, 7), exponent=-10)
+    DecimalTuple(sign=0, digits=(5, 2, 3), exponent=-3)</span>
+Приведенный ниже код:
+<span style="color: rgb(87,100,255);">
+    from decimal import *
+
+    num = Decimal('-1.4568769017')
+    num_tuple = num.as_tuple()
+
+    print(num_tuple.sign)
+    print(num_tuple.digits)
+    print(num_tuple.exponent)</span>
+выводит:
+<span style="color: rgb(87,100,255);">
+    1
+    (1, 4, 5, 6, 8, 7, 6, 9, 0, 1, 7)
+    -10</span>
+
+    <h3>Работа с контекстом Decimal чисел</h3>
+Базовые параметры <span style="color: rgb(87,100,255);">Decimal </span>можно посмотреть в его контексте, выполнив функцию <span style="color: rgb(87,100,255);">getcontext()</span>.
+
+Приведенный ниже код:
+<span style="color: rgb(87,100,255);">
+    from decimal import *
+
+    print(getcontext())</span>
+выводит:
+<span style="color: rgb(87,100,255);">
+    Context(prec=28, rounding=ROUND_HALF_EVEN, Emin=-999999, Emax=999999, capitals=1, clamp=0,
+    flags=[], traps=[InvalidOperation, DivisionByZero, Overflow])</span>
+Мы видим здесь, что точность
+
+28 знаков, округление к ближайшему четному, пределы по экспоненте ± 999999, capitals – это про заглавную Е при печати,
+включенные ловушки – неправильная операция, деление на ноль, переполнение.
+
+    <h3>Точность чисел</h3>
+Контекстом в <span style="color: rgb(87,100,255);">Decimal</span> можно управлять, устанавливая свои значения. Например, чтобы управлять точностью <span style="color: rgb(87,100,255);">Decimal</span>, необходимо изменить параметр контекста <span style="color: rgb(87,100,255);">prec</span>
+(от англ. precision – точность). При этом точность вступает в силу только во время арифметических операций, а не при создании самих чисел.
+
+Приведенный ниже код:
+<span style="color: rgb(87,100,255);">
+    from decimal import *
+
+    getcontext().prec = 3      # устанавливаем точность в 3 знака
+
+    num = Decimal('3.1415')
+
+    print(num)
+    print(num * 1)
+    print(num * 2)
+    print(num / 2)</span>
+выводит:
+<span style="color: rgb(87,100,255);">
+    3.1415
+    3.14
+    6.28
+    1.57</span>
+
+    <h3>Округление чисел</h3>
+Округляют числа <span style="color: rgb(87,100,255);">Decimal</span> с помощью метода <span style="color: rgb(87,100,255);">quantize()</span>. Этот метод в качестве первого аргумента принимает объект <span style="color: rgb(87,100,255);">Decimal</span>,
+указывающий на формат округления.
+
+Приведенный ниже код:
+<span style="color: rgb(87,100,255);">
+    from decimal import *
+
+    getcontext().prec = 4                    # устанавливаем точность числа
+
+    num = Decimal('3.1415926535')
+
+    print(num.quantize(Decimal('1.000')))    #  округление до 3 цифр в дробной части
+    print(num.quantize(Decimal('1.00')))     #  округление до 2 цифр в дробной части
+    print(num.quantize(Decimal('1.0')))      #  округление до 1 цифр в дробной части</span>
+выводит:
+<span style="color: rgb(87,100,255);">
+    3.142
+    3.14
+    3.1</span>
+Если точность округления установлена в 2 , а формат округления <span style="color: rgb(87,100,255);">Decimal('1.00')</span>, то возникнет ошибка.
+
+Приведенный ниже код:
+<span style="color: rgb(87,100,255);">
+    from decimal import *
+
+    getcontext().prec = 2                    # устанавливаем точность округления
+
+    num = Decimal('3.1415926535')
+
+    print(num.quantize(Decimal('1.00')))     #  округление до 2 цифр в дробной части</span>
+приводит к возникновению ошибки:
+<span style="color: rgb(87,100,255);">
+    decimal.InvalidOperation: [<class 'decimal.invalidoperation'="">]</class></span>
+
+Чтобы избежать ее, необходимо поменять точность округления на 3 и больше.
+
+Помимо первого параметра, метод quantize() принимает в качестве второго параметра стратегию округления:
+
+    ROUND_CEILING – округление в направлении бесконечности (Infinity);
+    ROUND_FLOOR – округляет в направлении минус бесконечности (- Infinity);
+    ROUND_DOWN – округление в направлении нуля;
+    ROUND_HALF_EVEN – округление до ближайшего четного числа, число 6.5 округлится не до 7, а до 6;
+    ROUND_HALF_DOWN – округление до ближайшего нуля;
+    ROUND_HALF_UP – округление от 5 включительно вверх, от 4 включительно вниз (как в школе)
+    ROUND_UP – округление от нуля;
+    ROUND_05UP – округление от нуля (если последняя цифра после округления до нуля была бы 0 или 5, в противном случае к нулю).
+
+Приведенный ниже код:
+<span style="color: rgb(87,100,255);">
+    from decimal import *
+
+    num = Decimal('3.456')
+
+    print(num.quantize(Decimal('1.00'), ROUND_CEILING))
+    print(num.quantize(Decimal('1.00'), ROUND_FLOOR))</span>
+выводит:
+<span style="color: rgb(87,100,255);">
+    3.46
+    3.45</span>
+
+
+
+</pre>
+    <h2 id="a13">Тип данных Fraction&nbsp;&nbsp;&nbsp;&nbsp;<a href="#a">Up</a></h2>
+    <pre>    Для работы с рациональными числами в Python используется тип данных Fraction. Тип данных Fraction как и Decimal
+реализован программно, поэтому он в разы медленнее встроенных числовых типов данных int и float. Тип данных Fraction
+неизменяемый. Операции над данными этого типа приводят к созданию новых объектов, при этом старые не меняются.
+
+Чтобы использовать возможности типа данных Fraction нужно предварительно подключить модуль fractions:
+<span style="color: rgb(87,100,255);">
+    from fractions import Fraction</span>
+
+<h3>Создание Fraction</h3>
+Создать Fraction число можно несколькими способами:
+
+    - из целых чисел, передав значения числителя и знаменателя дроби,
+    - из строки на основании десятичного представления;
+    - из строки на основании обыкновенной дроби;
+    - из числа с плавающей точкой (не рекомендуется).
+Приведенный ниже программный код создает Fraction числа на основе целых чисел и строк:
+<span style="color: rgb(87,100,255);">
+from fractions import Fraction
+
+num1 = Fraction(3, 4)     # 3 - числитель, 4 - знаменатель
+num2 = Fraction('0.55')
+num3 = Fraction('1/9')
+
+    print(num1, num2, num3, sep='\n')</span>
+и выводит:
+<span style="color: rgb(87,100,255);">
+    3/4
+    11/20
+    1/9</span>
+Нужно быть очень внимательным при создании Fraction чисел из чисел с плавающей точкой (float), потому что float числа
+округляются внутри до ближайшего возможного, а Fraction об этом ничего не знает, поэтому копирует содержимое float.
+
+Приведенный ниже программный код создает Fraction число на основе числа с плавающей точкой:
+<span style="color: rgb(87,100,255);">
+    from fractions import Fraction
+
+    num = Fraction(0.34)
+
+    print(num)</span>
+вместо ожидаемого вывода:
+<span style="color: rgb(87,100,255);">
+    17/50</span>
+ код выводит:
+<span style="color: rgb(87,100,255);">
+    6124895493223875/18014398509481984</span>
+Не рекомендуется создавать Fraction числа из float чисел. В Fraction попадет уже неправильно округленное число.
+Создавать Fraction числа нужно из целых чисел, либо из строк!
+
+Обратите внимание на то, что при создании рационального числа Fraction, автоматически происходит сокращение числителя
+и знаменателя дроби.
+
+Приведенный ниже код:
+<span style="color: rgb(87,100,255);">
+    from fractions import Fraction
+
+    num1 = Fraction(5, 10)
+    num2 = Fraction('75/100')
+    num3 = Fraction('0.25')
+
+    print(num1, num2, num3, sep='\n')</span>
+выводит:
+<span style="color: rgb(87,100,255);">
+    1/2
+    3/4
+    1/4</span>
+Так же стоит обратить внимание на вывод дробей, являющихся целыми числами.
+
+Приведенный ниже код:
+<span style="color: rgb(87,100,255);">
+    from fractions import Fraction
+
+    num1 = Fraction(5, 1)        # 5/1 = 5
+    num2 = Fraction(23, 23)      # 23/23 = 1
+
+    print(num1, num2, sep='\n')</span>
+выводит:
+<span style="color: rgb(87,100,255);">
+    5
+    1</span>
+        <h3>Сравнение Fraction чисел</h3>
+    Fraction числа можно сравнивать между собой точно так же, как и любые другие числа. Доступны 6 основных операторов
+сравнения:
+<span style="color: rgb(87,100,255);">
+    &gt;: больше;
+    &lt;: меньше;
+    &gt;=: больше либо равно;
+    &lt;=: меньше либо равно;
+    ==:  в точности равно;
+    !=: не равно.</span>
+
+        <h3>Арифметические операции над Fraction числами</h3>
+
+        Тип данных Fraction отлично интегрирован в язык Python. С Fraction числами работают все привычные операции:
+сложение, вычитание, умножение, деление, возведение в степень.
+
+Приведенный ниже код:
+<span style="color: rgb(87,100,255);">
+    from fractions import Fraction
+
+    num1 = Fraction('1/10')
+    num2 = Fraction('2/3')
+
+    print(num1 + num2)
+    print(num1 - num2)
+    print(num1 * num2)
+    print(num1 / num2)</span>
+выводит:
+<span style="color: rgb(87,100,255);">
+    23/30
+    -17/30
+    1/15
+    3/20</span>
+
+        Мы также можем совершать арифметические операции над Fraction и целыми числами (миксовать Fraction и int),
+но не рекомендуется смешивать их с float.
+
+Приведенный ниже код:
+<span style="color: rgb(87,100,255);">
+    from fractions import Fraction
+
+    num = Fraction('3/8')
+
+    print(num + 1)
+    print(num - 1)
+    print(num * 2)
+    print(num ** 4)</span>
+выводит:
+<span style="color: rgb(87,100,255);">
+    11/8
+    -5/8
+    3/4
+    81/4096</span>
+
+        Обратите внимание, на то, что операция возведения в степень (**) для Fraction чисел может возвращать вещественный
+результат.
+
+Приведенный ниже код:
+<span style="color: rgb(87,100,255);">
+    from fractions import Fraction
+
+    num1 = Fraction('3/8')
+    num2 = Fraction('1/2')
+
+    print(num1 ** num2)</span>
+выводит:
+<span style="color: rgb(87,100,255);">
+    0.6123724356957945</span>
+
+        <p>По сути тут происходит вычисление числа <span><span class="katex"><span class="katex-mathml"><math xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><msup><mrow><mo fence="true">(</mo><mstyle scriptlevel="0" displaystyle="true"><mfrac><mn>3</mn><mn>8</mn></mfrac></mstyle><mo fence="true">)</mo></mrow><mfrac><mn>1</mn><mn>2</mn></mfrac></msup><mo>=</mo><msqrt><mstyle scriptlevel="0" displaystyle="true"><mfrac><mn>3</mn><mn>8</mn></mfrac></mstyle></msqrt><mo>≈</mo><mn>0.6123724356957945</mn></mrow><annotation encoding="application/x-tex">\left(\dfrac{3}{8}\right)^{\frac12} = \sqrt{\dfrac{3}{8}} \approx 0.6123724356957945</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"></span></span></span>.</p>
+
+
+<h3>Математические функции</h3>
+
+    Fraction числа можно передавать как аргументы функций, ожидающих float. Тогда они будут преобразованы во float.
+К примеру, модуль math оперирующий float числами, может работать и с Fraction числами.
+
+Приведенный ниже код:
+<span style="color: rgb(87,100,255);">
+    from fractions import Fraction
+    from math import *
+
+    num1 = Fraction('1.44')
+    num2 = Fraction('0.523')
+
+    print(sqrt(num1))
+    print(sin(num2))
+    print(log(num1 + num2))</span>
+выводит:
+<span style="color: rgb(87,100,255);">
+    1.2
+    0.4994813555186418
+    0.6744739152943241</span>
+
+        Важно понимать, что результатом работы функций модуля math являются float числа, а не Fraction.
+
+        <h3>Свойства numerator и denominator</h3>
+
+Для получения числителя и знаменателя Fraction числа используются свойства numerator и denominator.
+
+Приведенный ниже код:
+<span style="color: rgb(87,100,255);">
+    from fractions import Fraction
+
+    num = Fraction('5/16')
+
+    print('Числитель дроби равен:', num.numerator)
+    print('Знаменатель дроби равен:', num.denominator)</span>
+выводит:
+<span style="color: rgb(87,100,255);">
+    Числитель дроби равен: 5
+    Знаменатель дроби равен: 16
+</span>
+    В Python 3.8 появился метод as_integer_ratio(), который возвращает кортеж, состоящий из числителя и знаменателя
+ данного Fraction числа.
+
+Приведенный ниже код:
+<span style="color: rgb(87,100,255);">
+    from fractions import Fraction
+
+    num = Fraction('-5/16')
+
+    print(num.as_integer_ratio())</span>
+выводит:
+<span style="color: rgb(87,100,255);">
+    (-5, 16)</span>
+
+<h3>Метод limit_denominator()</h3>
+
+    Метод limit_denominator() возвращает самую близкую к данному числу рациональную дробь, чей знаменатель не превосходит
+переданного аргумента.
+
+Приведенный ниже код:
+<span style="color: rgb(87,100,255);">
+    from fractions import Fraction
+    import math
+
+    print('PI =', math.pi)
+
+    num = Fraction(str(math.pi))
+
+    print('No limit =', num)
+
+    for d in [1, 5,  50, 90, 100, 500, 1000000]:
+        limited = num.limit_denominator(d)
+        print(limited)</span>
+выводит:
+<span style="color: rgb(87,100,255);">
+    PI = 3.141592653589793
+    No limit = 3141592653589793/1000000000000000
+    3
+    16/5
+    22/7
+    267/85
+    311/99
+    355/113
+    3126535/995207</span>
+
+        Метод limit_denominator() позволяет получить очень точные рациональные приближения иррациональных чисел, что
+очень удобно во многих математических задачах.
+
+        <h3>Примечания</h3>
+
+Примечание 1. Для того, чтобы каждый раз не писать название типа, можно использовать следующий код:
+<span style="color: rgb(87,100,255);">
+    from fractions import Fraction as F
+
+    num1 = F('1/5') + F('3/2')
+    num2 = F('1/4') * F('2/5')
+
+    print(num1)
+    print(num2)</span>
+
+Примечание 2. Полное руководство по данному типу данных находится в официальной документации.
+
+Примечание 3. В Python нельзя совершать арифметические операции (+, -, *, /) между типами Decimal и Fraction.
+
+Приведенный ниже код:
+<span style="color: rgb(87,100,255);">
+    from decimal import Decimal
+    from fractions import Fraction
+
+    num1 = Decimal('12.5')
+    num2 = Fraction(19, 3)
+
+    print(num1 + num2)</span>
+приводит к ошибке:
+<span style="color: rgb(87,100,255);">
+    TypeError: unsupported operand type(s) for +: 'Decimal' and 'Fraction'</span>
+
+
+
+    </pre>
+
+
+
+ <h2 id="a14">Комплексные числа в Python&nbsp;&nbsp;&nbsp;&nbsp;<a href="#a">Up</a></h2>
+
+ <pre>   В языке Python есть возможность работать с комплексными числами. Общая форма представления комплексного числа
+следующая: real + imag j, где
+
+    real – вещественная часть комплексного числа;
+    imag – мнимая часть комплексного числа, которая завершается символом j или J.
+
+Приведенный ниже код:
+<span style="color: rgb(87,100,255);">
+    z1 = 5 + 7j
+    z2 = 1j
+    z3 = -3 + 5J
+    z4 = 1.5 + 3.2j
+
+    print(z1, z2, z3, z4, sep='\n')
+    print(type(z1))</span>
+выводит:
+<span style="color: rgb(87,100,255);">
+    (5+7j)
+    1j
+    (-3+5j)
+    (1.5+3.2j)
+    <class 'complex'></span>
+
+<h3>Создание комплексных чисел</h3>
+
+    Комплексные числа можно создать с помощью литерала, как выше, а можно с помощью функции complex(), которая принимает
+два аргумента: вещественную и мнимую часть числа, либо строковое представление числа.
+
+Приведенный ниже код:
+<span style="color: rgb(87,100,255);">
+    z1 = -3 + 2j              # создание на основе литерала
+    z2 = complex(6, -8)       # z2 = 6 - 8j
+    z3 = complex(0, 2.5)      # z3 = 2.5j
+    z4 = complex(5, 0)        # z4 = 5 + 0j
+    z5 = complex('3+4j')      # создание на основе строки
+
+    print(z1, z2, z3, z4, z5, sep='\n')</span>
+выводит:
+<span style="color: rgb(87,100,255);">
+    (-3+2j)
+    (6-8j)
+    2.5j
+    (5+0j)
+    (3+4j)</span>
+
+<h3>Арифметические операции над комплексными числами</h3>
+
+    Тип данных complex отлично интегрирован в язык Python. С complex числами работают все привычные операции: сложение,
+вычитание, умножение, деление, возведение в степень.
+
+Приведенный ниже код:
+<span style="color: rgb(87,100,255);">
+    z1 = 1 + 3j
+    z2 = -3 + 2j
+
+    print('z1 + z2 =', z1 + z2)
+    print('z1 - z2 =', z1 - z2)
+    print('z1 * z2 =', z1 * z2)
+    print('z1 / z2 =', z1 / z2)
+    print('z1^20 =', z1**20)</span>
+выводит:
+<span style="color: rgb(87,100,255);">
+    z1 + z2 = (-2+5j)
+    z1 - z2 = (4+1j)
+    z1 * z2 = (-9-7j)
+    z1 / z2 = (0.23076923076923078-0.8461538461538461j)
+    z1^20 = (9884965888-1512431616j)</span>
+
+Мы также можем совершать арифметические операции над complex и целыми числами (миксовать complex, int, float).
+
+Приведенный ниже код:
+<span style="color: rgb(87,100,255);">
+    z = 1 + 3j
+
+    print(z + 5)
+    print(z - 2)
+    print(3*z)
+    print(z/2)</span>
+выводит:
+<span style="color: rgb(87,100,255);">
+    (6+3j)
+    (-1+3j)
+    (3+9j)
+    (0.5+1.5j)</span>
+
+<h3>Методы и свойства комплексных чисел</h3>
+
+Для получения действительной и мнимой частей комплексного числа используются свойства real и imag.
+
+Приведенный ниже код:
+<span style="color: rgb(87,100,255);">
+    z = 3+4j
+
+    print('Действительная часть =', z.real)
+    print('Мнимая часть =', z.imag)</span>
+выводит:
+<span style="color: rgb(87,100,255);">
+    Действительная часть = 3.0
+    Мнимая часть = 4.0</span>
+
+Python представляет комплексное число как два вещественных числа, поэтому при выводе у нас появились выражения
+3.0 и 4.0 вместо 3 и 4.
+
+Для нахождения сопряженного комплексного числа, можно использовать метод conjugate().
+
+Приведенный ниже код:
+<span style="color: rgb(87,100,255);">
+    z = 3+4j
+
+    print('Сопряженное число =', z.conjugate())</span>
+выводит:
+<span style="color: rgb(87,100,255);">
+    Сопряженное число = (3-4j)</span>
+
+<h3>Примечания</h3>
+
+Примечание 1. Почему используется буква j вместо буквы i, можно почитать https://stackoverflow.com/questions/24812444/why-are-complex-numbers-in-python-denoted-with-j-instead-of-i.
+
+Примечание 2. Для нахождения модуля комплексного числа, используется встроенная функция abs().
+
+Приведенный ниже код:
+<span style="color: rgb(87,100,255);">
+    z = 3+4j
+
+    print('Модуль числа =', abs(z))</span>
+выводит:
+<span style="color: rgb(87,100,255);">
+    Модуль числа = 5.0</span>
+Примечание 3. Встроенный модуль math работает с вещественными числами. Для работы с комплексными числами есть модуль cmath.
+Модуль cmath включает дополнительные функции для использования комплексных чисел.
+<span style="color: rgb(87,100,255);">
+    import cmath
+
+    z = 2+3j
+    print(cmath.phase(z)) # полярный угол
+    print(cmath.polar(z)) # полярные координаты</span>
+
+Модуль cmath содержит следующие категории функций:
+
+Экспоненциальные и логарифмические функции
+Квадратные корни
+Тригонометрические функции и их обратные
+Гиперболические функции и их обратные
+
+Примечание 4. Документация по модулю cmath https://docs.python.org/3/library/cmath.html
+
+Примечание 5. Больше примеров работы с комплексными числами https://www.askpython.com/python/python-complex-numbers
+
+Примечание 6. Для работы с комплексными числами (тип complex) не нужно подключать какой-либо модуль, в отличии от типа
+     Decimal и Fraction.
+
+
+
+</pre>
+     <h2 id="a15">Функция enumerate()&nbsp;&nbsp;&nbsp;&nbsp;<a href="#a">Up</a></h2>
+    <pre>
+        Функция enumerate() в Python используется для итерации по последовательности (например, списку или кортежу) и
+получения индекса каждого элемента вместе с самим элементом.
+Вот пример использования <span style="color: rgb(87,100,255);">enumerate()</span>:
+<span style="color: rgb(87,100,255);">
+    my_list = ['apple', 'banana', 'orange']
+    for index, value in enumerate(my_list):
+        print(index, value)
+</span>
+Этот код выведет:
+<span style="color: rgb(87,100,255);">
+    0 apple
+    1 banana
+    2 orange
+</span>
+Как видите, функция <span style="color: rgb(87,100,255);">enumerate()</span> возвращает кортеж из индекса элемента и самого элемента на каждой итерации.
+Если необходимо начать с другого значения индекса, можно передать второй аргумент в функцию <span style="color: rgb(87,100,255);">enumerate()</span>, который задает
+начальное значение индекса. Например:
+<span style="color: rgb(87,100,255);">
+    my_list = ['apple', 'banana', 'orange']
+    for index, value in enumerate(my_list, start=1):
+    print(index, value)</span>
+
+Этот код выведет:
+<span style="color: rgb(87,100,255);">
+    1 apple
+    2 banana
+    3 orange</span>
+
+Как видите, индексы начинаются с 1, потому что мы передали start=1.
+Функция <span style="color: rgb(87,100,255);">enumerate()</span> может быть также полезна, если вы хотите создать словарь, где ключи - это индексы, а значения - сами
+элементы. Вот пример:
+<span style="color: rgb(87,100,255);">
+    my_list = ['apple', 'banana', 'orange']
+    my_dict = {index: value for index, value in enumerate(my_list)}
+    print(my_dict)</span>
+
+Этот код выведет:
+<span style="color: rgb(87,100,255);">
+    {0: 'apple', 1: 'banana', 2: 'orange'}</span>
+
+Как видите, мы создали словарь, используя функцию <span style="color: rgb(87,100,255);">enumerate()</span>.
+
+
+    </pre>
+<h2 id="a16">Модуль operator&nbsp;&nbsp;&nbsp;&nbsp;<a href="#a">Up</a></h2>
+    <pre>
+Чтобы не писать каждый раз функции, определяющие такие стандартные математические операции как сумма или произведение:
+<span style="color: rgb(87,100,255);">
+    def sum_func(a, b):
+        return a + b
+
+
+    def mult_func(a, b):
+    return a * b</span>
+
+    можно использовать уже реализованные функции из модуля <span style="color: rgb(87,100,255);">operator</span>.
+
+Неполный список функций из модуля operator выглядит так:
+<span style="color: rgb(187,20,105);">
+    Операция                Синтаксис	            Функция</span><span style="color: rgb(87,100,255);">
+Addition	             a + b	            add(a, b)
+Containment Test	     obj in seq	            contains(seq, obj)
+Division	             a / b	            truediv(a, b)
+Division	             a // b	            floordiv(a, b)
+Exponentiation	             a ** b	            pow(a, b)
+Modulo	                     a % b	            mod(a, b)
+Multiplication	             a * b	            mul(a, b)
+Negation (Arithmetic)        -a	                    neg(a)
+Subtraction	             a - b	            sub(a, b)
+Ordering	             a < b	            lt(a, b)
+Ordering	             a <= b	            le(a, b)
+Equality	             a == b	            eq(a, b)
+Difference	             a != b	            ne(a, b)
+Ordering	             a >= b	            ge(a, b)
+Ordering	             a > b	            gt(a, b)
+</span>
+
+    Рассмотрим примеры использования функций из модуля <span style="color: rgb(87,100,255);">operator</span>.
+
+Приведенный ниже код:
+<span style="color: rgb(87,100,255);">
+    from operator import *     #  импортируем все функции
+
+    print(add(10, 20))         #  сумма
+    print(floordiv(20, 3))     #  целочисленное деление
+    print(neg(9))              #  смена знака
+    print(lt(2, 3))            #  проверка на неравенство <
+    print(lt(10, 8))           #  проверка на неравенство <
+    print(eq(5, 5))            #  проверка на равенство ==
+    print(eq(5, 9))            #  проверка на равенство ==
+</span>
+выводит:
+<span style="color: rgb(87,100,255);">
+    30
+    6
+    -9
+    True
+    False
+    True
+    False
+</span>
+        <div>Приведенный ниже код меняет знаки элементов списка <b>numbers</b> на противоположные и делает конкатенацию элементов списка <div>words</b:</div>
+<span style="color: rgb(87,100,255);">
+    from functools import reduce
+    import operator
+
+    words = ['Testing ', 'shows ', 'the ', 'presence', ', ', 'not ', 'the ', 'absence ', 'of ', 'bugs']
+    numbers = [1, 2, -6, -4, 3, 9, 0, -6, -1]
+
+    opposite_numbers = list(map(operator.neg, numbers))    #  смена знаков элементов списка
+    concat_words = reduce(operator.add, words)             #  конкатенация элементов списка
+
+    print(opposite_numbers)
+    print(concat_words)
+</span>
+Выводит:
+<span style="color: rgb(87,100,255);">
+    [-1, -2, 6, 4, -3, -9, 0, 6, 1]
+    Testing shows the presence, not the absence of bugs
+</span>
+        Модуль <span style="color: rgb(87,100,255);">operator</span> реализован на языке <span style="color: rgb(87,100,255);">C</span>, поэтому функции этого модуля работают в разы быстрее, чем самописные функции
+в Python.
+
+    Еще один пример с использованием оператора <b>evel</b>, который преобразует текстовое выражение в формулу:
+  <span style="color: rgb(87,100,255);">
+    from operator import *
+    c = input().split()  # если ввести: 45 плюс 8
+    # словарь для задания текстом выражения
+    b = {'плюс': 'add', 'минус': 'sub', 'умножить': 'mul', 'разделить': 'truediv'}
+    rez = f'{b[c[1]]}({c[0]}, {c[2]})'
+    print(eval(rez)) # 53
+  </span>
+    </pre>
+
+<span style="color: rgb(87,100,255);">
+
+</span>
+<span style="font-size:26px;"></span>
+<span style="font-size:26px;">&nbsp;&nbsp;&nbsp;&nbsp;<a href="#a">Up</a></span>
+    
+</pre></span>
