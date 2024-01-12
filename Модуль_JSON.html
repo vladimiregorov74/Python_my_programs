@@ -164,6 +164,14 @@
     </span></span></span><span style="font-size:18px;"><span style="font-family:arial,helvetica,sans-serif;">
         В этом примере мы используем функцию <span style="color: #0000ff;">dump()</span> для записи данных в файл <span style="color: #0000ff;">data.json</span>. Затем с помощью
     функции <span style="color: #0000ff;">load()</span> мы читаем данные из файла обратно в объект Python.</span></span>
+    <span style="color: #0000ff;"><span style="font-size:18px;"><span style="font-family:arial,helvetica,sans-serif;">
+
+
+    # Получение списков значений и ключей из json
+    with open('bookmark.json', 'r') as f:
+        js = json.load(f)
+    self.bookmark_list = list(js.values())
+    self.bookmark_path = list(js.keys())</span></span></span>
     </pre>
 
     <h2 id="a4"> Некоторые важные ключи (аргументы) модуля json&nbsp;&nbsp;&nbsp;&nbsp;<a href="#a">Up</a></h2>

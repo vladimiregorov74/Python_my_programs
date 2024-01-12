@@ -742,7 +742,7 @@ match.end() <br> Выведет: 7</td>
 </tr>
 </tbody>
 </table></div> <br>
-<img src="file:///media/vladimir/Games+/Python_books/HTML/help/Resurs/re01.png" alt="Just image"> <br>
+<img src="Resurs/re01.png" alt="Just image"> <br>
 <br>
 <h3>Группирующие скобки <code>(...)</code></h3> <p> <br>
 Если в шаблоне регулярного выражения встречаются скобки <code>(...)</code> без <code>?:</code>, то они становятся <em>группирующими</em>. В match-объекте, который возвращают <code>re.search</code>, <code>re.fullmatch</code> и <code>re.finditer</code>, по каждой такой группе можно получить ту же информацию, что и по всему шаблону. А именно часть подстроки, которая соответствует <code>(...)</code>, а также индексы начала и окончания в исходной строке. Достаточно часто это бывает полезно. </p> 
@@ -760,8 +760,8 @@ print(f'Группа цифр &gt;{match[2]}&lt; с позиции {match.start(
  Группа букв &gt;Опять&lt; с позиции 6 до 11 
  Группа цифр &gt;45&lt; с позиции 11 до 13 
 </code></pre><br>
-<img src="file:///media/vladimir/Games+/Python_books/HTML/help/Resurs/re02.png" alt="Just image"> <br>
-<img src="file:///media/vladimir/Games+/Python_books/HTML/help/Resurs/re03.png" alt="Just image"> <p> <br>
+<img src="Resurs/re02.png" alt="Just image"> <br>
+<img src="Resurs/re03.png" alt="Just image"> <p> <br>
 <br>
 </p><h3>Тонкости со скобками и нумерацией групп.</h3> <p> <br>
 Если к группирующим скобкам применён квантификатор (то есть указано число повторений), то подгруппа в match-объекте будет создана только для последнего соответствия. Например, если бы в примере выше квантификаторы были снаружи от скобок <code>'\s*([А-Яа-яЁё])+(\d)+\s*'</code>, то вывод был бы таким: </p>
@@ -925,7 +925,7 @@ print(re.search(r'&lt;(\w+?)&gt;.*?&lt;/\1&gt;', text)[0])
 </tr>
 </tbody>
 </table></div>
-<img src="file:///media/vladimir/Games+/Python_books/HTML/help/Resurs/re04.png" alt="Just image"> <br>
+<img src="Resurs/re04.png" alt="Just image"> <br>
 <h3>Сложные шаблоны, соответствующие позиции (<em>lookaround</em> и Co)</h3> <br>
 <p>Следующие шаблоны применяются в основном в тех случаях, когда нужно уточнить, что должно идти непосредственно перед или после шаблона, но при этом <br>
 не включать найденное в match-объект. </p><div class="scrollable-table"><table>
@@ -973,7 +973,7 @@ print(re.search(r'&lt;(\w+?)&gt;.*?&lt;/\1&gt;', text)[0])
 </tr>
 </tbody>
 </table></div>
-<img src="file:///media/vladimir/Games+/Python_books/HTML/help/Resurs/re05.png" alt="Just image">
+<img src="Resurs/re05.png" alt="Just image">
 <p>На всякий случай ещё раз. Каждый их этих шаблонов проверяет лишь то, что идёт непосредственно перед позицией или непосредственно после позиции. Если пару таких шаблонов написать рядом, то проверки будут независимы (то есть будут соответствовать AND в каком-то смысле). <br>
 <br>
 </p><h3>lookaround на примере королей и императоров Франции</h3> <p><br>
@@ -1046,8 +1046,8 @@ boo and zoo <br>
 </tbody>
 </table>
  <br>
-<img src="file:///media/vladimir/Games+/Python_books/HTML/help/Resurs/re06.png" alt="Just image"> <br>
-<img src="file:///media/vladimir/Games+/Python_books/HTML/help/Resurs/re07.png" alt="Just image"> <br>
+<img src="Resurs/re06.png" alt="Just image"> <br>
+<img src="Resurs/re07.png" alt="Just image"> <br>
  <br>
 <h2 id="a14">Прочие фичи&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<a href="#a">Up</a></h2> <p> <br>
 Конечно, здесь описано не всё, что умеют регулярные выражения, и даже не всё, что умеют регулярные выражения в питоне. Из полезного за кадром осталась компиляция регулярок для ускорения многократного использования одного шаблона, использование именных групп и разные хитрые трюки. <br>
